@@ -1,16 +1,22 @@
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import defaultDrawStyle from '@mapbox/mapbox-gl-draw/src/lib/theme';
+import * as Constants from '@mapbox/mapbox-gl-draw/src/constants';
 import unionBy from 'lodash.unionby';
-import SelectFeatureMode, { drawStyles as selectFeatureDrawStyles } from 'mapbox-gl-draw-select-mode';
+// import SelectFeatureMode, { drawStyles as selectFeatureDrawStyles } from 'mapbox-gl-draw-select-mode';
+import SelectFeatureMode, { drawStyles as selectFeatureDrawStyles } from './lib/mapbox-gl-draw-select-mode';
 import { SnapPolygonMode, SnapPointMode, SnapLineMode, SnapModeDrawStyles } from 'mapbox-gl-draw-snap-mode';
 import mapboxGlDrawPinningMode from 'mapbox-gl-draw-pinning-mode';
 import * as mapboxGlDrawPassingMode from 'mapbox-gl-draw-passing-mode';
 // import mapboxGlDrawPassingMode from 'mapbox-gl-draw-passing-mode';
 // import { SRMode, SRCenter, SRStyle } from 'mapbox-gl-draw-scale-rotate-mode';
 import { SRMode, SRCenter, SRStyle } from './lib/mapbox-gl-draw-scale-rotate-mode';
-import SplitPolygonMode, { drawStyles as splitPolygonDrawStyles } from 'mapbox-gl-draw-split-polygon-mode';
-import CutPolygonMode, { drawStyles as cutPolygonDrawStyles } from 'mapbox-gl-draw-cut-polygon-mode';
-import SplitLineMode from 'mapbox-gl-draw-split-line-mode';
+// import SplitPolygonMode, { drawStyles as splitPolygonDrawStyles } from 'mapbox-gl-draw-split-polygon-mode';
+// import CutPolygonMode, { drawStyles as cutPolygonDrawStyles } from 'mapbox-gl-draw-cut-polygon-mode';
+import SplitPolygonMode, { drawStyles as splitPolygonDrawStyles } from './lib/mapbox-gl-draw-split-polygon-mode';
+import CutPolygonMode, { drawStyles as cutPolygonDrawStyles } from './lib/mapbox-gl-draw-cut-polygon-mode';
+// import SplitLineMode from 'mapbox-gl-draw-split-line-mode';
+// import SplitLineMode from './lib/mapbox-gl-draw-split-line-mode';
+import SplitLineMode, {drawStyles as splitLineDrawStyles } from './lib/mapbox-gl-draw-split-line-mode';
 import FreehandMode from 'mapbox-gl-draw-freehand-mode';
 import DrawRectangle, { DrawStyles as RectRestrictStyles } from 'mapbox-gl-draw-rectangle-restrict-area';
 import DrawRectangleAssisted from '@geostarters/mapbox-gl-draw-rectangle-assisted-mode';
@@ -20,6 +26,8 @@ import { additionalTools, measurement, addToolStyle } from 'mapbox-gl-draw-addit
 const MapboxCircle = require('mapbox-gl-circle');
 import './index.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
+
+import SimpleSelectMode from '@mapbox/mapbox-gl-draw/src/modes/simple_select';
 
 class SnapOptionsToolbar {
   constructor(opt) {
@@ -37,6 +45,8 @@ class SnapOptionsToolbar {
     ctrl.checkboxes.forEach((b) => {
       ctrl.addCheckbox(b);
     });
+    ctrl.buttonElements={}
+    ctrl.activeButton=null
     return ctrl._container;
   }
   onRemove(map) {
@@ -80,14 +90,16 @@ export default class MapboxDrawPro extends MapboxDraw {
     //   setIsTypeMenuActive(true);
     // };
 
+    // console.log("--- features_select modes : ", CutPolygonMode(SplitPolygonMode(SelectFeatureMode(MapboxDraw.modes))))
+
     const customModes = {
       // ...MapboxDraw.modes,
-      ...CutPolygonMode(SplitPolygonMode(SelectFeatureMode(MapboxDraw.modes))),
+      ...CutPolygonMode(SplitPolygonMode(SplitLineMode(SelectFeatureMode(MapboxDraw.modes)))),
       draw_point: SnapPointMode,
       draw_polygon: SnapPolygonMode,
       draw_line_string: SnapLineMode,
       pinning_mode: mapboxGlDrawPinningMode,
-      splitLineMode: SplitLineMode,
+      // splitLineMode: SplitLineMode,
       passing_mode_point: mapboxGlDrawPassingMode.passing_draw_point,
       passing_mode_line_string: mapboxGlDrawPassingMode.passing_draw_line_string,
       passing_mode_polygon: mapboxGlDrawPassingMode.passing_draw_polygon,
@@ -95,10 +107,10 @@ export default class MapboxDrawPro extends MapboxDraw {
       // passing_mode_line_string: mapboxGlDrawPassingMode(MapboxDraw.modes.draw_line_string),
       // passing_mode_polygon: mapboxGlDrawPassingMode(MapboxDraw.modes.draw_polygon),
       scaleRotateMode: SRMode,
-      splitLineMode: SplitLineMode,
       freehandMode: FreehandMode,
       draw_rectangle: DrawRectangle,
       draw_rectangle_assisted: DrawRectangleAssisted,
+      simple_select: SimpleSelectMode,
     };
 
     const customOptions = {
@@ -127,10 +139,10 @@ export default class MapboxDrawPro extends MapboxDraw {
     //   userProperties: true,
     // }
 
-    const _controls = {...controls, line_string:true, polygon:true, point:true, combine:false, uncombine:false, trash:false}
+    const _controls = {...controls, line_string:true, polygon:true, point:false, combine:false, uncombine:false, trash:false}
 
     const _modes = { ...customModes, ...modes };
-    const __styles = [...cutPolygonDrawStyles(splitPolygonDrawStyles(selectFeatureDrawStyles(defaultDrawStyle)))];
+    const __styles = [...cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(defaultDrawStyle))))];
     const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle, 'id');
     const _options = { modes: _modes, styles: _styles, controls:_controls, ...customOptions, ...otherOtions };
     super(_options);
@@ -188,6 +200,16 @@ export default class MapboxDrawPro extends MapboxDraw {
       //   title: 'Draw Circle tool',
       // },
       {
+        //===== point
+        on: "click",
+        action: () => {
+          draw.changeMode('draw_point');
+        },
+        classes: ["mapbox-gl-draw_point"],
+        id: "draw-point-tool",
+        title: "Point",
+      },
+      {
         //===== Freform Polygon
         on: 'click',
         action: () => {
@@ -234,106 +256,141 @@ export default class MapboxDrawPro extends MapboxDraw {
         classes: ['draw-rectangle-assisted'],
         title: 'Assisted Rectangle Draw Mode tool',
       },
+      // {
+      //   //===== Split Line
+      //   on: 'click',
+      //   customize_button: (elButton) => {
+      //     const splitLine = (mode) => {
+      //       console.log("=== split line mode : ", mode, draw)
+      //       try {
+      //         draw.changeMode('splitLineMode', { spliter: mode });
+      //       } catch (err) {
+      //         document.getElementById("split-line-menu-container").style.display = "flex";
+      //         alert(err.message);
+      //         console.error(err);
+      //       }
+      //     };
+      //     // construct menu
+      //     let bottonContainer = document.createElement('div');
+      //     bottonContainer.id = 'split-line-menu-container-wrapper';
+      //     let menuContainer = document.createElement('div');
+      //     menuContainer.className = 'mapboxgl-ctrl-group';
+      //     menuContainer.classList.add('horizontal');
+      //     menuContainer.id = 'split-line-menu-container';
+      //     menuContainer.style.display = "none";
+
+      //     var elButton1 = document.createElement('button');
+      //     elButton1.className = 'mapbox-gl-draw_ctrl-draw-btn';
+      //     elButton1.classList.add('mapbox-gl-draw_line');
+      //     elButton1.addEventListener('click', ()=>{
+      //       console.log("=== action click")
+      //       document.getElementById("split-line-menu-container").style.display = "none";
+      //       splitLine('line_string');
+      //     });
+
+      //     // var elButton2 = document.createElement('button');
+      //     // elButton2.className = 'mapbox-gl-draw_ctrl-draw-btn';
+      //     // elButton2.classList.add('mapbox-gl-draw_point');
+      //     // elButton2.addEventListener('click', ()=>{
+      //     //   document.getElementById("split-line-menu-container").style.display = "none";
+      //     //   splitLine('point');
+      //     // });
+
+      //     var elButton3 = document.createElement('button');
+      //     elButton3.className = 'mapbox-gl-draw_ctrl-draw-btn';
+      //     elButton3.classList.add('mapbox-gl-draw_polygon');
+      //     elButton3.addEventListener('click', ()=>{
+      //       document.getElementById("split-line-menu-container").style.display = "none";
+      //       splitLine('polygon');
+      //     });
+      //     menuContainer.appendChild(elButton1)
+      //     // menuContainer.appendChild(elButton2)
+      //     menuContainer.appendChild(elButton3)
+      //     elButton.splitMenu=menuContainer
+      //     bottonContainer.appendChild(menuContainer)
+      //     bottonContainer.appendChild(elButton)
+
+      //     return bottonContainer; //elButton;
+      //   },
+      //   action: () => {
+      //     let isVisible = ("flex"==document.getElementById("split-line-menu-container").style.display);
+      //     if (isVisible) {
+      //       document.getElementById("split-line-menu-container").style.display = "none";
+      //       return;
+      //     }
+
+      //     // console.log("==== selected feature", this.getSelectedIds(), this.getSelected())
+      //     let selectedIds = this.getSelectedIds(), selected = this.getSelected();
+      //     if (selectedIds.length!=1 || !['MultiLinestring','LineString'].includes(selected.features[0]?.geometry?.type)) {
+      //       document.getElementById("split-line-menu-container").style.display = "none"
+      //       // alert("Please select a Linestring/MultiLinestring! to precess line-split");
+      //       // return;
+            
+      //     }
+
+      //     document.getElementById("split-line-menu-container").style.display = "flex";
+
+      //     // console.log("==== click action", this, isVisible?"none":"flex")
+      //     this.map?.fire("draw.instruction",{message:"open line split menu", action:"open-split-menu"})
+      //     // alert("==== click action | "+document.getElementById("split-line-menu-container").style.display+" | "+isVisible?"none":"flex");
+
+
+
+      //     // try {
+      //     //   draw.changeMode('splitLineMode', {
+      //     //     spliter: prompt('Which Mode? (point, line_string, polygon)'),
+      //     //   });
+      //     // } catch (err) {
+      //     //   alert(err.message);
+      //     //   console.error(err);
+      //     // }
+      //   },
+      //   classes: ['split-line'],
+      //   title: 'Split Line Mode tool',
+      // },
       {
-        //===== Split Line
+        //===== Split Lind with Line
         on: 'click',
-        customize_button: (elButton) => {
-          const splitLine = (mode) => {
-            console.log("=== split line mode : ", mode, draw)
+        action: () => {
+          const selectedFeatureIDs = draw.getSelectedIds();
+
+          function goSplitMode() {
             try {
-              draw.changeMode('splitLineMode', { spliter: mode });
+              draw?.changeMode('split_line', {
+                spliter: 'line_string',
+                /** Default option vlaues: */
+                highlightColor: '#222',
+              });
             } catch (err) {
-              document.getElementById("split-line-menu-container").style.display = "flex";
-              alert(err.message);
               console.error(err);
             }
-          };
-          // construct menu
-          let bottonContainer = document.createElement('div');
-          bottonContainer.id = 'split-line-menu-container-wrapper';
-          let menuContainer = document.createElement('div');
-          menuContainer.className = 'mapboxgl-ctrl-group';
-          menuContainer.classList.add('horizontal');
-          menuContainer.id = 'split-line-menu-container';
-          menuContainer.style.display = "none";
-
-          var elButton1 = document.createElement('button');
-          elButton1.className = 'mapbox-gl-draw_ctrl-draw-btn';
-          elButton1.classList.add('mapbox-gl-draw_line');
-          elButton1.addEventListener('click', ()=>{
-            console.log("=== action click")
-            document.getElementById("split-line-menu-container").style.display = "none";
-            splitLine('line_string');
-          });
-
-          // var elButton2 = document.createElement('button');
-          // elButton2.className = 'mapbox-gl-draw_ctrl-draw-btn';
-          // elButton2.classList.add('mapbox-gl-draw_point');
-          // elButton2.addEventListener('click', ()=>{
-          //   document.getElementById("split-line-menu-container").style.display = "none";
-          //   splitLine('point');
-          // });
-
-          var elButton3 = document.createElement('button');
-          elButton3.className = 'mapbox-gl-draw_ctrl-draw-btn';
-          elButton3.classList.add('mapbox-gl-draw_polygon');
-          elButton3.addEventListener('click', ()=>{
-            document.getElementById("split-line-menu-container").style.display = "none";
-            splitLine('polygon');
-          });
-          menuContainer.appendChild(elButton1)
-          // menuContainer.appendChild(elButton2)
-          menuContainer.appendChild(elButton3)
-          elButton.splitMenu=menuContainer
-          bottonContainer.appendChild(menuContainer)
-          bottonContainer.appendChild(elButton)
-
-          return bottonContainer; //elButton;
-        },
-        action: () => {
-          let isVisible = ("flex"==document.getElementById("split-line-menu-container").style.display);
-          if (isVisible) {
-            document.getElementById("split-line-menu-container").style.display = "none";
-            return;
           }
 
-          console.log("==== selected feature", this.getSelectedIds(), this.getSelected())
-          let selectedIds = this.getSelectedIds(), selected = this.getSelected();
-          if (selectedIds.length!=1 || !['MultiLinestring','LineString'].includes(selected.features[0]?.geometry?.type)) {
-            document.getElementById("split-line-menu-container").style.display = "none"
-            alert("Please select a Linestring/MultiLinestring! to precess line-split");
-            return;
+          if (selectedFeatureIDs.length > 0) {
+            goSplitMode();
+          } else {
+            // console.log("--- change mode : select_feature")
+            draw.changeMode('select_feature', {
+              selectHighlightColor: 'yellow',
+              onSelect(state) {
+                goSplitMode();
+              },
+              types2Select:["LineString", "MultiLineString"]
+            });
           }
-
-          document.getElementById("split-line-menu-container").style.display = "flex";
-
-          // console.log("==== click action", this, isVisible?"none":"flex")
-          this.map?.fire("draw.instruction",{message:"open line split menu", action:"open-split-menu"})
-          // alert("==== click action | "+document.getElementById("split-line-menu-container").style.display+" | "+isVisible?"none":"flex");
-
-
-
-          // try {
-          //   draw.changeMode('splitLineMode', {
-          //     spliter: prompt('Which Mode? (point, line_string, polygon)'),
-          //   });
-          // } catch (err) {
-          //   alert(err.message);
-          //   console.error(err);
-          // }
         },
         classes: ['split-line'],
-        title: 'Split Line Mode tool',
+        title: 'Split Line Mode tool (by line)',
       },
       {
         //===== Split Polygon
         on: 'click',
         action: () => {
           const selectedFeatureIDs = draw.getSelectedIds();
-          console.log(
-            '🚀 ~ file: index.js ~ line 222 ~ MapboxDrawPro ~ constructor ~ selectedFeatureIDs',
-            selectedFeatureIDs
-          );
+          // console.log(
+          //   '🚀 ~ file: index.js ~ line 222 ~ MapboxDrawPro ~ constructor ~ selectedFeatureIDs',
+          //   selectedFeatureIDs
+          // );
 
           function goSplitMode(selectedFeatureIDs) {
             try {
@@ -352,11 +409,13 @@ export default class MapboxDrawPro extends MapboxDraw {
           if (selectedFeatureIDs.length > 0) {
             goSplitMode(selectedFeatureIDs);
           } else {
+            // console.log("--- change mode : select_feature")
             draw.changeMode('select_feature', {
               selectHighlightColor: 'yellow',
-              onSelect(selectedFeatureID) {
-                goSplitMode([selectedFeatureID]);
+              onSelect(state) {
+                goSplitMode([state.selectedFeatureID]);
               },
+              types2Select:["Polygon", "MultiPolygon"]
             });
           }
         },
@@ -367,12 +426,51 @@ export default class MapboxDrawPro extends MapboxDraw {
         //===== Cut Polygon
         on: 'click',
         action: () => {
-          try {
-            draw.changeMode('cut_polygon');
-          } catch (err) {
-            alert(err.message);
-            console.error(err);
+          // try {
+          //   draw.changeMode('cut_polygon');
+          // } catch (err) {
+          //   alert(err.message);
+          //   console.error(err);
+          // }
+
+          const selectedFeatureIDs = draw.getSelectedIds();
+          console.log("----- selectedFeatureIDs : ", selectedFeatureIDs)
+
+          function goCutPolygonMode(selectedFeatures) {
+            try {
+              // draw.changeMode('cut_polygon');
+              draw?.changeMode('cut_polygon', {
+                features: selectedFeatures,
+                highlightColor: '#222',
+              });
+            } catch (err) {
+              alert(err.message);
+              console.error(err);
+            }
+            
           }
+
+          if (selectedFeatureIDs?.length > 0) {
+            goCutPolygonMode(null);
+          } else {
+            // console.log("--- change mode : select_feature")
+            draw.changeMode('select_feature', {
+              selectHighlightColor: 'yellow',
+              onSelect(state) {
+                console.log("--- state : ", state)
+                goCutPolygonMode([{
+                  id: state.selectedFeatureID,
+                  type:"Feature",
+                  geometry:state.selectedFeature?._geometry,
+                  properties:{}
+                }]);
+              },
+              types2Select:["Polygon","MultiPolygon"]
+            });
+          }
+
+
+
         },
         classes: ['cut-polygon'],
         title: 'Cut Polygon Mode tool',
@@ -464,7 +562,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           draw.trash();
         },
         classes: ["mapbox-gl-draw_trash"],
-        title: "Delete",
+        title: "Trash",
       }
     ];
 
@@ -501,11 +599,53 @@ export default class MapboxDrawPro extends MapboxDraw {
           elButton.classList.add(c);
         });
       }
-      elButton.addEventListener(opt.on, opt.action);
+      if (opt.id) {
+        elButton.id = opt.id;
+      }
+      elButton.addEventListener(opt.on, (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const clickedButton = e.target;
+        if (clickedButton === this.activeButton) {
+          // elButton?.classList?.remove("active")
+          this.deactivateButtons();
+          opt.cancel&&opt.cancel(e);
+          return;
+        }
+        // elButton?.classList?.add("active")
+        this.setActiveButton(opt.title)
+        opt.action(e)
+      }, true);
       let elButton_ = opt.customize_button?opt.customize_button(elButton):elButton;
       this.elContainer.appendChild(elButton_);
       opt.elButton = elButton;
+      console.log("===========", this)
+      if (!this.buttonElements) {
+        this.buttonElements = {[opt.title]:opt.elButton}
+      } else {
+        this.buttonElements[opt.title]=opt.elButton
+      }
     };
+
+
+    this.deactivateButtons = () => {
+      if (!this.activeButton) return;
+      this.activeButton.classList.remove(Constants.classes.ACTIVE_BUTTON);
+      this.activeButton = null;
+    }
+  
+    this.setActiveButton = (id) => {
+      this.deactivateButtons();
+  
+      const button = this.buttonElements[id];
+      if (!button) return;
+  
+      if (button && !['Trash', 'Combine', 'Uncombine'].includes(id)) {
+        button.classList.add(Constants.classes.ACTIVE_BUTTON);
+        this.activeButton = button;
+      }
+    }
+
 
     this.removeButton = (opt) => {
       opt.elButton.removeEventListener(opt.on, opt.action);
