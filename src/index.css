@@ -137,3 +137,49 @@
     background-position: center;
     background-size: 50%;
 }
+
+.mapboxgl-ctrl-attrib {
+    display: none;
+  }
+
+.mapboxgl-ctrl-group button.active {
+    border: 1px solid #2165D1;
+}
+
+.mapboxgl-ctrl-group.horizontal {
+    display: flex;
+}
+
+.mapboxgl-ctrl-group.horizontal button+button {
+    border-top: 0px solid #ddd;
+    border-left: 0px solid #ddd;
+}
+
+
+#split-line-menu-container {
+    border-width: 0;
+    /* display:flex; */
+    flex-direction: row;
+    position: absolute;
+    transform: translate(-105%,0);
+    /* margin-right: 10px; */
+    background-color: #FFF;
+}
+/* 
+#split-line-menu-container.hidden {
+    display:none;
+} */
+
+/* #split-line-menu-container-wrapper>#split-line-menu-container {
+    display:none;
+} */
+
+/* #split-line-menu-container-wrapper:hover>#split-line-menu-container,
+#split-line-menu-container:hover {
+    display:flex !important;
+} */
+
+.mapboxgl-ctrl-top-right,
+.mapboxgl-ctrl-top-right>div {
+    overflow: visible !important;
+}

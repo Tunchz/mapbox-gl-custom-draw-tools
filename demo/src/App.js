@@ -43,7 +43,7 @@ function App() {
       },
     });
 
-    draw = new MapboxDrawPro();
+    draw = new MapboxDrawPro({otherOtions:{horizontal:true}});
     window.draw = draw;
 
     map.once('load', () => {
@@ -73,11 +73,39 @@ function App() {
         ],
       });
       map.on('draw.create', function (e) {
-        console.log(e);
+        console.log("----- on draw.create : ", e);
       });
       map.on('draw.update', function (e) {
-        console.log(e);
+        console.log("----- on draw.update : ", e);
       });
+      // map.on('draw.render', function (e) {
+      //   console.log("----- on draw.render : ", e);
+      // });
+      map.on('draw.delete', function (e) {
+        console.log("----- on draw.delete : ", e);
+      });
+      map.on('draw.selectionchange', function (e) {
+        console.log("----- on draw.selectionchange : ", e);
+      });
+      map.on('draw.modechange', function (e) {
+        console.log("----- on draw.modechange : ", e);
+      });
+      // map.on('draw.actionable', function (e) {
+      //   console.log("----- on draw.actionable : ", e);
+      // });
+      map.on('draw.combine', function (e) {
+        console.log("----- on draw.combine : ", e);
+      });
+      map.on('draw.uncombine', function (e) {
+        console.log("----- on draw.uncombine : ", e);
+      });
+      // map.on('draw.update', function (e) {
+      //   console.log("----- on draw.update : ", e);
+      // });
+      // map.on('draw.update', function (e) {
+      //   console.log("----- on draw.update : ", e);
+      // });
+
     });
   }, []);
 

@@ -42,7 +42,7 @@
     },
     "dependencies": {
         "@geostarters/mapbox-gl-draw-rectangle-assisted-mode": "^3.0.4",
-        "@mapbox/mapbox-gl-draw": "https://github.com/Tunchz/mapbox-gl-draw.git",
+        "@mapbox/mapbox-gl-draw": "github:Tunchz/mapbox-gl-draw",
         "lodash.unionby": "^4.8.0",
         "mapbox-gl-circle": "^1.6.7",
         "mapbox-gl-draw-additional-tools": "^0.6.1",
