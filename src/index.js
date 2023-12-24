@@ -6,7 +6,8 @@ import { SnapPolygonMode, SnapPointMode, SnapLineMode, SnapModeDrawStyles } from
 import mapboxGlDrawPinningMode from 'mapbox-gl-draw-pinning-mode';
 import * as mapboxGlDrawPassingMode from 'mapbox-gl-draw-passing-mode';
 // import mapboxGlDrawPassingMode from 'mapbox-gl-draw-passing-mode';
-import { SRMode, SRCenter, SRStyle } from 'mapbox-gl-draw-scale-rotate-mode';
+// import { SRMode, SRCenter, SRStyle } from 'mapbox-gl-draw-scale-rotate-mode';
+import { SRMode, SRCenter, SRStyle } from './lib/mapbox-gl-draw-scale-rotate-mode';
 import SplitPolygonMode, { drawStyles as splitPolygonDrawStyles } from 'mapbox-gl-draw-split-polygon-mode';
 import CutPolygonMode, { drawStyles as cutPolygonDrawStyles } from 'mapbox-gl-draw-cut-polygon-mode';
 import SplitLineMode from 'mapbox-gl-draw-split-line-mode';
