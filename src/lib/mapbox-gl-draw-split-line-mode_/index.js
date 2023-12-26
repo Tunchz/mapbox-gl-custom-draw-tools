@@ -5,9 +5,34 @@ import flatten from "@turf/flatten";
 import { featureCollection } from "@turf/helpers";
 
 const SplitLineMode = {
-  onSetup: function ({ spliter }) {
-    let main = this.getSelected().map((f) => f.toGeoJSON());
-    console.log("---- SplitLineMode.onSetup : ", main)
+  onSetup: function ({ spliter, features }) {
+    // let main = this.getSelected().map((f) => f.toGeoJSON());
+
+
+    console.log("---- SplitLineMode.onSetup : ", features)
+
+    if (features.length !== 0) {
+      main = features
+          .filter(
+            (f) =>
+              f.geometry?.type === geojsonTypes.LINE_STRING ||
+              f.geometry?.type === geojsonTypes.MULTI_LINE_STRING
+          )
+    } else {
+        selectedFeatures = this.getSelected();
+        console.log("--- this.getSelected() : ", selectedFeatures)
+       if (selectedFeatures.length !== 0) {
+
+        main = selectedFeatures
+          .filter(
+            (f) =>
+              f.type === geojsonTypes.LINE_STRING ||
+              f.type === geojsonTypes.MULTI_LINE_STRING
+          )
+          .map((f) => f.toGeoJSON())
+      }
+    }
+
     if (main.length < 1)
       throw new Error("Please select a Linestring/MultiLinestring!");
     const state = {

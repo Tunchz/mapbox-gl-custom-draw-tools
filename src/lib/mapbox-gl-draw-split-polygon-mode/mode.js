@@ -20,28 +20,35 @@ const SplitPolygonMode = {};
 
 SplitPolygonMode.onSetup = function (opt) {
   const {
-    featureIds = [],
+    // featureIds = [],
+    features,
     highlightColor = defaultOptions.highlightColor,
     lineWidth = defaultOptions.lineWidth,
     lineWidthUnit = defaultOptions.lineWidthUnit,
     onSelectFeatureRequest = defaultOptions.onSelectFeatureRequest,
   } = opt || {};
-  // console.log("== SplitPolygonMode.onSetup ")
+  console.log("== SplitPolygonMode.onSetup : ", features)
   let selectedFeatures;
 
   const api = this._ctx.api;
 
   const featuresToSplit = [];
 
-  if (featureIds.length !== 0) {
+  if (features.length !== 0) {
     featuresToSplit.push.apply(
       featuresToSplit,
-      featureIds.map((id) => api.get(id))
-      .filter(
-        (f) =>
-          f.geometry?.type === geojsonTypes.POLYGON ||
-          f.geometry?.type === geojsonTypes.MULTI_POLYGON
-      )
+      // featureIds.map((id) => api.get(id))
+      // .filter(
+      //   (f) =>
+      //     f.geometry?.type === geojsonTypes.POLYGON ||
+      //     f.geometry?.type === geojsonTypes.MULTI_POLYGON
+      // )
+      features
+        .filter(
+          (f) =>
+            f.geometry?.type === geojsonTypes.POLYGON ||
+            f.geometry?.type === geojsonTypes.MULTI_POLYGON
+        )
     );
   } else {
       selectedFeatures = this.getSelected();

@@ -46,17 +46,11 @@
         "@turf/turf": "^5.1.6",
         "lodash.unionby": "^4.8.0",
         "mapbox-gl-circle": "^1.6.7",
-        "mapbox-gl-draw-additional-tools": "^0.6.1",
-        "mapbox-gl-draw-cut-polygon-mode": "^2.0.0",
         "mapbox-gl-draw-freehand-mode": "^2.1.0",
         "mapbox-gl-draw-passing-mode": "^2.1.0",
         "mapbox-gl-draw-pinning-mode": "^0.1.1",
         "mapbox-gl-draw-rectangle-restrict-area": "^3.1.5",
-        "mapbox-gl-draw-scale-rotate-mode": "^0.1.0",
-        "mapbox-gl-draw-select-mode": "^1.0.1",
-        "mapbox-gl-draw-snap-mode": "^0.1.11",
-        "mapbox-gl-draw-split-line-mode": "^1.0.3",
-        "mapbox-gl-draw-split-polygon-mode": "^2.2.1"
+        "mapbox-gl-draw-snap-mode": "^0.1.11"
     },
     "browserslist": {
         "production": [

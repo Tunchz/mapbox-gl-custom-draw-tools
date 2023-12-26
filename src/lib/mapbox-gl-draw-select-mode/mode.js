@@ -49,7 +49,7 @@ select_mode.onMouseMove = function (state, e) {
       );
     }
     state.hoveredFeatureID = hoveringFeatureID;
-    // state.selectedFeature = featureTarget;
+    state.selectedFeature = featureTarget;
     api.setFeatureProperty(
       state.hoveredFeatureID,
       highlightPropertyName,
@@ -92,7 +92,7 @@ select_mode.onStop = function (state) {
     if (typeof state.onSelect === "function")
       setTimeout(state.onSelect.bind(null, {
         selectedFeatureID:state.selectedFeatureID,
-        // selectedFeature:state.selectedFeature
+        selectedFeature:state.selectedFeature
       }), 0);
     else
       this.map.fire("draw.select_mode.select", {

@@ -21,7 +21,7 @@ CutPolygonMode.onSetup = function (opt) {
   } = opt || {};
   console.log("--- CutPolygonMode.onSetup : ", features)
   const main = features || this.getSelected()
-    .filter((f) => f.type === "Polygon" || f.type === "MultiPolygon")
+    .filter((f) => f.type === geojsonTypes.POLYGON || f.type === geojsonTypes.MULTI_POLYGON)
     .map((f) => f.toGeoJSON());
 
   console.log("--- main : ", main, main?.[0]?.id)

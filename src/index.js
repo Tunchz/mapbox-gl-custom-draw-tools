@@ -5,7 +5,7 @@ import unionBy from 'lodash.unionby';
 // import SelectFeatureMode, { drawStyles as selectFeatureDrawStyles } from 'mapbox-gl-draw-select-mode';
 import SelectFeatureMode, { drawStyles as selectFeatureDrawStyles } from './lib/mapbox-gl-draw-select-mode';
 import { SnapPolygonMode, SnapPointMode, SnapLineMode, SnapModeDrawStyles } from 'mapbox-gl-draw-snap-mode';
-import mapboxGlDrawPinningMode from 'mapbox-gl-draw-pinning-mode';
+import mapboxGlDrawPinningMode from './lib/mapbox-gl-draw-pinning-mode';
 import * as mapboxGlDrawPassingMode from 'mapbox-gl-draw-passing-mode';
 // import mapboxGlDrawPassingMode from 'mapbox-gl-draw-passing-mode';
 // import { SRMode, SRCenter, SRStyle } from 'mapbox-gl-draw-scale-rotate-mode';
@@ -17,10 +17,12 @@ import CutPolygonMode, { drawStyles as cutPolygonDrawStyles } from './lib/mapbox
 // import SplitLineMode from 'mapbox-gl-draw-split-line-mode';
 // import SplitLineMode from './lib/mapbox-gl-draw-split-line-mode';
 import SplitLineMode, {drawStyles as splitLineDrawStyles } from './lib/mapbox-gl-draw-split-line-mode';
-import FreehandMode from 'mapbox-gl-draw-freehand-mode';
+import FreehandMode from './lib/mapbox-gl-draw-freehand-mode';
 import DrawRectangle, { DrawStyles as RectRestrictStyles } from 'mapbox-gl-draw-rectangle-restrict-area';
 import DrawRectangleAssisted from '@geostarters/mapbox-gl-draw-rectangle-assisted-mode';
-import { additionalTools, measurement, addToolStyle } from 'mapbox-gl-draw-additional-tools';
+import { additionalTools, measurement, addToolStyle } from './lib/mapbox-gl-draw-additional-tools';
+
+import PaintMode, { drawStyles as paintDrawStyles } from './lib/mapbox-gl-draw-paint-mode';
 
 // import MapboxCircle from 'mapbox-gl-circle';
 const MapboxCircle = require('mapbox-gl-circle');
@@ -94,7 +96,7 @@ export default class MapboxDrawPro extends MapboxDraw {
 
     const customModes = {
       // ...MapboxDraw.modes,
-      ...CutPolygonMode(SplitPolygonMode(SplitLineMode(SelectFeatureMode(MapboxDraw.modes)))),
+      ...PaintMode(CutPolygonMode(SplitPolygonMode(SplitLineMode(SelectFeatureMode(MapboxDraw.modes))))),
       draw_point: SnapPointMode,
       draw_polygon: SnapPolygonMode,
       draw_line_string: SnapLineMode,
@@ -142,7 +144,7 @@ export default class MapboxDrawPro extends MapboxDraw {
     const _controls = {...controls, line_string:true, polygon:true, point:false, combine:false, uncombine:false, trash:false}
 
     const _modes = { ...customModes, ...modes };
-    const __styles = [...cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(defaultDrawStyle))))];
+    const __styles = [...paintDrawStyles(cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(defaultDrawStyle)))))];
     const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle, 'id');
     const _options = { modes: _modes, styles: _styles, controls:_controls, ...customOptions, ...otherOtions };
     super(_options);
@@ -256,6 +258,31 @@ export default class MapboxDrawPro extends MapboxDraw {
         classes: ['draw-rectangle-assisted'],
         title: 'Assisted Rectangle Draw Mode tool',
       },
+      {
+        //===== Freform Polygon
+        on: 'click',
+        action: () => {
+          try {
+            draw.changeMode('freehandMode');
+          } catch (err) {
+            console.error(err);
+          }
+        },
+        classes: ['free-hand'],
+        title: 'Free-Hand Draw Mode tool',
+      },
+      {
+        on: "click",
+        action: () => {
+          try {
+            draw.changeMode("draw_paint_mode");
+          } catch (err) {
+            console.error(err);
+          }
+        },
+        classes: ["draw-paint"],
+        title: "Paint (Free Drawing)",
+      },
       // {
       //   //===== Split Line
       //   on: 'click',
@@ -354,26 +381,35 @@ export default class MapboxDrawPro extends MapboxDraw {
         action: () => {
           const selectedFeatureIDs = draw.getSelectedIds();
 
-          function goSplitMode() {
+          function goSplitMode(selectedFeatures) {
             try {
               draw?.changeMode('split_line', {
                 spliter: 'line_string',
+                features: selectedFeatures,
                 /** Default option vlaues: */
                 highlightColor: '#222',
               });
             } catch (err) {
+              alert(err.message);
               console.error(err);
             }
           }
 
           if (selectedFeatureIDs.length > 0) {
-            goSplitMode();
+            let selectedFeatures = draw.getSelected()
+            // console.log("---- selectedFeatures : ", selectedFeatures)
+            goSplitMode(selectedFeatures.features || null);
           } else {
             // console.log("--- change mode : select_feature")
             draw.changeMode('select_feature', {
               selectHighlightColor: 'yellow',
               onSelect(state) {
-                goSplitMode();
+                goSplitMode([{
+                  id: state.selectedFeatureID,
+                  type:"Feature",
+                  geometry:state.selectedFeature?._geometry,
+                  properties:{}
+                }]);
               },
               types2Select:["LineString", "MultiLineString"]
             });
@@ -381,6 +417,49 @@ export default class MapboxDrawPro extends MapboxDraw {
         },
         classes: ['split-line'],
         title: 'Split Line Mode tool (by line)',
+      },
+      {
+        //===== Split Lind with Polygon
+        on: 'click',
+        action: () => {
+          const selectedFeatureIDs = draw.getSelectedIds();
+
+          function goSplitMode(selectedFeatures) {
+            try {
+              draw?.changeMode('split_line', {
+                spliter: 'polygon',
+                features: selectedFeatures,
+                /** Default option vlaues: */
+                highlightColor: '#222',
+              });
+            } catch (err) {
+              alert(err.message);
+              console.error(err);
+            }
+          }
+
+          if (selectedFeatureIDs.length > 0) {
+            let selectedFeatures = draw.getSelected()
+            // console.log("---- selectedFeatures : ", selectedFeatures)
+            goSplitMode(selectedFeatures.features || null);
+          } else {
+            // console.log("--- change mode : select_feature")
+            draw.changeMode('select_feature', {
+              selectHighlightColor: 'yellow',
+              onSelect(state) {
+                goSplitMode([{
+                  id: state.selectedFeatureID,
+                  type:"Feature",
+                  geometry:state.selectedFeature?._geometry,
+                  properties:{}
+                }]);
+              },
+              types2Select:["LineString", "MultiLineString"]
+            });
+          }
+        },
+        classes: ['split-line'],
+        title: 'Split Line Mode tool (by polygon)',
       },
       {
         //===== Split Polygon
@@ -392,10 +471,11 @@ export default class MapboxDrawPro extends MapboxDraw {
           //   selectedFeatureIDs
           // );
 
-          function goSplitMode(selectedFeatureIDs) {
+          function goSplitMode(selectedFeatures) {
             try {
               draw?.changeMode('split_polygon', {
-                featureIds: selectedFeatureIDs,
+                // featureIds: selectedFeatureIDs,
+                features: selectedFeatures,
                 /** Default option vlaues: */
                 highlightColor: '#222',
                 // lineWidth: 0,
@@ -407,13 +487,19 @@ export default class MapboxDrawPro extends MapboxDraw {
           }
 
           if (selectedFeatureIDs.length > 0) {
-            goSplitMode(selectedFeatureIDs);
+            let selectedFeatures = draw.getSelected()
+            goSplitMode(selectedFeatures.features || null);
           } else {
             // console.log("--- change mode : select_feature")
             draw.changeMode('select_feature', {
               selectHighlightColor: 'yellow',
               onSelect(state) {
-                goSplitMode([state.selectedFeatureID]);
+                goSplitMode([{
+                  id: state.selectedFeatureID,
+                  type:"Feature",
+                  geometry:state.selectedFeature?._geometry,
+                  properties:{}
+                }]);
               },
               types2Select:["Polygon", "MultiPolygon"]
             });
@@ -434,7 +520,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           // }
 
           const selectedFeatureIDs = draw.getSelectedIds();
-          console.log("----- selectedFeatureIDs : ", selectedFeatureIDs)
+          // console.log("----- selectedFeatureIDs : ", selectedFeatureIDs)
 
           function goCutPolygonMode(selectedFeatures) {
             try {
@@ -451,7 +537,8 @@ export default class MapboxDrawPro extends MapboxDraw {
           }
 
           if (selectedFeatureIDs?.length > 0) {
-            goCutPolygonMode(null);
+            let selectedFeatures = draw.getSelected()
+            goCutPolygonMode(selectedFeatures.features || null);
           } else {
             // console.log("--- change mode : select_feature")
             draw.changeMode('select_feature', {
@@ -464,13 +551,11 @@ export default class MapboxDrawPro extends MapboxDraw {
                   geometry:state.selectedFeature?._geometry,
                   properties:{}
                 }]);
+                // goCutPolygonMode(null)
               },
               types2Select:["Polygon","MultiPolygon"]
             });
           }
-
-
-
         },
         classes: ['cut-polygon'],
         title: 'Cut Polygon Mode tool',
@@ -619,7 +704,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       let elButton_ = opt.customize_button?opt.customize_button(elButton):elButton;
       this.elContainer.appendChild(elButton_);
       opt.elButton = elButton;
-      console.log("===========", this)
+      // console.log("===========", this)
       if (!this.buttonElements) {
         this.buttonElements = {[opt.title]:opt.elButton}
       } else {
