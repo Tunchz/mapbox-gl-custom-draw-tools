@@ -64,7 +64,7 @@ FreehandMode.fireUpdate = function() {
 };
 
 FreehandMode.simplify = function(polygon) {
-  const tolerance = 1 / Math.pow(1.05, 10 * this.map.getZoom()) // https://www.desmos.com/calculator/nolp0g6pwr
+  const tolerance = 1 / Math.pow(1.05, 12 * this.map.getZoom()) // https://www.desmos.com/calculator/nolp0g6pwr
   simplify(polygon, {
       mutate: true,
       tolerance: tolerance,

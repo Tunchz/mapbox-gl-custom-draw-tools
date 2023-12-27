@@ -26,7 +26,7 @@ import PaintMode, { drawStyles as paintDrawStyles } from './lib/mapbox-gl-draw-p
 
 // import MapboxCircle from 'mapbox-gl-circle';
 const MapboxCircle = require('mapbox-gl-circle');
-import './index.css';
+require('./custom-draw-tools.css');
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 
 import SimpleSelectMode from '@mapbox/mapbox-gl-draw/src/modes/simple_select';
@@ -37,13 +37,15 @@ class SnapOptionsToolbar {
     ctrl.checkboxes = opt.checkboxes || [];
     ctrl.onRemoveOrig = opt.draw.onRemove;
     ctrl.horizontal = opt.draw.options?.horizontal;
+    ctrl.draw = opt.draw
   }
   onAdd(map) {
     let ctrl = this;
     ctrl.map = map;
     ctrl._container = document.createElement('div');
-    ctrl._container.className = `mapboxgl-ctrl-group mapboxgl-ctrl${ctrl.horizontal?" horizontal":""}`;
+    ctrl._container.className = `mapboxgl-ctrl-group mapboxgl-ctrl custom-tools-group${ctrl.horizontal?" horizontal":""} ${ctrl.edge}`;
     ctrl.elContainer = ctrl._container;
+    ctrl.draw.groups_item&&ctrl.draw.groups_item.push(ctrl.elContainer)
     ctrl.checkboxes.forEach((b) => {
       ctrl.addCheckbox(b);
     });
@@ -707,15 +709,34 @@ export default class MapboxDrawPro extends MapboxDraw {
 
     this.onAdd = (map, placement) => {
       this.map = map;
+      console.log("==== placement : ", placement)
+      placement = placement || 'top-right'
       this.elContainer = this.onAddOrig(map, placement);
+      
+      draw.options.edge = placement?.split('-')[draw.options.horizontal?0:1]
+      // console.log(" draw | placement : ", draw, placement);
+
+      // console.log("==== this.elContainer : ", this.elContainer)
+      this.elContainer.classList.add(draw.options.horizontal?"horizontal":"")
+      this.elContainer.classList.add(draw.options.edge)
+      this.elContainer.classList.add('custom-tools-group')
 
       this.buttons.forEach((b) => {
         this.addButton(b);
       });
 
-      // addOtherControls(map, this, placement);
-      addExtraHandling(map)
-      return this.elContainer;
+      addOtherControls(map, this, placement);
+      addExtraHandling(map, this)
+
+      this.group_elContainer = document.createElement('div')
+      this.group_elContainer.id = 'custom-tools-container'
+      this.group_elContainer.className = 'custom-tools-container'
+      this.group_elContainer.appendChild(this.elContainer)
+
+      this.groups_item = []
+      this.groups_item.push(this.elContainer)
+
+      return this.group_elContainer; //this.elContainer;
     };
 
     this.onRemove = (map) => {
@@ -791,7 +812,9 @@ export default class MapboxDrawPro extends MapboxDraw {
   }
 }
 
-const addExtraHandling = (map) => {
+const addExtraHandling = (map, draw) => {
+  // console.log("==== this : ", draw)
+
   // map.on('mousemove', function (e) {
   //   // console.log("=== draw.getMode() : ", draw.getMode())
   //   if (draw.getMode() === "draw_rectangle_assisted") {
@@ -847,5 +870,7 @@ const addOtherControls = async (map, draw, placement) => {
   setTimeout(() => {
     map.addControl(additionalTools(draw), placement);
     map.addControl(snapOptionsBar, placement);
+
+    setTimeout(()=>draw.groups_item?.map((el)=>{draw.group_elContainer.appendChild(el)}),10);
   }, 400);
 };
