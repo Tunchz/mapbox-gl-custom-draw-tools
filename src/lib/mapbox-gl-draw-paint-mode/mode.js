@@ -1,6 +1,6 @@
 import DrawPolygon from '@mapbox/mapbox-gl-draw/src/modes/draw_polygon';
 import {geojsonTypes, cursors, types, updateActions, modes, events} from '@mapbox/mapbox-gl-draw/src/constants';
-// import simplify from "@turf/simplify";
+import simplify from "@turf/simplify";
 // import "./icon/paint-brush.css";
 
 const PaintMode = Object.assign({}, DrawPolygon)
@@ -26,7 +26,7 @@ PaintMode.onSetup = function() {
     }, 0);
 
     this.updateUIClasses({ mouse: cursors.ADD });
-    this.activateUIButton(types.LINE);
+    // this.activateUIButton(types.LINE);
     this.setActionableState({
         trash: true
     });
@@ -48,7 +48,11 @@ PaintMode.onDrag = PaintMode.onTouchMove = function (state, e){
 
 PaintMode.onMouseUp = function (state, e){
     if (state.dragMoving) {
-        // this.simplify(state.polygon);
+        try {
+            this.simplify(state.polygon);
+        } catch(err) {
+            console.error(err);
+        }
         this.fireUpdate();
         this.changeMode(modes.SIMPLE_SELECT, { featureIds: [state.polygon.id] });
         this.changeMode("draw_paint_mode");
@@ -67,13 +71,14 @@ PaintMode.fireUpdate = function() {
     });
 };
 
-// PaintMode.simplify = function(polygon) {
-//   const tolerance = 1 / Math.pow(1.05, 10 * this.map.getZoom()) // https://www.desmos.com/calculator/nolp0g6pwr
-//   simplify(polygon, {
-//       mutate: true,
-//       tolerance: tolerance,
-//       highQuality: true
-//   });
-// }
+PaintMode.simplify = function(polygon) {
+  const tolerance = 1 / Math.pow(1.05, 12 * this.map.getZoom()) // https://www.desmos.com/calculator/nolp0g6pwr
+  polygon = simplify(polygon.features[0], {
+      mutate: true,
+      tolerance: tolerance,
+      highQuality: true
+  });
+  console.log("=== simplify after : ", polygon)
+}
 
 export default PaintMode

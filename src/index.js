@@ -6,7 +6,7 @@ import unionBy from 'lodash.unionby';
 import SelectFeatureMode, { drawStyles as selectFeatureDrawStyles } from './lib/mapbox-gl-draw-select-mode';
 import { SnapPolygonMode, SnapPointMode, SnapLineMode, SnapModeDrawStyles } from 'mapbox-gl-draw-snap-mode';
 import mapboxGlDrawPinningMode from './lib/mapbox-gl-draw-pinning-mode';
-import * as mapboxGlDrawPassingMode from 'mapbox-gl-draw-passing-mode';
+import * as mapboxGlDrawPassingMode from './lib/mapbox-gl-draw-passing-mode';
 // import mapboxGlDrawPassingMode from 'mapbox-gl-draw-passing-mode';
 // import { SRMode, SRCenter, SRStyle } from 'mapbox-gl-draw-scale-rotate-mode';
 import { SRMode, SRCenter, SRStyle } from './lib/mapbox-gl-draw-scale-rotate-mode';
@@ -19,7 +19,7 @@ import CutPolygonMode, { drawStyles as cutPolygonDrawStyles } from './lib/mapbox
 import SplitLineMode, {drawStyles as splitLineDrawStyles } from './lib/mapbox-gl-draw-split-line-mode';
 import FreehandMode from './lib/mapbox-gl-draw-freehand-mode';
 import DrawRectangle, { DrawStyles as RectRestrictStyles } from 'mapbox-gl-draw-rectangle-restrict-area';
-import DrawRectangleAssisted from '@geostarters/mapbox-gl-draw-rectangle-assisted-mode';
+import DrawRectangleAssisted from './lib/mapbox-gl-draw-rectangle-assisted-mode';
 import { additionalTools, measurement, addToolStyle } from './lib/mapbox-gl-draw-additional-tools';
 
 import PaintMode, { drawStyles as paintDrawStyles } from './lib/mapbox-gl-draw-paint-mode';
@@ -101,13 +101,9 @@ export default class MapboxDrawPro extends MapboxDraw {
       draw_polygon: SnapPolygonMode,
       draw_line_string: SnapLineMode,
       pinning_mode: mapboxGlDrawPinningMode,
-      // splitLineMode: SplitLineMode,
       passing_mode_point: mapboxGlDrawPassingMode.passing_draw_point,
       passing_mode_line_string: mapboxGlDrawPassingMode.passing_draw_line_string,
       passing_mode_polygon: mapboxGlDrawPassingMode.passing_draw_polygon,
-      // passing_mode_point: mapboxGlDrawPassingMode(MapboxDraw.modes.draw_point),
-      // passing_mode_line_string: mapboxGlDrawPassingMode(MapboxDraw.modes.draw_line_string),
-      // passing_mode_polygon: mapboxGlDrawPassingMode(MapboxDraw.modes.draw_polygon),
       scaleRotateMode: SRMode,
       freehandMode: FreehandMode,
       draw_rectangle: DrawRectangle,
@@ -130,18 +126,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       displayControlsDefault: false,
     };
 
-    // {
-    //   displayControlsDefault: false,
-    //   controls: {
-    //     polygon: true,
-    //     point: true,
-    //     line_string: true,
-    //     // trash: true,
-    //   },
-    //   userProperties: true,
-    // }
-
-    const _controls = {...controls, line_string:true, polygon:true, point:false, combine:false, uncombine:false, trash:false}
+    const _controls = {...controls, line_string:false, polygon:false, point:false, combine:false, uncombine:false, trash:false}
 
     const _modes = { ...customModes, ...modes };
     const __styles = [...paintDrawStyles(cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(defaultDrawStyle)))))];
@@ -151,6 +136,36 @@ export default class MapboxDrawPro extends MapboxDraw {
 
 
     this.buttons = [
+      {
+        //===== line
+        on: "click",
+        action: () => {
+          draw.changeMode('draw_line_string');
+        },
+        classes: ["mapbox-gl-draw_line"],
+        id: "draw-line-tool",
+        title: "Line",
+      },
+      {
+        //===== polygon
+        on: "click",
+        action: () => {
+          draw.changeMode('draw_polygon');
+        },
+        classes: ["mapbox-gl-draw_polygon"],
+        id: "draw-polygon-tool",
+        title: "Polygon",
+      },
+      {
+        //===== point
+        on: "click",
+        action: () => {
+          draw.changeMode('draw_point');
+        },
+        classes: ["mapbox-gl-draw_point"],
+        id: "draw-point-tool",
+        title: "Point",
+      },
     
       // {
       //   //===== Circle
@@ -202,44 +217,77 @@ export default class MapboxDrawPro extends MapboxDraw {
       //   title: 'Draw Circle tool',
       // },
       {
-        //===== point
-        on: "click",
-        action: () => {
-          draw.changeMode('draw_point');
-        },
-        classes: ["mapbox-gl-draw_point"],
-        id: "draw-point-tool",
-        title: "Point",
-      },
-      {
-        //===== Freform Polygon
-        on: 'click',
-        action: () => {
-          try {
-            draw.changeMode('freehandMode');
-          } catch (err) {
-            console.error(err);
-          }
-        },
-        classes: ['free-hand'],
-        title: 'Free-Hand Draw Mode tool',
-      },
-      {
         //===== Rectangle with max area
         on: 'click',
+        customize_button: (elButton) => {
+          const drawRec = (limit) => {
+            console.log("=== draw rec limit : ", limit)
+            try {
+              draw.changeMode('draw_rectangle', {
+                areaLimit: parseInt(limit), //limit, 
+              });
+            } catch (err) {
+              console.error(err);
+            }
+          };
+          // construct menu
+          let bottonContainer = document.createElement('div');
+          bottonContainer.className = 'button-submenu-container-wrapper';
+          let menuContainer = document.createElement('div');
+          menuContainer.className = 'mapboxgl-ctrl-group';
+          menuContainer.classList.add('horizontal');
+          menuContainer.classList.add('button-submenu-container');
+          menuContainer.id = 'rectangel-submenu';
+          menuContainer.style.display = "none";
+
+          var input = document.createElement('input');
+          input.className = 'mapbox-gl-draw-rectangle-input';
+          input.id = 'rectangle-input-limit'
+ 
+          var elButton1 = document.createElement('button');
+          elButton1.className = 'mapbox-gl-draw_ctrl-draw-btn';
+          elButton1.classList.add('draw-rectangle');
+          elButton1.addEventListener('click', ()=>{
+            let recLimitEl = document.getElementById('rectangle-input-limit')
+            console.log("=== rec limit input : ")
+            drawRec(recLimitEl.value)
+          });
+
+          menuContainer.appendChild(input)
+          menuContainer.appendChild(elButton1)
+          elButton.subMenu=menuContainer
+          bottonContainer.appendChild(menuContainer)
+          bottonContainer.appendChild(elButton)
+          // elButton.appendChild(bottonContainer)
+          return bottonContainer; //elButton;
+        },
         action: () => {
+          document.getElementById("rectangel-submenu").style.display = "flex";
+          this.map?.fire("draw.instruction",{message:"open rectangle submenu", action:"open-rectangle-submenu"})
           try {
             draw.changeMode('draw_rectangle', {
-              areaLimit: parseInt(prompt('Max Area? (empty for no restriction)')), // 5 * 1_000_000, // 5 km2, optional
-              // escapeKeyStopsDrawing: true, // default true
-              // allowCreateExceeded: false, // default false
-              // exceedCallsOnEachMove: false, // default false
-              // exceedCallback: (area) => console.log('exceeded!', area), // optional
-              // areaChangedCallback: (area) => console.log('updated', area), // optional
+              areaLimit: null, 
             });
           } catch (err) {
             console.error(err);
           }
+
+          // try {
+          //   draw.changeMode('draw_rectangle', {
+          //     areaLimit: parseInt(prompt('Max Area? (empty for no restriction)')), // 5 * 1_000_000, // 5 km2, optional
+          //     // escapeKeyStopsDrawing: true, // default true
+          //     // allowCreateExceeded: false, // default false
+          //     // exceedCallsOnEachMove: false, // default false
+          //     // exceedCallback: (area) => console.log('exceeded!', area), // optional
+          //     // areaChangedCallback: (area) => console.log('updated', area), // optional
+          //   });
+          // } catch (err) {
+          //   console.error(err);
+          // }
+        },
+        cancel: () => {
+          document.getElementById("rectangel-submenu").style.display = "none";
+          this.map?.fire("draw.instruction",{message:"close rectangle submenu", action:"close-rectangle-submenu"})
         },
         classes: ['draw-rectangle'],
         title: 'Rectangle Draw Mode tool',
@@ -259,6 +307,20 @@ export default class MapboxDrawPro extends MapboxDraw {
         title: 'Assisted Rectangle Draw Mode tool',
       },
       {
+        //===== Paint 
+        on: "click",
+        action: () => {
+          try {
+            draw.changeMode("draw_paint_mode");
+          } catch (err) {
+            console.error(err);
+          }
+        },
+        classes: ["draw-paint"],
+        title: "Paint (Free Drawing)",
+        cancel: ()=>{draw.trash();}
+      },
+      {
         //===== Freform Polygon
         on: 'click',
         action: () => {
@@ -270,18 +332,6 @@ export default class MapboxDrawPro extends MapboxDraw {
         },
         classes: ['free-hand'],
         title: 'Free-Hand Draw Mode tool',
-      },
-      {
-        on: "click",
-        action: () => {
-          try {
-            draw.changeMode("draw_paint_mode");
-          } catch (err) {
-            console.error(err);
-          }
-        },
-        classes: ["draw-paint"],
-        title: "Paint (Free Drawing)",
       },
       // {
       //   //===== Split Line
@@ -687,6 +737,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       if (opt.id) {
         elButton.id = opt.id;
       }
+      elButton.cancel = opt.cancel
       elButton.addEventListener(opt.on, (e)=>{
         e.preventDefault();
         e.stopPropagation();
@@ -694,7 +745,6 @@ export default class MapboxDrawPro extends MapboxDraw {
         if (clickedButton === this.activeButton) {
           // elButton?.classList?.remove("active")
           this.deactivateButtons();
-          opt.cancel&&opt.cancel(e);
           return;
         }
         // elButton?.classList?.add("active")
@@ -704,7 +754,6 @@ export default class MapboxDrawPro extends MapboxDraw {
       let elButton_ = opt.customize_button?opt.customize_button(elButton):elButton;
       this.elContainer.appendChild(elButton_);
       opt.elButton = elButton;
-      // console.log("===========", this)
       if (!this.buttonElements) {
         this.buttonElements = {[opt.title]:opt.elButton}
       } else {
@@ -716,10 +765,12 @@ export default class MapboxDrawPro extends MapboxDraw {
     this.deactivateButtons = () => {
       if (!this.activeButton) return;
       this.activeButton.classList.remove(Constants.classes.ACTIVE_BUTTON);
+      this.activeButton.cancel&&this.activeButton.cancel()
       this.activeButton = null;
     }
   
     this.setActiveButton = (id) => {
+      this.curActiveButton = id
       this.deactivateButtons();
   
       const button = this.buttonElements[id];
@@ -741,6 +792,21 @@ export default class MapboxDrawPro extends MapboxDraw {
 }
 
 const addExtraHandling = (map) => {
+  // map.on('mousemove', function (e) {
+  //   // console.log("=== draw.getMode() : ", draw.getMode())
+  //   if (draw.getMode() === "draw_rectangle_assisted") {
+       
+  //       const features = map.queryRenderedFeatures(e.point);
+
+  //       // console.log("=== features : ", features)
+  //       if (features[0] && features[0].layer && features[0].layer.id === "gl-draw-line-active.hot") {
+  //           console.log("--- instruction : ", "Angle:" + features[0].properties.angle)
+  //           document.getElementById("mapbox-gl-custom-draw-tool-instruction").innerHTML = "Angle:" + features[0].properties.angle;
+  //       }
+  //   }
+  // });
+
+
   map.on('draw.instruction', function (e) {
     console.log("----- on draw.instruction > action | msg : ", e.action, e.message);
 

@@ -13,7 +13,7 @@ FreehandMode.onSetup = function() {
             coordinates: [[]]
         }
     });
-
+    
     this.addFeature(polygon);
     this.clearSelectedFeatures();
     
@@ -24,11 +24,11 @@ FreehandMode.onSetup = function() {
     }, 0);
 
     this.updateUIClasses({ mouse: cursors.ADD });
-    this.activateUIButton(types.POLYGON);
+    // this.activateUIButton(types.POLYGON);
     this.setActionableState({
         trash: true
     });
-
+    
     return {
         polygon,
         currentVertexPosition: 0,
