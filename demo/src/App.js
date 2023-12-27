@@ -48,7 +48,7 @@ function App() {
 
     map.once('load', () => {
       map.resize();
-      map.addControl(draw, 'top-right');
+      map.addControl(draw, 'bottom-right');
       draw.set({
         type: 'FeatureCollection',
         features: [
