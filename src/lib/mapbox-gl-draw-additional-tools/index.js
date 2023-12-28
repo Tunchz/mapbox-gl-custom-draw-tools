@@ -142,13 +142,13 @@ class extendDrawBar {
         title: `Copy tool`,
         classes: ['mapbox-gl-draw_copy', opt.classPrefix ? `${opt.classPrefix}-copy` : null],
       },
-      {
-        on: 'click',
-        name: 'Cut',
-        action: this.cutFeature,
-        title: `Cut tool`,
-        classes: ['mapbox-gl-draw_cut', opt.classPrefix ? `${opt.classPrefix}-cut` : null],
-      },
+      // {
+      //   on: 'click',
+      //   name: 'Cut',
+      //   action: this.cutFeature,
+      //   title: `Cut tool`,
+      //   classes: ['mapbox-gl-draw_cut', opt.classPrefix ? `${opt.classPrefix}-cut` : null],
+      // },
       {
         on: 'click',
         name: 'Length',
@@ -350,7 +350,7 @@ class extendDrawBar {
       buffered.id = `${main.id}_buffer_${Math.floor(Math.random() * Math.floor(1000))}`;
       ids.push(buffered.id);
       buffers.push(buffered);
-      // (this_.draw||draw).add(buffered);
+      (this_.draw||draw).add(buffered);
     });
     this_.fireCreateBuffer(buffers);
     (this_.draw||draw).changeMode('simple_select', { featureIds: ids });
@@ -366,7 +366,7 @@ class extendDrawBar {
       translatedPoly.id = `${main.id}_copy_${Math.floor(Math.random() * Math.floor(1000))}`;
       ids.push(translatedPoly.id);
       translated.push(translatedPoly);
-      // (this_.draw||draw).add(translatedPoly);
+      (this_.draw||draw).add(translatedPoly);
     });
     this_.fireUpdateCopy(translated);
     (this_.draw||draw).changeMode('simple_select', { featureIds: ids });
@@ -382,7 +382,7 @@ class extendDrawBar {
       cutPoly.id = `${main.id}_cut_${Math.floor(Math.random() * Math.floor(1000))}`;
       ids.push(cutPoly.id);
       cuts.push(cutPoly);
-      // (this_.draw||draw).add(translatedPoly);
+      (this_.draw||draw).add(cuts);
     });
     this_.fireUpdateCut(cuts);
     (this_.draw||draw).changeMode('simple_select', { featureIds: ids });
