@@ -335,6 +335,7 @@ class extendDrawBar {
     let ids = selectedFeatures.map((i) => i.id);
     (this_.draw||draw).delete(ids);
     unionPoly.id = ids.join('-');
+    console.log("--- unionPoly : ", unionPoly);
     (this_.draw||draw).add(unionPoly);
     this_.fireCreateUnion(unionPoly);
     (this_.draw||draw).changeMode('simple_select', { featureIds: [unionPoly.id] });

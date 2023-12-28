@@ -4,7 +4,7 @@ import * as Constants from '@mapbox/mapbox-gl-draw/src/constants';
 import unionBy from 'lodash.unionby';
 // import SelectFeatureMode, { drawStyles as selectFeatureDrawStyles } from 'mapbox-gl-draw-select-mode';
 import SelectFeatureMode, { drawStyles as selectFeatureDrawStyles } from './lib/mapbox-gl-draw-select-mode';
-import { SnapPolygonMode, SnapPointMode, SnapLineMode, SnapModeDrawStyles } from 'mapbox-gl-draw-snap-mode';
+import { SnapPolygonMode, SnapPointMode, SnapLineMode, SnapModeDrawStyles } from './lib/mapbox-gl-draw-snap-mode';
 import mapboxGlDrawPinningMode from './lib/mapbox-gl-draw-pinning-mode';
 import * as mapboxGlDrawPassingMode from './lib/mapbox-gl-draw-passing-mode';
 // import mapboxGlDrawPassingMode from 'mapbox-gl-draw-passing-mode';
@@ -21,6 +21,13 @@ import FreehandMode from './lib/mapbox-gl-draw-freehand-mode';
 import DrawRectangle, { DrawStyles as RectRestrictStyles } from './lib/mapbox-gl-draw-rectangle-restrict-area';
 import DrawRectangleAssisted from './lib/mapbox-gl-draw-rectangle-assisted-mode';
 import { additionalTools, measurement, addToolStyle } from './lib/mapbox-gl-draw-additional-tools';
+import DrawEllipse from './lib/mapbox-gl-draw-ellipse';
+import {
+  SimpleSelectModeBezierOverride, 
+  DirectModeBezierOverride, 
+  DrawBezierCurve, 
+  customStyles as bezierStyles,
+} from './lib/mapbox-gl-draw-bezier-curve-mode';
 
 import PaintMode, { drawStyles as paintDrawStyles } from './lib/mapbox-gl-draw-paint-mode';
 
@@ -110,18 +117,22 @@ export default class MapboxDrawPro extends MapboxDraw {
       freehandMode: FreehandMode,
       draw_rectangle: DrawRectangle,
       draw_rectangle_assisted: DrawRectangleAssisted,
-      simple_select: SimpleSelectMode,
+      // simple_select: SimpleSelectMode,
+      draw_ellipse : DrawEllipse,
+      simple_select: SimpleSelectModeBezierOverride,
+      direct_select: DirectModeBezierOverride,
+      draw_bezier_curve: DrawBezierCurve,
     };
 
     const customOptions = {
       bufferSize: 0.5,
       bufferUnit: 'kilometers',
       bufferSteps: 64,
-      snap: false,
-      // snapOptions: {
-      //   snapPx: 15,
-      //   snapToMidPoints: true,
-      // },
+      snap: true,
+      snapOptions: {
+        snapPx: 15,
+        snapToMidPoints: true,
+      },
       guides: false,
       userProperties: true,
       ...other,
@@ -132,7 +143,7 @@ export default class MapboxDrawPro extends MapboxDraw {
 
     const _modes = { ...customModes, ...modes };
     const __styles = [...paintDrawStyles(cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(defaultDrawStyle)))))];
-    const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle, 'id');
+    const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle, bezierStyles, 'id');
     const _options = { modes: _modes, styles: _styles, controls:_controls, ...customOptions, ...otherOtions };
     super(_options);
 
@@ -167,6 +178,24 @@ export default class MapboxDrawPro extends MapboxDraw {
         classes: ["mapbox-gl-draw_point"],
         id: "draw-point-tool",
         title: "Point",
+      },
+      {
+        on: "click", 
+        action: () => {
+          draw.changeMode("draw_bezier_curve")
+        }, 
+        classes: ["bezier-curve-icon"], 
+        title:'Bezier tool'
+      },
+      {
+        //===== ellipse
+        on: "click",
+        action: () => {
+          draw.changeMode('draw_ellipse', { eccentricity: 0.8, divisions: 60 });
+        },
+        classes: ["draw-circle"],
+        id: "Ellipse",
+        title: "Ellipse",
       },
     
       // {
@@ -510,7 +539,7 @@ export default class MapboxDrawPro extends MapboxDraw {
             });
           }
         },
-        classes: ['split-line'],
+        classes: ['split-line-polygon'],
         title: 'Split Line Mode tool (by polygon)',
       },
       {

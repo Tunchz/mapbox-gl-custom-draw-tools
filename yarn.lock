@@ -156,6 +156,13 @@
     "@babel/helper-plugin-utils" "^7.22.5"
     "@babel/helper-simple-access" "^7.22.5"
 
+"@babel/runtime@^7.15.4":
+  "integrity" "sha512-zHd0eUrf5GZoOWVCXp6koAKQTfZV07eit6bGPmJgnZdnSAvvZee6zniW2XMF7Cmc4ISOOnPy3QaSiIJGJkVEDQ=="
+  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.6.tgz"
+  "version" "7.23.6"
+  dependencies:
+    "regenerator-runtime" "^0.14.0"
+
 "@babel/template@^7.22.15":
   "version" "7.22.15"
   dependencies:
@@ -274,7 +281,7 @@
   "resolved" "https://registry.npmjs.org/@mapbox/gl-matrix/-/gl-matrix-0.0.1.tgz"
   "version" "0.0.1"
 
-"@mapbox/mapbox-gl-draw@^1.2.0", "@mapbox/mapbox-gl-draw@github:Tunchz/mapbox-gl-draw":
+"@mapbox/mapbox-gl-draw@github:Tunchz/mapbox-gl-draw":
   "resolved" "git+ssh://git@github.com/Tunchz/mapbox-gl-draw.git#dcc429e8363f47f7778e6fec941c5afa64b9cbf4"
   "version" "1.4.2"
   dependencies:
@@ -387,32 +394,42 @@
     "estree-walker" "^1.0.1"
     "picomatch" "^2.2.2"
 
-"@turf/along@5.1.x":
-  "integrity" "sha512-N7BN1xvj6VWMe3UpjQDdVI0j0oY/EZ0bWgOgBXc4DlJ411uEsKCh6iBv0b2MSxQ3YUXEez3oc5FcgO9eVSs7iQ=="
-  "resolved" "https://registry.npmjs.org/@turf/along/-/along-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/along@^6.5.0":
+  "integrity" "sha512-LLyWQ0AARqJCmMcIEAXF4GEu8usmd4Kbz3qk1Oy5HoRNpZX47+i5exQtmIWKdqJ1MMhW26fCTXgpsEs5zgJ5gw=="
+  "resolved" "https://registry.npmjs.org/@turf/along/-/along-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bearing" "^5.1.5"
-    "@turf/destination" "^5.1.5"
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
+    "@turf/bearing" "^6.5.0"
+    "@turf/destination" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/area@^5.1.5", "@turf/area@5.1.x":
-  "integrity" "sha512-lz16gqtvoz+j1jD9y3zj0Z5JnGNd3YfS0h+DQY1EcZymvi75Frm9i5YbEyth0RfxYZeOVufY7YIS3LXbJlI57g=="
-  "resolved" "https://registry.npmjs.org/@turf/area/-/area-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/angle@^6.5.0":
+  "integrity" "sha512-4pXMbWhFofJJAOvTMCns6N4C8CMd5Ih4O2jSAG9b3dDHakj3O4yN1+Zbm+NUei+eVEZ9gFeVp9svE3aMDenIkw=="
+  "resolved" "https://registry.npmjs.org/@turf/angle/-/angle-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/bearing" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/rhumb-bearing" "^6.5.0"
 
-"@turf/bbox-clip@5.1.x":
-  "integrity" "sha512-KP64aoTvjcXxWHeM/Hs25vOQUBJgyJi7DlRVEoZofFJiR1kPnmDQrK7Xj+60lAk5cxuqzFnaPPxUk9Q+3v4p1Q=="
-  "resolved" "https://registry.npmjs.org/@turf/bbox-clip/-/bbox-clip-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/area@^6.5.0":
+  "integrity" "sha512-xCZdiuojokLbQ+29qR6qoMD89hv+JAgWjLrwSEWL+3JV8IXKeNFl6XkEJz9HGkVpnXvQKJoRz4/liT+8ZZ5Jyg=="
+  "resolved" "https://registry.npmjs.org/@turf/area/-/area-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "lineclip" "^1.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/bbox-clip@^6.5.0":
+  "integrity" "sha512-F6PaIRF8WMp8EmgU/Ke5B1Y6/pia14UAYB5TiBC668w5rVVjy5L8rTm/m2lEkkDMHlzoP9vNY4pxpNthE7rLcQ=="
+  "resolved" "https://registry.npmjs.org/@turf/bbox-clip/-/bbox-clip-6.5.0.tgz"
+  "version" "6.5.0"
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
 "@turf/bbox-polygon@^4.7.3":
   "integrity" "sha512-hJgq4ao67XR+5hLY23f/Eg5Urtnwa5vpBjwLa7lBfpP/FoGvWZE3uiRBECKFH9AMX2AkhMaqueVu2vjU5duZNQ=="
@@ -421,12 +438,20 @@
   dependencies:
     "@turf/helpers" "^4.7.3"
 
-"@turf/bbox-polygon@^5.1.5", "@turf/bbox-polygon@5.1.x":
-  "integrity" "sha512-PKVPF5LABFWZJud8KzzfesLGm5ihiwLbVa54HJjYySe6yqU/cr5q/qcN9TWptynOFhNktG1dr0KXVG0I2FZmfw=="
-  "resolved" "https://registry.npmjs.org/@turf/bbox-polygon/-/bbox-polygon-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/bbox-polygon@^6.5.0":
+  "integrity" "sha512-+/r0NyL1lOG3zKZmmf6L8ommU07HliP4dgYToMoTxqzsWzyLjaj/OzgQ8rBmv703WJX+aS6yCmLuIhYqyufyuw=="
+  "resolved" "https://registry.npmjs.org/@turf/bbox-polygon/-/bbox-polygon-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+
+"@turf/bbox@*", "@turf/bbox@^6.5.0":
+  "integrity" "sha512-RBbLaao5hXTYyyg577iuMtDB8ehxMlUqHEJiMs8jT1GHkFhr6sYre3lmLsPeYEi/ZKj5TP5tt7fkzNdJ4GIVyw=="
+  "resolved" "https://registry.npmjs.org/@turf/bbox/-/bbox-6.5.0.tgz"
+  "version" "6.5.0"
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
 "@turf/bbox@^4.7.3":
   "integrity" "sha512-78lSzSQuLHq0363sVlmkX9uxBejeWGyZhQBAh7oc1ucnsYsem1m4ynjDXG8/hKP4nG/yUFWPdV9xklezKdvzKw=="
@@ -435,14 +460,6 @@
   dependencies:
     "@turf/meta" "^4.7.3"
 
-"@turf/bbox@^5.1.5", "@turf/bbox@5.1.x":
-  "integrity" "sha512-sYQU4fqsOYYJoD8UndC1n2hy8hV/lGIAmMLKWuzwmPUWqWOuSKWUcoRWDi9mGB0GvQQe/ow2IxZr8UaVaGz3sQ=="
-  "resolved" "https://registry.npmjs.org/@turf/bbox/-/bbox-5.1.5.tgz"
-  "version" "5.1.5"
-  dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-
 "@turf/bearing@^4.5.2":
   "integrity" "sha512-VI3QsVFdfiZwZX3V6rDERXsY8BcYq7RuDUi7YoX8CKxXDcwkoFZqjoSCzKUO7wMpXwI8QIN/phBwqZfZZwH2Nw=="
   "resolved" "https://registry.npmjs.org/@turf/bearing/-/bearing-4.7.3.tgz"
@@ -450,15 +467,7 @@
   dependencies:
     "@turf/invariant" "^4.7.3"
 
-"@turf/bearing@^5.1.5", "@turf/bearing@5.1.x":
-  "integrity" "sha512-PrvZuJjnXGseB8hUatIjsrK3tgD3wttyRnVYXTbSfXYJZzaOfHDMplgO4lxXQp7diraZhGhCdSlbMvRRXItbUQ=="
-  "resolved" "https://registry.npmjs.org/@turf/bearing/-/bearing-5.1.5.tgz"
-  "version" "5.1.5"
-  dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-
-"@turf/bearing@6.x":
+"@turf/bearing@^6.5.0":
   "integrity" "sha512-dxINYhIEMzgDOztyMZc20I7ssYVNEpSv04VbMo5YPQsqa80KO3TFvbuCahMsCAW5z8Tncc8dwBlEFrmRjJG33A=="
   "resolved" "https://registry.npmjs.org/@turf/bearing/-/bearing-6.5.0.tgz"
   "version" "6.5.0"
@@ -466,21 +475,13 @@
     "@turf/helpers" "^6.5.0"
     "@turf/invariant" "^6.5.0"
 
-"@turf/bezier-spline@5.1.x":
-  "integrity" "sha512-Y9NoComaGgFFFe9TWWE/cEMg2+EnBfU1R3112ec2wlx21ygDmFGXs4boOS71WM4ySwm/dbS3wxnbVxs4j68sKw=="
-  "resolved" "https://registry.npmjs.org/@turf/bezier-spline/-/bezier-spline-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/bezier-spline@^6.5.0":
+  "integrity" "sha512-vokPaurTd4PF96rRgGVm6zYYC5r1u98ZsG+wZEv9y3kJTuJRX/O3xIY2QnTGTdbVmAJN1ouOsD0RoZYaVoXORQ=="
+  "resolved" "https://registry.npmjs.org/@turf/bezier-spline/-/bezier-spline-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-
-"@turf/boolean-clockwise@^5.1.5", "@turf/boolean-clockwise@5.1.x":
-  "integrity" "sha512-FqbmEEOJ4rU4/2t7FKx0HUWmjFEVqR+NJrFP7ymGSjja2SQ7Q91nnBihGuT+yuHHl6ElMjQ3ttsB/eTmyCycxA=="
-  "resolved" "https://registry.npmjs.org/@turf/boolean-clockwise/-/boolean-clockwise-5.1.5.tgz"
-  "version" "5.1.5"
-  dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
 "@turf/boolean-clockwise@^6.5.0":
   "integrity" "sha512-45+C7LC5RMbRWrxh3Z0Eihsc8db1VGBO5d9BLTOAwU4jR6SgsunTfRWR16X7JUwIDYlCVEmnjcXJNi/kIU3VIw=="
@@ -490,157 +491,166 @@
     "@turf/helpers" "^6.5.0"
     "@turf/invariant" "^6.5.0"
 
-"@turf/boolean-contains@^5.1.5", "@turf/boolean-contains@5.1.x":
-  "integrity" "sha512-x2HeEieeE9vBQrTdCuj4swnAXlpKbj9ChxMdDTV479c0m2gVmfea83ocmkj3w+9cvAaS63L8WqFyNVSmkwqljQ=="
-  "resolved" "https://registry.npmjs.org/@turf/boolean-contains/-/boolean-contains-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/boolean-contains@^6.5.0":
+  "integrity" "sha512-4m8cJpbw+YQcKVGi8y0cHhBUnYT+QRfx6wzM4GI1IdtYH3p4oh/DOBJKrepQyiDzFDaNIjxuWXBh0ai1zVwOQQ=="
+  "resolved" "https://registry.npmjs.org/@turf/boolean-contains/-/boolean-contains-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/boolean-point-in-polygon" "^5.1.5"
-    "@turf/boolean-point-on-line" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/bbox" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/boolean-point-on-line" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/boolean-crosses@5.1.x":
-  "integrity" "sha512-odljvS7INr9k/8yXeyXQVry7GqEaChOmXawP0+SoTfGO3hgptiik59TLU/Yjn/SLFjE2Ul54Ga1jKFSL7vvH0Q=="
-  "resolved" "https://registry.npmjs.org/@turf/boolean-crosses/-/boolean-crosses-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/boolean-crosses@^6.5.0":
+  "integrity" "sha512-gvshbTPhAHporTlQwBJqyfW+2yV8q/mOTxG6PzRVl6ARsqNoqYQWkd4MLug7OmAqVyBzLK3201uAeBjxbGw0Ng=="
+  "resolved" "https://registry.npmjs.org/@turf/boolean-crosses/-/boolean-crosses-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/boolean-point-in-polygon" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/line-intersect" "^5.1.5"
-    "@turf/polygon-to-line" "^5.1.5"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/line-intersect" "^6.5.0"
+    "@turf/polygon-to-line" "^6.5.0"
 
-"@turf/boolean-disjoint@5.1.x":
-  "integrity" "sha512-KHvUS6SBNYHBCLIJEJrg04pF5Oy+Fqn8V5G9U+9pti5vI9tyX7Ln2g7RSB7iJ1Cxsz8QAi6OukhXjEF2/8ZpGg=="
-  "resolved" "https://registry.npmjs.org/@turf/boolean-disjoint/-/boolean-disjoint-5.1.6.tgz"
-  "version" "5.1.6"
+"@turf/boolean-disjoint@^6.5.0":
+  "integrity" "sha512-rZ2ozlrRLIAGo2bjQ/ZUu4oZ/+ZjGvLkN5CKXSKBcu6xFO6k2bgqeM8a1836tAW+Pqp/ZFsTA5fZHsJZvP2D5g=="
+  "resolved" "https://registry.npmjs.org/@turf/boolean-disjoint/-/boolean-disjoint-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/boolean-point-in-polygon" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/line-intersect" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "@turf/polygon-to-line" "^5.1.5"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/line-intersect" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/polygon-to-line" "^6.5.0"
 
-"@turf/boolean-equal@5.1.x":
-  "integrity" "sha512-QEMbhDPV+J8PlRkMlVg6m5oSLaYUpOx2VUhDDekQ73FlpnhFBKRIlidhvHtS6CYnEw8d+/zA3h8Z18B4W4mq9Q=="
-  "resolved" "https://registry.npmjs.org/@turf/boolean-equal/-/boolean-equal-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/boolean-equal@^6.5.0":
+  "integrity" "sha512-cY0M3yoLC26mhAnjv1gyYNQjn7wxIXmL2hBmI/qs8g5uKuC2hRWi13ydufE3k4x0aNRjFGlg41fjoYLwaVF+9Q=="
+  "resolved" "https://registry.npmjs.org/@turf/boolean-equal/-/boolean-equal-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/clean-coords" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/clean-coords" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
     "geojson-equality" "0.1.6"
 
-"@turf/boolean-overlap@^5.1.5", "@turf/boolean-overlap@5.1.x":
-  "integrity" "sha512-lizojgU559KME0G705YAgWVa0B3/tsWNobMzOEWDx/1rABWTojCY4uxw2rFxpOsP++s8JJHrGWXRLh1PbdAvRQ=="
-  "resolved" "https://registry.npmjs.org/@turf/boolean-overlap/-/boolean-overlap-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/boolean-intersects@^6.5.0":
+  "integrity" "sha512-nIxkizjRdjKCYFQMnml6cjPsDOBCThrt+nkqtSEcxkKMhAQj5OO7o2CecioNTaX8EayqwMGVKcsz27oP4mKPTw=="
+  "resolved" "https://registry.npmjs.org/@turf/boolean-intersects/-/boolean-intersects-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/line-intersect" "^5.1.5"
-    "@turf/line-overlap" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/boolean-disjoint" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/boolean-overlap@^6.5.0":
+  "integrity" "sha512-8btMIdnbXVWUa1M7D4shyaSGxLRw6NjMcqKBcsTXcZdnaixl22k7ar7BvIzkaRYN3SFECk9VGXfLncNS3ckQUw=="
+  "resolved" "https://registry.npmjs.org/@turf/boolean-overlap/-/boolean-overlap-6.5.0.tgz"
+  "version" "6.5.0"
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/line-intersect" "^6.5.0"
+    "@turf/line-overlap" "^6.5.0"
+    "@turf/meta" "^6.5.0"
     "geojson-equality" "0.1.6"
 
-"@turf/boolean-parallel@5.1.x":
-  "integrity" "sha512-eeuGgDhnas3nJ22A/DD8aiH0kg9dSzbQChIMAqYRPGg3pWNK41aGAbeh5z0GO5N/EVFX1+ga5a0vsPmiRgQB5g=="
-  "resolved" "https://registry.npmjs.org/@turf/boolean-parallel/-/boolean-parallel-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/boolean-parallel@^6.5.0":
+  "integrity" "sha512-aSHJsr1nq9e5TthZGZ9CZYeXklJyRgR5kCLm5X4urz7+MotMOp/LsGOsvKvK9NeUl9+8OUmfMn8EFTT8LkcvIQ=="
+  "resolved" "https://registry.npmjs.org/@turf/boolean-parallel/-/boolean-parallel-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/clean-coords" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/line-segment" "^5.1.5"
-    "@turf/rhumb-bearing" "^5.1.5"
+    "@turf/clean-coords" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/line-segment" "^6.5.0"
+    "@turf/rhumb-bearing" "^6.5.0"
 
-"@turf/boolean-point-in-polygon@^5.1.5", "@turf/boolean-point-in-polygon@5.1.x":
-  "integrity" "sha512-y+gbAhLmsAZH9uYhv+C68pu06mxsGIm3o7l0hzVkc/PXYdbkr+vKe7n7PfSN3xpVA3qoDLKLpCGOqeW8/ThaJA=="
-  "resolved" "https://registry.npmjs.org/@turf/boolean-point-in-polygon/-/boolean-point-in-polygon-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/boolean-point-in-polygon@^6.5.0":
+  "integrity" "sha512-DtSuVFB26SI+hj0SjrvXowGTUCHlgevPAIsukssW6BG5MlNSBQAo70wpICBNJL6RjukXg8d2eXaAWuD/CqL00A=="
+  "resolved" "https://registry.npmjs.org/@turf/boolean-point-in-polygon/-/boolean-point-in-polygon-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/boolean-point-on-line@^5.1.5", "@turf/boolean-point-on-line@5.1.x":
-  "integrity" "sha512-Zf4d28mckV2tYfLWf2iqxQ8eeLZqi2HGimM26mptf1OCEIwc1wfkKgLRRJXMu94Crvd/pJxjRAjoYGcGliP6Vg=="
-  "resolved" "https://registry.npmjs.org/@turf/boolean-point-on-line/-/boolean-point-on-line-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/boolean-point-on-line@^6.5.0":
+  "integrity" "sha512-A1BbuQ0LceLHvq7F/P7w3QvfpmZqbmViIUPHdNLvZimFNLo4e6IQunmzbe+8aSStH9QRZm3VOflyvNeXvvpZEQ=="
+  "resolved" "https://registry.npmjs.org/@turf/boolean-point-on-line/-/boolean-point-on-line-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/boolean-within@^5.1.5", "@turf/boolean-within@5.1.x":
-  "integrity" "sha512-CNAtrvm4HiUwV/vhpGhvJzfhV9CN7VhPC5y4tTfQicK82fYY6ifPz0iaNpUOmshU6+TAot/fsVQVgDJ4t7HXcA=="
-  "resolved" "https://registry.npmjs.org/@turf/boolean-within/-/boolean-within-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/boolean-within@^6.5.0":
+  "integrity" "sha512-YQB3oU18Inx35C/LU930D36RAVe7LDXk1kWsQ8mLmuqYn9YdPsDQTMTkLJMhoQ8EbN7QTdy333xRQ4MYgToteQ=="
+  "resolved" "https://registry.npmjs.org/@turf/boolean-within/-/boolean-within-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/boolean-point-in-polygon" "^5.1.5"
-    "@turf/boolean-point-on-line" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/bbox" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/boolean-point-on-line" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/buffer@5.1.x":
-  "integrity" "sha512-U3LU0HF/JNFUNabpB5ArpNG6yPla7yR5XPrZvzZRH48vvbr/N0rkSRI0tJFRWTz7ntugVm9X0OD9Y382NTJRhA=="
-  "resolved" "https://registry.npmjs.org/@turf/buffer/-/buffer-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/buffer@^6.5.0":
+  "integrity" "sha512-qeX4N6+PPWbKqp1AVkBVWFerGjMYMUyencwfnkCesoznU6qvfugFHNAngNqIBVnJjZ5n8IFyOf+akcxnrt9sNg=="
+  "resolved" "https://registry.npmjs.org/@turf/buffer/-/buffer-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/center" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "@turf/projection" "^5.1.5"
+    "@turf/bbox" "^6.5.0"
+    "@turf/center" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/projection" "^6.5.0"
     "d3-geo" "1.7.1"
     "turf-jsts" "*"
 
-"@turf/center-mean@^5.1.5", "@turf/center-mean@5.1.x":
-  "integrity" "sha512-XdkBXzFUuyCqu5EPlBwgkv8FLA8pIGBnt7xy5cxxhxKOYLMrKqwMPPHPA84TjeQpNti0gH0CVuOk2r1f/Pp8iQ=="
-  "resolved" "https://registry.npmjs.org/@turf/center-mean/-/center-mean-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/center-mean@^6.5.0":
+  "integrity" "sha512-AAX6f4bVn12pTVrMUiB9KrnV94BgeBKpyg3YpfnEbBpkN/znfVhL8dG8IxMAxAoSZ61Zt9WLY34HfENveuOZ7Q=="
+  "resolved" "https://registry.npmjs.org/@turf/center-mean/-/center-mean-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/bbox" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/center-median@5.1.x":
-  "integrity" "sha512-M+O6bSNsIDKZ4utk/YzSOIg6W0isjLVWud+TCLWyrDCWTSERlSJlhOaVE1y7cObhG8nYBHvmszqZyoAY6nufQw=="
-  "resolved" "https://registry.npmjs.org/@turf/center-median/-/center-median-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/center-median@^6.5.0":
+  "integrity" "sha512-dT8Ndu5CiZkPrj15PBvslpuf01ky41DEYEPxS01LOxp5HOUHXp1oJxsPxvc+i/wK4BwccPNzU1vzJ0S4emd1KQ=="
+  "resolved" "https://registry.npmjs.org/@turf/center-median/-/center-median-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/center-mean" "^5.1.5"
-    "@turf/centroid" "^5.1.5"
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/center-mean" "^6.5.0"
+    "@turf/centroid" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/center-of-mass@5.1.x":
-  "integrity" "sha512-UvI7q6GgW3afCVIDOyTRuLT54v9Xwv65Xudxh4FIT6w7HNU4KUBtTGnx0NuhODZcgvZgWVWVakhmIcHQTMjYYA=="
-  "resolved" "https://registry.npmjs.org/@turf/center-of-mass/-/center-of-mass-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/center-of-mass@^6.5.0":
+  "integrity" "sha512-EWrriU6LraOfPN7m1jZi+1NLTKNkuIsGLZc2+Y8zbGruvUW+QV7K0nhf7iZWutlxHXTBqEXHbKue/o79IumAsQ=="
+  "resolved" "https://registry.npmjs.org/@turf/center-of-mass/-/center-of-mass-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/centroid" "^5.1.5"
-    "@turf/convex" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/centroid" "^6.5.0"
+    "@turf/convex" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/center@^5.1.5", "@turf/center@5.1.x":
-  "integrity" "sha512-Dy1TvAv2oHKFddZcWqlVsanxurfcZV1Mmb1E+7H7GRKI+fXZTfRjwCdbiZCbO/tPwxt8jWQHWdLHn8E9lecc3A=="
-  "resolved" "https://registry.npmjs.org/@turf/center/-/center-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/center@^6.5.0":
+  "integrity" "sha512-T8KtMTfSATWcAX088rEDKjyvQCBkUsLnK/Txb6/8WUXIeOZyHu42G7MkdkHRoHtwieLdduDdmPLFyTdG5/e7ZQ=="
+  "resolved" "https://registry.npmjs.org/@turf/center/-/center-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
+    "@turf/bbox" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
 
-"@turf/centroid@^5.1.5", "@turf/centroid@5.1.x":
-  "integrity" "sha512-0m9ZAZJB4YXLDxF2fWGqlE/g9Y68cebeWaRNOMN+e6Bti1fz0JKQuaEqJV+J8xOmODPHSMbZZ1SqSDVRgVHP2Q=="
-  "resolved" "https://registry.npmjs.org/@turf/centroid/-/centroid-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/centroid@^6.5.0":
+  "integrity" "sha512-MwE1oq5E3isewPprEClbfU5pXljIK/GUOMbn22UM3IFPDJX0KeoyLNwghszkdmFp/qMGL/M13MMWvU+GNLXP/A=="
+  "resolved" "https://registry.npmjs.org/@turf/centroid/-/centroid-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
 "@turf/circle@^4.7.3":
   "integrity" "sha512-6LpuccDa2zPm+/BnDrm4w4/G82O1F9YXAXoYDAMOWXZPNeN9zFSsUEdhdpqNcWuOYd1/tipTs9iXmNR30/H4KA=="
@@ -650,28 +660,21 @@
     "@turf/destination" "^4.7.3"
     "@turf/helpers" "^4.7.3"
 
-"@turf/circle@^5.1.5", "@turf/circle@5.1.x":
-  "integrity" "sha512-CNaEtvp38Q+TSFJHdzdl5iYNjBFZRluRTFikIuEcennSeMJD60nP0dMubP58TR/QQn541eNDUyED90V4KuOjyQ=="
-  "resolved" "https://registry.npmjs.org/@turf/circle/-/circle-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/circle@^6.5.0":
+  "integrity" "sha512-oU1+Kq9DgRnoSbWFHKnnUdTmtcRUMmHoV9DjTXu9vOLNV5OWtAAh1VZ+mzsioGGzoDNT/V5igbFOkMfBQc0B6A=="
+  "resolved" "https://registry.npmjs.org/@turf/circle/-/circle-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/destination" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
+    "@turf/destination" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
 
-"@turf/clean-coords@^5.1.5", "@turf/clean-coords@5.1.x":
-  "integrity" "sha512-xd/iSM0McVUxbu81KCKDqirCsYkKk3EAwpDjYI8vIQ+eKf/MLSdteRcm3PB7wo2y6JcYp4dMGv2cr9IP7V+dXQ=="
-  "resolved" "https://registry.npmjs.org/@turf/clean-coords/-/clean-coords-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/clean-coords@^6.5.0":
+  "integrity" "sha512-EMX7gyZz0WTH/ET7xV8MyrExywfm9qUi0/MY89yNffzGIEHuFfqwhcCqZ8O00rZIPZHUTxpmsxQSTfzJJA1CPw=="
+  "resolved" "https://registry.npmjs.org/@turf/clean-coords/-/clean-coords-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-
-"@turf/clone@^5.1.5", "@turf/clone@5.1.x":
-  "integrity" "sha512-//pITsQ8xUdcQ9pVb4JqXiSqG4dos5Q9N4sYFoWghX21tfOV2dhc5TGqYOhnHrQS7RiKQL1vQ48kIK34gQ5oRg=="
-  "resolved" "https://registry.npmjs.org/@turf/clone/-/clone-5.1.5.tgz"
-  "version" "5.1.5"
-  dependencies:
-    "@turf/helpers" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
 "@turf/clone@^6.5.0":
   "integrity" "sha512-mzVtTFj/QycXOn6ig+annKrM6ZlimreKYz6f/GSERytOpgzodbQyOgkfwru100O1KQhhjSudKK4DsQ0oyi9cTw=="
@@ -680,76 +683,75 @@
   dependencies:
     "@turf/helpers" "^6.5.0"
 
-"@turf/clusters-dbscan@5.1.x":
-  "integrity" "sha512-X3qLLHJkwMuv+xdWQ08NtOc6BgeqCKKSAltyyAZ7iImE65f0C+sW024DfHSbTMsZVXBFst2Q6RQY8RVUf3QBeQ=="
-  "resolved" "https://registry.npmjs.org/@turf/clusters-dbscan/-/clusters-dbscan-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/clusters-dbscan@^6.5.0":
+  "integrity" "sha512-SxZEE4kADU9DqLRiT53QZBBhu8EP9skviSyl+FGj08Y01xfICM/RR9ACUdM0aEQimhpu+ZpRVcUK+2jtiCGrYQ=="
+  "resolved" "https://registry.npmjs.org/@turf/clusters-dbscan/-/clusters-dbscan-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/clone" "^5.1.5"
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/clone" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
     "density-clustering" "1.3.0"
 
-"@turf/clusters-kmeans@5.1.x":
-  "integrity" "sha512-W6raiv9+fRgmJxCvKrpSacbLXzh7beZUk0A1pjF82Fv3CFTrXAJbgAyIbdlmgXezYSXhOT5NMUugnbkUy2oBZw=="
-  "resolved" "https://registry.npmjs.org/@turf/clusters-kmeans/-/clusters-kmeans-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/clusters-kmeans@^6.5.0":
+  "integrity" "sha512-DwacD5+YO8kwDPKaXwT9DV46tMBVNsbi1IzdajZu1JDSWoN7yc7N9Qt88oi+p30583O0UPVkAK+A10WAQv4mUw=="
+  "resolved" "https://registry.npmjs.org/@turf/clusters-kmeans/-/clusters-kmeans-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/clone" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
     "skmeans" "0.9.7"
 
-"@turf/clusters@5.1.x":
-  "integrity" "sha512-+rQe+g66xfbIXz58tveXQCDdE9hzqRJtDVSw5xth92TvCcL4J60ZKN8mHNUSn1ZZvpUHtVPe4dYcbtk5bW8fXQ=="
-  "resolved" "https://registry.npmjs.org/@turf/clusters/-/clusters-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/clusters@^6.5.0":
+  "integrity" "sha512-Y6gfnTJzQ1hdLfCsyd5zApNbfLIxYEpmDibHUqR5z03Lpe02pa78JtgrgUNt1seeO/aJ4TG1NLN8V5gOrHk04g=="
+  "resolved" "https://registry.npmjs.org/@turf/clusters/-/clusters-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/collect@5.1.x":
-  "integrity" "sha512-voFWu6EGPcNuIbAp43yvGf2Ip4/q8TTeWhOSJ2yDEHgOfbAwrNUwUJCclEjcUVsnc7ypKNrFn3/8bmR9tI0NQg=="
-  "resolved" "https://registry.npmjs.org/@turf/collect/-/collect-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/collect@^6.5.0":
+  "integrity" "sha512-4dN/T6LNnRg099m97BJeOcTA5fSI8cu87Ydgfibewd2KQwBexO69AnjEFqfPX3Wj+Zvisj1uAVIZbPmSSrZkjg=="
+  "resolved" "https://registry.npmjs.org/@turf/collect/-/collect-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/boolean-point-in-polygon" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "rbush" "^2.0.1"
+    "@turf/bbox" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "rbush" "2.x"
 
-"@turf/combine@5.1.x":
-  "integrity" "sha512-/RqmfCvduHquINVyNmzKOcZtZjfaEHMhghgmj8MYnzepN3ro+E2QXoaQGGrQ7nChAvGgWPAvN8EveVSc1MvzPg=="
-  "resolved" "https://registry.npmjs.org/@turf/combine/-/combine-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/combine@^6.5.0":
+  "integrity" "sha512-Q8EIC4OtAcHiJB3C4R+FpB4LANiT90t17uOd851qkM2/o6m39bfN5Mv0PWqMZIHWrrosZqRqoY9dJnzz/rJxYQ=="
+  "resolved" "https://registry.npmjs.org/@turf/combine/-/combine-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/concave@5.1.x":
-  "integrity" "sha512-NvR5vmAunmgjEPjNzmvjLRvPcj7C6WuqCf+vu/aqyc4h2c1B/x399bDsSM64iFT+PYesFuoS1ZhJHWivXG8Y5g=="
-  "resolved" "https://registry.npmjs.org/@turf/concave/-/concave-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/concave@^6.5.0":
+  "integrity" "sha512-I/sUmUC8TC5h/E2vPwxVht+nRt+TnXIPRoztDFvS8/Y0+cBDple9inLSo9nnPXMXidrBlGXZ9vQx/BjZUJgsRQ=="
+  "resolved" "https://registry.npmjs.org/@turf/concave/-/concave-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/clone" "^5.1.5"
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "@turf/tin" "^5.1.5"
+    "@turf/clone" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/tin" "^6.5.0"
     "topojson-client" "3.x"
     "topojson-server" "3.x"
 
-"@turf/convex@^5.1.5", "@turf/convex@5.1.x":
-  "integrity" "sha512-ZEk4kIAoYR/mjO3C8rMe2StgmwhdwmbxVvNxg3udeahe2m0ZzbfkRC4HiJAaBgfR4TLJUAEewynESReTPwASBQ=="
-  "resolved" "https://registry.npmjs.org/@turf/convex/-/convex-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/convex@^6.5.0":
+  "integrity" "sha512-x7ZwC5z7PJB0SBwNh7JCeCNx7Iu+QSrH7fYgK0RhhNop13TqUlvHMirMLRgf2db1DqUetrAO2qHJeIuasquUWg=="
+  "resolved" "https://registry.npmjs.org/@turf/convex/-/convex-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
     "concaveman" "*"
 
 "@turf/destination@^4.7.3":
@@ -760,39 +762,42 @@
     "@turf/helpers" "^4.7.3"
     "@turf/invariant" "^4.7.3"
 
-"@turf/destination@^5.1.5", "@turf/destination@5.1.x":
-  "integrity" "sha512-EWwZnd4wxUO9d8UWzJt88jQlFf6W/6SE1930MMzzIR9o+RfqhrS/BL1eUDrg5I5drsymf6PZsK0j/V0q6jqkFQ=="
-  "resolved" "https://registry.npmjs.org/@turf/destination/-/destination-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/destination@^6.5.0":
+  "integrity" "sha512-4cnWQlNC8d1tItOz9B4pmJdWpXqS0vEvv65bI/Pj/genJnsL7evI0/Xw42RvEGROS481MPiU80xzvwxEvhQiMQ=="
+  "resolved" "https://registry.npmjs.org/@turf/destination/-/destination-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/difference@5.1.x":
-  "integrity" "sha512-hIjiUHS8WiDfnmADQrhh6QcXWc3zNtjIpPQ5g/2NZ3k1mjnOdmGBVObkSJG4WEUNqyj3PKlsZ8W9xnSu+lLF1Q=="
-  "resolved" "https://registry.npmjs.org/@turf/difference/-/difference-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/difference@^6.5.0":
+  "integrity" "sha512-l8iR5uJqvI+5Fs6leNbhPY5t/a3vipUF/3AeVLpwPQcgmedNXyheYuy07PcMGH5Jdpi5gItOiTqwiU/bUH4b3A=="
+  "resolved" "https://registry.npmjs.org/@turf/difference/-/difference-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/area" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "turf-jsts" "*"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "polygon-clipping" "^0.15.3"
 
-"@turf/dissolve@5.1.x":
-  "integrity" "sha512-YcQgyp7pvhyZHCmbqqItVH6vHs43R9N0jzP/LnAG03oMiY4wves/BO1du6VDDbnJSXeRKf1afmY9tRGKYrm9ag=="
-  "resolved" "https://registry.npmjs.org/@turf/dissolve/-/dissolve-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/dissolve@^6.5.0":
+  "integrity" "sha512-WBVbpm9zLTp0Bl9CE35NomTaOL1c4TQCtEoO43YaAhNEWJOOIhZMFJyr8mbvYruKl817KinT3x7aYjjCMjTAsQ=="
+  "resolved" "https://registry.npmjs.org/@turf/dissolve/-/dissolve-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/boolean-overlap" "^5.1.5"
-    "@turf/clone" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/line-intersect" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "@turf/union" "^5.1.5"
-    "geojson-rbush" "2.1.0"
-    "get-closest" "*"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "polygon-clipping" "^0.15.3"
+
+"@turf/distance-weight@^6.5.0":
+  "integrity" "sha512-a8qBKkgVNvPKBfZfEJZnC3DV7dfIsC3UIdpRci/iap/wZLH41EmS90nM+BokAJflUHYy8PqE44wySGWHN1FXrQ=="
+  "resolved" "https://registry.npmjs.org/@turf/distance-weight/-/distance-weight-6.5.0.tgz"
+  "version" "6.5.0"
+  dependencies:
+    "@turf/centroid" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
 "@turf/distance@^4.7.3":
   "integrity" "sha512-nluvFy7qjZFq4B6E+KAlKdwdg9fbgJMIe/5O7jveg56gcXZ5Bvgx3lFUxAY016+l907OeX9lIZCNr/Y96FMyEA=="
@@ -802,15 +807,7 @@
     "@turf/helpers" "^4.7.3"
     "@turf/invariant" "^4.7.3"
 
-"@turf/distance@^5.1.5", "@turf/distance@5.1.x":
-  "integrity" "sha512-sYCAgYZ2MjNKMtx17EijHlK9qHwpA0MuuQWbR4P30LTCl52UlG/reBfV899wKyF3HuDL9ux78IbILwOfeQ4zgA=="
-  "resolved" "https://registry.npmjs.org/@turf/distance/-/distance-5.1.5.tgz"
-  "version" "5.1.5"
-  dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-
-"@turf/distance@6.x":
+"@turf/distance@^6.5.0":
   "integrity" "sha512-xzykSLfoURec5qvQJcfifw/1mJa+5UwByZZ5TZ8iaqjGYN0vomhV9aiSLeYdUGtYRESZ+DYC/OzY+4RclZYgMg=="
   "resolved" "https://registry.npmjs.org/@turf/distance/-/distance-6.5.0.tgz"
   "version" "6.5.0"
@@ -818,62 +815,57 @@
     "@turf/helpers" "^6.5.0"
     "@turf/invariant" "^6.5.0"
 
-"@turf/ellipse@^5.1.5", "@turf/ellipse@5.1.x":
-  "integrity" "sha512-oVTzEyDOi3d9isgB7Ah+YiOoUKB1eHMtMDXVl1oT+vC/T+6KR2aq+HjjbF11A0cjuh3VhjSWUZaS+2TYY0pu0w=="
-  "resolved" "https://registry.npmjs.org/@turf/ellipse/-/ellipse-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/ellipse@^6.5.0":
+  "integrity" "sha512-kuXtwFviw/JqnyJXF1mrR/cb496zDTSbGKtSiolWMNImYzGGkbsAsFTjwJYgD7+4FixHjp0uQPzo70KDf3AIBw=="
+  "resolved" "https://registry.npmjs.org/@turf/ellipse/-/ellipse-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/rhumb-destination" "^5.1.5"
-    "@turf/transform-rotate" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/rhumb-destination" "^6.5.0"
+    "@turf/transform-rotate" "^6.5.0"
 
-"@turf/envelope@^5.1.5", "@turf/envelope@5.1.x":
-  "integrity" "sha512-Mxl5A2euAxq3RZVN65/MVyaO91kzGU8MJXfegPdep6SN4bONDadEp0olwW5qSRf2U3cJ8Jppl089X6AeifD3IA=="
-  "resolved" "https://registry.npmjs.org/@turf/envelope/-/envelope-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/envelope@^6.5.0":
+  "integrity" "sha512-9Z+FnBWvOGOU4X+fMZxYFs1HjFlkKqsddLuMknRaqcJd6t+NIv5DWvPtDL8ATD2GEExYDiFLwMdckfr1yqJgHA=="
+  "resolved" "https://registry.npmjs.org/@turf/envelope/-/envelope-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/bbox-polygon" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
+    "@turf/bbox" "^6.5.0"
+    "@turf/bbox-polygon" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
 
-"@turf/explode@^5.1.5", "@turf/explode@5.1.x":
-  "integrity" "sha512-v/hC9DB9RKRW9/ZjnKoQelIp08JNa5wew0889465s//tfgY8+JEGkSGMag2L2NnVARWmzI/vlLgMK36qwkyDIA=="
-  "resolved" "https://registry.npmjs.org/@turf/explode/-/explode-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/explode@^6.5.0":
+  "integrity" "sha512-6cSvMrnHm2qAsace6pw9cDmK2buAlw8+tjeJVXMfMyY+w7ZUi1rprWMsY92J7s2Dar63Bv09n56/1V7+tcj52Q=="
+  "resolved" "https://registry.npmjs.org/@turf/explode/-/explode-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/flatten@5.1.x":
-  "integrity" "sha512-aagHz5tjHmOtb8eMb5fd10+HJwdlhkhsPql1vRXQNnpv0Q9xL/4SsbvXZ6lPqkRAjiZuy087mvaz+ERml76/jg=="
-  "resolved" "https://registry.npmjs.org/@turf/flatten/-/flatten-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/flatten@^6.5.0":
+  "integrity" "sha512-IBZVwoNLVNT6U/bcUUllubgElzpMsNoCw8tLqBw6dfYg9ObGmpEjf9BIYLr7a2Yn5ZR4l7YIj2T7kD5uJjZADQ=="
+  "resolved" "https://registry.npmjs.org/@turf/flatten/-/flatten-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/flip@5.1.x":
-  "integrity" "sha512-7+IYM3QQAkV4co3wjEmM726/OkXqUCCHWWyIqrI9hiK+LR628qkoqP1hk6rQ4vZJrAYuvSlK+FZnr24OtgY0cw=="
-  "resolved" "https://registry.npmjs.org/@turf/flip/-/flip-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/flip@^6.5.0":
+  "integrity" "sha512-oyikJFNjt2LmIXQqgOGLvt70RgE2lyzPMloYWM7OR5oIFGRiBvqVD2hA6MNw6JewIm30fWZ8DQJw1NHXJTJPbg=="
+  "resolved" "https://registry.npmjs.org/@turf/flip/-/flip-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/clone" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/great-circle@5.1.x":
-  "integrity" "sha512-k6FWwlt+YCQoD5VS1NybQjriNL7apYHO+tm2HbIFQ85blPUX4IyLppHIFevfD/k+K2bJqhFCze8JNVMBwdrzVw=="
-  "resolved" "https://registry.npmjs.org/@turf/great-circle/-/great-circle-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/great-circle@^6.5.0":
+  "integrity" "sha512-7ovyi3HaKOXdFyN7yy1yOMa8IyOvV46RC1QOQTT+RYUN8ke10eyqExwBpL9RFUPvlpoTzoYbM/+lWPogQlFncg=="
+  "resolved" "https://registry.npmjs.org/@turf/great-circle/-/great-circle-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-
-"@turf/helpers@*", "@turf/helpers@^5.1.5", "@turf/helpers@5.1.x":
-  "integrity" "sha512-/lF+JR+qNDHZ8bF9d+Cp58nxtZWJ3sqFe6n3u3Vpj+/0cqkjk4nXKYBSY0azm+GIYB5mWKxUXvuP/m0ZnKj1bw=="
-  "resolved" "https://registry.npmjs.org/@turf/helpers/-/helpers-5.1.5.tgz"
-  "version" "5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
 "@turf/helpers@^4.7.3":
   "integrity" "sha512-hk5ANVazb80zK6tjJYAG76oCRTWMQo6SAFu5E1dVnlb2kT3FHLoPcOB9P11duwDafMwywz24KZ+FUorB5e728w=="
@@ -885,224 +877,209 @@
   "resolved" "https://registry.npmjs.org/@turf/helpers/-/helpers-6.5.0.tgz"
   "version" "6.5.0"
 
-"@turf/hex-grid@^5.1.5", "@turf/hex-grid@5.1.x":
-  "integrity" "sha512-rwDL+DlUyxDNL1aVHIKKCmrt1131ZULF3irExYIO/um6/SwRzsBw+522/RcxD/mg/Shtrpozb6bz8aJJ/3RXHA=="
-  "resolved" "https://registry.npmjs.org/@turf/hex-grid/-/hex-grid-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/hex-grid@^6.5.0":
+  "integrity" "sha512-Ln3tc2tgZT8etDOldgc6e741Smg1CsMKAz1/Mlel+MEL5Ynv2mhx3m0q4J9IB1F3a4MNjDeVvm8drAaf9SF33g=="
+  "resolved" "https://registry.npmjs.org/@turf/hex-grid/-/hex-grid-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/intersect" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/intersect" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/interpolate@5.1.x":
-  "integrity" "sha512-LfmvtIUWc3NVkqPkX6j3CAIjF7y1LAZqfDd+2Ii+0fN7XOOGMWcb1uiTTAb8zDQjhTsygcUYgaz6mMYDCWYKPg=="
-  "resolved" "https://registry.npmjs.org/@turf/interpolate/-/interpolate-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/interpolate@^6.5.0":
+  "integrity" "sha512-LSH5fMeiGyuDZ4WrDJNgh81d2DnNDUVJtuFryJFup8PV8jbs46lQGfI3r1DJ2p1IlEJIz3pmAZYeTfMMoeeohw=="
+  "resolved" "https://registry.npmjs.org/@turf/interpolate/-/interpolate-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/centroid" "^5.1.5"
-    "@turf/clone" "^5.1.5"
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/hex-grid" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "@turf/point-grid" "^5.1.5"
-    "@turf/square-grid" "^5.1.5"
-    "@turf/triangle-grid" "^5.1.5"
+    "@turf/bbox" "^6.5.0"
+    "@turf/centroid" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/hex-grid" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/point-grid" "^6.5.0"
+    "@turf/square-grid" "^6.5.0"
+    "@turf/triangle-grid" "^6.5.0"
 
-"@turf/intersect@^5.1.5", "@turf/intersect@5.1.x":
-  "integrity" "sha512-KXyNv/GXdoGAOy03qZF53rgtXC2tNhF/4jLwTKiVRrBQH6kcEpipGStdJ+QkYIlarQPa8f7I9UlVAB19et4MfQ=="
-  "resolved" "https://registry.npmjs.org/@turf/intersect/-/intersect-5.1.6.tgz"
-  "version" "5.1.6"
+"@turf/intersect@^6.5.0":
+  "integrity" "sha512-2legGJeKrfFkzntcd4GouPugoqPUjexPZnOvfez+3SfIMrHvulw8qV8u7pfVyn2Yqs53yoVCEjS5sEpvQ5YRQg=="
+  "resolved" "https://registry.npmjs.org/@turf/intersect/-/intersect-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/clean-coords" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/truncate" "^5.1.5"
-    "turf-jsts" "*"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "polygon-clipping" "^0.15.3"
 
 "@turf/invariant@^4.7.3":
   "integrity" "sha512-MtlIn9aPC4gZsflLEnfBl/o/SJjZU/yuvj+fo9qRXUOI8wBiKaUcZIT4x1jdLW0NGvU7wMPWJSFJanLCQ9eU1w=="
   "resolved" "https://registry.npmjs.org/@turf/invariant/-/invariant-4.7.3.tgz"
   "version" "4.7.3"
 
-"@turf/invariant@^5.1.5", "@turf/invariant@5.1.x":
-  "integrity" "sha512-4elbC8GVQ8XxrnWLWpFFXTK3qnzIYzIVtSkJrY9eefA8WNZzwcwT3WGFY3xte4BB48o5oEjihjoJharWRis78w=="
-  "resolved" "https://registry.npmjs.org/@turf/invariant/-/invariant-5.1.5.tgz"
-  "version" "5.1.5"
-  dependencies:
-    "@turf/helpers" "^5.1.5"
-
-"@turf/invariant@^6.5.0", "@turf/invariant@6.x":
+"@turf/invariant@^6.5.0":
   "integrity" "sha512-Wv8PRNCtPD31UVbdJE/KVAWKe7l6US+lJItRR/HOEW3eh+U/JwRCSUl/KZ7bmjM/C+zLNoreM2TU6OoLACs4eg=="
   "resolved" "https://registry.npmjs.org/@turf/invariant/-/invariant-6.5.0.tgz"
   "version" "6.5.0"
   dependencies:
     "@turf/helpers" "^6.5.0"
 
-"@turf/isobands@5.1.x":
-  "integrity" "sha512-0n3NPfDYQyqjOch00I4hVCCqjKn9Sm+a8qlWOKbkuhmGa9dCDzsu2bZL0ahT+LjwlS4c8/owQXqe6KE2GWqT1Q=="
-  "resolved" "https://registry.npmjs.org/@turf/isobands/-/isobands-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/isobands@^6.5.0":
+  "integrity" "sha512-4h6sjBPhRwMVuFaVBv70YB7eGz+iw0bhPRnp+8JBdX1UPJSXhoi/ZF2rACemRUr0HkdVB/a1r9gC32vn5IAEkw=="
+  "resolved" "https://registry.npmjs.org/@turf/isobands/-/isobands-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/area" "^5.1.5"
-    "@turf/bbox" "^5.1.5"
-    "@turf/boolean-point-in-polygon" "^5.1.5"
-    "@turf/explode" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/area" "^6.5.0"
+    "@turf/bbox" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/explode" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "object-assign" "*"
 
-"@turf/isolines@5.1.x":
-  "integrity" "sha512-Ehn5pJmiq4hAn2+2jPB2rLt3iF8DDp8zciw9z2pAt5IGVRU/K+x3z4aYG5ra5vbFB/E4G3aHr/X4QPIb9LCJtA=="
-  "resolved" "https://registry.npmjs.org/@turf/isolines/-/isolines-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/isolines@^6.5.0":
+  "integrity" "sha512-6ElhiLCopxWlv4tPoxiCzASWt/jMRvmp6mRYrpzOm3EUl75OhHKa/Pu6Y9nWtCMmVC/RcWtiiweUocbPLZLm0A=="
+  "resolved" "https://registry.npmjs.org/@turf/isolines/-/isolines-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/bbox" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "object-assign" "*"
 
-"@turf/kinks@5.1.x":
-  "integrity" "sha512-G38sC8/+MYqQpVocT3XahhV42cqEAVJAZwUND9YOfKJZfjUn7FKmWhPURs5py95me48UuI0C0jLLAMzBkUc2nQ=="
-  "resolved" "https://registry.npmjs.org/@turf/kinks/-/kinks-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/kinks@^6.5.0":
+  "integrity" "sha512-ViCngdPt1eEL7hYUHR2eHR662GvCgTc35ZJFaNR6kRtr6D8plLaDju0FILeFFWSc+o8e3fwxZEJKmFj9IzPiIQ=="
+  "resolved" "https://registry.npmjs.org/@turf/kinks/-/kinks-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
 
-"@turf/length@^5.1.5", "@turf/length@5.1.x":
-  "integrity" "sha512-0ryx68h512wCoNfwyksLdabxEfwkGNTPg61/QiY+QfGFUOUNhHbP+QimViFpwF5hyX7qmroaSHVclLUqyLGRbg=="
-  "resolved" "https://registry.npmjs.org/@turf/length/-/length-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/length@^6.5.0":
+  "integrity" "sha512-5pL5/pnw52fck3oRsHDcSGrj9HibvtlrZ0QNy2OcW8qBFDNgZ4jtl6U7eATVoyWPKBHszW3dWETW+iLV7UARig=="
+  "resolved" "https://registry.npmjs.org/@turf/length/-/length-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/line-arc@^5.1.5", "@turf/line-arc@5.1.x":
-  "integrity" "sha512-Kz5RX/qRIHVrGNqF3BRlD3ACuuCr0G5lpaVyPjNvN+vA7Q4bEDyWIYeqm3DdTn7X2MXitpTNgr2uvX4WoUy4yA=="
-  "resolved" "https://registry.npmjs.org/@turf/line-arc/-/line-arc-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/line-arc@^6.5.0":
+  "integrity" "sha512-I6c+V6mIyEwbtg9P9zSFF89T7QPe1DPTG3MJJ6Cm1MrAY0MdejwQKOpsvNl8LDU2ekHOlz2kHpPVR7VJsoMllA=="
+  "resolved" "https://registry.npmjs.org/@turf/line-arc/-/line-arc-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/circle" "^5.1.5"
-    "@turf/destination" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
+    "@turf/circle" "^6.5.0"
+    "@turf/destination" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
 
-"@turf/line-chunk@5.1.x":
-  "integrity" "sha512-mKvTUMahnb3EsYUMI8tQmygsliQkgQ1FZAY915zoTrm+WV246loa+84+h7i5d8W2O8gGJWuY7jQTpM7toTeL5w=="
-  "resolved" "https://registry.npmjs.org/@turf/line-chunk/-/line-chunk-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/line-chunk@^6.5.0":
+  "integrity" "sha512-i1FGE6YJaaYa+IJesTfyRRQZP31QouS+wh/pa6O3CC0q4T7LtHigyBSYjrbjSLfn2EVPYGlPCMFEqNWCOkC6zg=="
+  "resolved" "https://registry.npmjs.org/@turf/line-chunk/-/line-chunk-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/length" "^5.1.5"
-    "@turf/line-slice-along" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/length" "^6.5.0"
+    "@turf/line-slice-along" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/line-intersect@^5.1.5", "@turf/line-intersect@5.1.x":
-  "integrity" "sha512-9DajJbHhJauLI2qVMnqZ7SeFsinFroVICOSUheODk7j5teuwNABuZ2Z6WmKATzEsPkEJ1iVykqB+F9vGMVKB6g=="
-  "resolved" "https://registry.npmjs.org/@turf/line-intersect/-/line-intersect-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/line-intersect@^6.5.0":
+  "integrity" "sha512-CS6R1tZvVQD390G9Ea4pmpM6mJGPWoL82jD46y0q1KSor9s6HupMIo1kY4Ny+AEYQl9jd21V3Scz20eldpbTVA=="
+  "resolved" "https://registry.npmjs.org/@turf/line-intersect/-/line-intersect-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/line-segment" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "geojson-rbush" "2.1.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/line-segment" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "geojson-rbush" "3.x"
 
-"@turf/line-offset@5.1.x":
-  "integrity" "sha512-VccGDgFfBSiCTqrHdQgxD7Rs9lnJmDOJ5gqQRculKPsCNUyRFMYIZud7l2dTs83g66evfOwkZCrTxtSoBY3Jxg=="
-  "resolved" "https://registry.npmjs.org/@turf/line-offset/-/line-offset-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/line-offset@^6.5.0":
+  "integrity" "sha512-CEXZbKgyz8r72qRvPchK0dxqsq8IQBdH275FE6o4MrBkzMcoZsfSjghtXzKaz9vvro+HfIXal0sTk2mqV1lQTw=="
+  "resolved" "https://registry.npmjs.org/@turf/line-offset/-/line-offset-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/line-overlap@^5.1.5", "@turf/line-overlap@5.1.x":
-  "integrity" "sha512-hMz3XARXEbfGwLF9WXyErqQjzhZYMKvGQwlPGOoth+2o9Uga9mfWfevduJvozJAE1MKxtFttMjIXMzcShW3O8A=="
-  "resolved" "https://registry.npmjs.org/@turf/line-overlap/-/line-overlap-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/line-overlap@^6.5.0":
+  "integrity" "sha512-xHOaWLd0hkaC/1OLcStCpfq55lPHpPNadZySDXYiYjEz5HXr1oKmtMYpn0wGizsLwrOixRdEp+j7bL8dPt4ojQ=="
+  "resolved" "https://registry.npmjs.org/@turf/line-overlap/-/line-overlap-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/boolean-point-on-line" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/line-segment" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "@turf/nearest-point-on-line" "^5.1.5"
-    "geojson-rbush" "2.1.0"
+    "@turf/boolean-point-on-line" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/line-segment" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/nearest-point-on-line" "^6.5.0"
+    "deep-equal" "1.x"
+    "geojson-rbush" "3.x"
 
-"@turf/line-segment@^5.1.5", "@turf/line-segment@5.1.x":
-  "integrity" "sha512-wIrRtWuLuLXhnSkqdVG1SDayTU0/CmZf+a+BBhEf0vFIsAedJnrY3a2cbCEvtfuk6ZsAbhOi7/kYiaR/F+rEzg=="
-  "resolved" "https://registry.npmjs.org/@turf/line-segment/-/line-segment-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/line-segment@^6.5.0":
+  "integrity" "sha512-jI625Ho4jSuJESNq66Mmi290ZJ5pPZiQZruPVpmHkUw257Pew0alMmb6YrqYNnLUuiVVONxAAKXUVeeUGtycfw=="
+  "resolved" "https://registry.npmjs.org/@turf/line-segment/-/line-segment-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/line-slice-along@^5.1.5", "@turf/line-slice-along@5.1.x":
-  "integrity" "sha512-yKvSDtULztLtlPIMowm9l8pS6XLAEpCPmrARZA0sIWFX8XrcSzISBaXZbiMMzg3nxQJMXfGIgWDk10B7+J8Tqw=="
-  "resolved" "https://registry.npmjs.org/@turf/line-slice-along/-/line-slice-along-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/line-slice-along@^6.5.0":
+  "integrity" "sha512-KHJRU6KpHrAj+BTgTNqby6VCTnDzG6a1sJx/I3hNvqMBLvWVA2IrkR9L9DtsQsVY63IBwVdQDqiwCuZLDQh4Ng=="
+  "resolved" "https://registry.npmjs.org/@turf/line-slice-along/-/line-slice-along-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bearing" "^5.1.5"
-    "@turf/destination" "^5.1.5"
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
+    "@turf/bearing" "^6.5.0"
+    "@turf/destination" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
 
-"@turf/line-slice@5.1.x":
-  "integrity" "sha512-Fo+CuD+fj6T702BofHO+rgiXUgzCk0iO2JqMPtttMtgzfKkVTUOQoauMNS1LNNaG/7n/TfKGh5gRCEDRNaNwYA=="
-  "resolved" "https://registry.npmjs.org/@turf/line-slice/-/line-slice-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/line-slice@^6.5.0":
+  "integrity" "sha512-vDqJxve9tBHhOaVVFXqVjF5qDzGtKWviyjbyi2QnSnxyFAmLlLnBfMX8TLQCAf2GxHibB95RO5FBE6I2KVPRuw=="
+  "resolved" "https://registry.npmjs.org/@turf/line-slice/-/line-slice-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/nearest-point-on-line" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/nearest-point-on-line" "^6.5.0"
 
-"@turf/line-split@5.1.x":
-  "integrity" "sha512-gtUUBwZL3hcSu5MpqHTl68hgAJBNHcr1APDj8E5o6iX5xFX+wvl4ohQXyMs5HOATCI8Iy83wLuggcY6maNw7LQ=="
-  "resolved" "https://registry.npmjs.org/@turf/line-split/-/line-split-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/line-split@^6.5.0":
+  "integrity" "sha512-/rwUMVr9OI2ccJjw7/6eTN53URtGThNSD5I0GgxyFXMtxWiloRJ9MTff8jBbtPWrRka/Sh2GkwucVRAEakx9Sw=="
+  "resolved" "https://registry.npmjs.org/@turf/line-split/-/line-split-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/line-intersect" "^5.1.5"
-    "@turf/line-segment" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "@turf/nearest-point-on-line" "^5.1.5"
-    "@turf/square" "^5.1.5"
-    "@turf/truncate" "^5.1.5"
-    "geojson-rbush" "2.1.0"
+    "@turf/bbox" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/line-intersect" "^6.5.0"
+    "@turf/line-segment" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/nearest-point-on-line" "^6.5.0"
+    "@turf/square" "^6.5.0"
+    "@turf/truncate" "^6.5.0"
+    "geojson-rbush" "3.x"
 
-"@turf/line-to-polygon@5.1.x":
-  "integrity" "sha512-hGiDAPd6j986kZZLDgEAkVD7O6DmIqHQliBedspoKperPJOUJJzdzSnF6OAWSsxY+j8fWtQnIo5TTqdO/KfamA=="
-  "resolved" "https://registry.npmjs.org/@turf/line-to-polygon/-/line-to-polygon-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/line-to-polygon@^6.5.0":
+  "integrity" "sha512-qYBuRCJJL8Gx27OwCD1TMijM/9XjRgXH/m/TyuND4OXedBpIWlK5VbTIO2gJ8OCfznBBddpjiObLBrkuxTpN4Q=="
+  "resolved" "https://registry.npmjs.org/@turf/line-to-polygon/-/line-to-polygon-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/bbox" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/mask@5.1.x":
-  "integrity" "sha512-2eOuxA3ammZAGsjlsy/H7IpeJxjl3hrgkcKM6kTKRJGft4QyKwCxqQP7RN5j0zIYvAurgs9JOLe/dpd5sE5HXQ=="
-  "resolved" "https://registry.npmjs.org/@turf/mask/-/mask-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/mask@^6.5.0":
+  "integrity" "sha512-RQha4aU8LpBrmrkH8CPaaoAfk0Egj5OuXtv6HuCQnHeGNOQt3TQVibTA3Sh4iduq4EPxnZfDjgsOeKtrCA19lg=="
+  "resolved" "https://registry.npmjs.org/@turf/mask/-/mask-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "@turf/union" "^5.1.5"
-    "rbush" "^2.0.1"
-
-"@turf/meta@*", "@turf/meta@^5.1.5", "@turf/meta@5.1.x":
-  "integrity" "sha512-lv+6LCgoc3LVitQZ4TScN/8a/fcctq8bIoxBTMJVq4aU8xoHeY1851Dq8MCU37EzbH33utkx8/jENaQP+aeElg=="
-  "resolved" "https://registry.npmjs.org/@turf/meta/-/meta-5.1.6.tgz"
-  "version" "5.1.6"
-  dependencies:
-    "@turf/helpers" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "polygon-clipping" "^0.15.3"
 
 "@turf/meta@^4.7.3":
   "integrity" "sha512-cvwz4EI9BjrgRHxmJ3Z3HKxq6k/fj/V95kwNZ8uWNLncCvrb7x1jUBDkQUo1tShnYdZ8eBgA+a2bvJmAM+MJ0A=="
@@ -1116,139 +1093,151 @@
   dependencies:
     "@turf/helpers" "^6.5.0"
 
-"@turf/midpoint@5.1.x":
-  "integrity" "sha512-0pDQAKHyK/zxlvUx3XNxwvqftf4sV32QxnHfqSs4AXaODUGUbPhzAD7aXgDScBeUOVLwpAzFRQfitUvUMTGC6A=="
-  "resolved" "https://registry.npmjs.org/@turf/midpoint/-/midpoint-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/midpoint@^6.5.0":
+  "integrity" "sha512-MyTzV44IwmVI6ec9fB2OgZ53JGNlgOpaYl9ArKoF49rXpL84F9rNATndbe0+MQIhdkw8IlzA6xVP4lZzfMNVCw=="
+  "resolved" "https://registry.npmjs.org/@turf/midpoint/-/midpoint-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bearing" "^5.1.5"
-    "@turf/destination" "^5.1.5"
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
+    "@turf/bearing" "^6.5.0"
+    "@turf/destination" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
 
-"@turf/nearest-point-on-line@^5.1.5", "@turf/nearest-point-on-line@5.1.x":
-  "integrity" "sha512-qT7BLTwToo8cq0oNoz921oLlRPJamyRg/rZgll+kNBadyDPmJI4W66riHcpM9RQcAJ6TPvDveIIBeGJH7iG88w=="
-  "resolved" "https://registry.npmjs.org/@turf/nearest-point-on-line/-/nearest-point-on-line-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/moran-index@^6.5.0":
+  "integrity" "sha512-ItsnhrU2XYtTtTudrM8so4afBCYWNaB0Mfy28NZwLjB5jWuAsvyV+YW+J88+neK/ougKMTawkmjQqodNJaBeLQ=="
+  "resolved" "https://registry.npmjs.org/@turf/moran-index/-/moran-index-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bearing" "^5.1.5"
-    "@turf/destination" "^5.1.5"
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/line-intersect" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/distance-weight" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/nearest-point-to-line@5.1.x":
-  "integrity" "sha512-ZSvDIEiHhifn/vNwLXZI/E8xmEz5yBPqfUR7BVHRZrB1cP7jLhKZvkbidjG//uW8Fr1Ulc+PFOXczLspIcx/lw=="
-  "resolved" "https://registry.npmjs.org/@turf/nearest-point-to-line/-/nearest-point-to-line-5.1.6.tgz"
-  "version" "5.1.6"
+"@turf/nearest-point-on-line@^6.5.0":
+  "integrity" "sha512-WthrvddddvmymnC+Vf7BrkHGbDOUu6Z3/6bFYUGv1kxw8tiZ6n83/VG6kHz4poHOfS0RaNflzXSkmCi64fLBlg=="
+  "resolved" "https://registry.npmjs.org/@turf/nearest-point-on-line/-/nearest-point-on-line-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "6.x"
-    "@turf/invariant" "6.x"
-    "@turf/meta" "6.x"
-    "@turf/point-to-line-distance" "^5.1.5"
+    "@turf/bearing" "^6.5.0"
+    "@turf/destination" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/line-intersect" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/nearest-point-to-line@^6.5.0":
+  "integrity" "sha512-PXV7cN0BVzUZdjj6oeb/ESnzXSfWmEMrsfZSDRgqyZ9ytdiIj/eRsnOXLR13LkTdXVOJYDBuf7xt1mLhM4p6+Q=="
+  "resolved" "https://registry.npmjs.org/@turf/nearest-point-to-line/-/nearest-point-to-line-6.5.0.tgz"
+  "version" "6.5.0"
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/point-to-line-distance" "^6.5.0"
     "object-assign" "*"
 
-"@turf/nearest-point@^5.1.5", "@turf/nearest-point@5.1.x":
-  "integrity" "sha512-tZQXI7OE7keNKK4OvYOJ5gervCEuu2pJ6psu59QW9yhe2Di3Gl+HAdLvVa6RZ8s5Fndr3u0JWKsmxve3fCxc9g=="
-  "resolved" "https://registry.npmjs.org/@turf/nearest-point/-/nearest-point-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/nearest-point@^6.5.0":
+  "integrity" "sha512-fguV09QxilZv/p94s8SMsXILIAMiaXI5PATq9d7YWijLxWUj6Q/r43kxyoi78Zmwwh1Zfqz9w+bCYUAxZ5+euA=="
+  "resolved" "https://registry.npmjs.org/@turf/nearest-point/-/nearest-point-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/clone" "^5.1.5"
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/clone" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/planepoint@5.1.x":
-  "integrity" "sha512-+Tp+SQ0Db2tqwLbxfXJPysT9IxcOHSMIin2dJb/j3Qn5+g0LRus6rczZl6dWNAIjqBPMawj/V/dZhMu6Q9O9wA=="
-  "resolved" "https://registry.npmjs.org/@turf/planepoint/-/planepoint-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/planepoint@^6.5.0":
+  "integrity" "sha512-R3AahA6DUvtFbka1kcJHqZ7DMHmPXDEQpbU5WaglNn7NaCQg9HB0XM0ZfqWcd5u92YXV+Gg8QhC8x5XojfcM4Q=="
+  "resolved" "https://registry.npmjs.org/@turf/planepoint/-/planepoint-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/point-grid@^5.1.5", "@turf/point-grid@5.1.x":
-  "integrity" "sha512-4ibozguP9YJ297Q7i9e8/ypGSycvt1re2jrPXTxeuZ4/L/NE5B1nOBLG+tw121nMjD+S+v2RWOtqD+FZ3Ga+ew=="
-  "resolved" "https://registry.npmjs.org/@turf/point-grid/-/point-grid-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/point-grid@^6.5.0":
+  "integrity" "sha512-Iq38lFokNNtQJnOj/RBKmyt6dlof0yhaHEDELaWHuECm1lIZLY3ZbVMwbs+nXkwTAHjKfS/OtMheUBkw+ee49w=="
+  "resolved" "https://registry.npmjs.org/@turf/point-grid/-/point-grid-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/boolean-within" "^5.1.5"
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/boolean-within" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/point-on-feature@5.1.x":
-  "integrity" "sha512-NTcpe5xZjybRh0aTL+7td1cm0s49GGbAt5u8Cdec4W9ix2PsehRcLUbmQIQsODN2kiVyUSpnhECIpsyN5MjX7A=="
-  "resolved" "https://registry.npmjs.org/@turf/point-on-feature/-/point-on-feature-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/point-on-feature@^6.5.0":
+  "integrity" "sha512-bDpuIlvugJhfcF/0awAQ+QI6Om1Y1FFYE8Y/YdxGRongivix850dTeXCo0mDylFdWFPGDo7Mmh9Vo4VxNwW/TA=="
+  "resolved" "https://registry.npmjs.org/@turf/point-on-feature/-/point-on-feature-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/boolean-point-in-polygon" "^5.1.5"
-    "@turf/center" "^5.1.5"
-    "@turf/explode" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/nearest-point" "^5.1.5"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/center" "^6.5.0"
+    "@turf/explode" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/nearest-point" "^6.5.0"
 
-"@turf/point-to-line-distance@^5.1.5", "@turf/point-to-line-distance@5.1.x":
-  "integrity" "sha512-PE3hiTeeDEi4ZLPtI8XAzFYW9nHo1EVsZGm/4ZVV8jo39d3X1oLVHxY3e1PkCmWwRapXy4QLqvnTQ7nU4wspNw=="
-  "resolved" "https://registry.npmjs.org/@turf/point-to-line-distance/-/point-to-line-distance-5.1.6.tgz"
-  "version" "5.1.6"
+"@turf/point-to-line-distance@^6.5.0":
+  "integrity" "sha512-opHVQ4vjUhNBly1bob6RWy+F+hsZDH9SA0UW36pIRzfpu27qipU18xup0XXEePfY6+wvhF6yL/WgCO2IbrLqEA=="
+  "resolved" "https://registry.npmjs.org/@turf/point-to-line-distance/-/point-to-line-distance-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bearing" "6.x"
-    "@turf/distance" "6.x"
-    "@turf/helpers" "6.x"
-    "@turf/invariant" "6.x"
-    "@turf/meta" "6.x"
-    "@turf/projection" "6.x"
-    "@turf/rhumb-bearing" "6.x"
-    "@turf/rhumb-distance" "6.x"
+    "@turf/bearing" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/projection" "^6.5.0"
+    "@turf/rhumb-bearing" "^6.5.0"
+    "@turf/rhumb-distance" "^6.5.0"
 
-"@turf/points-within-polygon@^5.1.5", "@turf/points-within-polygon@5.1.x":
-  "integrity" "sha512-nexe2AHVOY8wEBvs+CYSOp10NyOCkyZ1gkhIfsx0mzU8LPYBxD9ctjlKveheKh4AAldLcFupd/gSCBTKF1JS7A=="
-  "resolved" "https://registry.npmjs.org/@turf/points-within-polygon/-/points-within-polygon-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/points-within-polygon@^6.5.0":
+  "integrity" "sha512-YyuheKqjliDsBDt3Ho73QVZk1VXX1+zIA2gwWvuz8bR1HXOkcuwk/1J76HuFMOQI3WK78wyAi+xbkx268PkQzQ=="
+  "resolved" "https://registry.npmjs.org/@turf/points-within-polygon/-/points-within-polygon-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/boolean-point-in-polygon" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/polygon-tangents@5.1.x":
-  "integrity" "sha512-uoZfKvFhl6rf0+CDWucru9fZ4mJB5Nsg37TS/7emrzjoVxXyOdxc/s1HFCjcKflMue7MjU/gT6AitJyrvdztDg=="
-  "resolved" "https://registry.npmjs.org/@turf/polygon-tangents/-/polygon-tangents-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/polygon-smooth@^6.5.0":
+  "integrity" "sha512-LO/X/5hfh/Rk4EfkDBpLlVwt3i6IXdtQccDT9rMjXEP32tRgy0VMFmdkNaXoGlSSKf/1mGqLl4y4wHd86DqKbg=="
+  "resolved" "https://registry.npmjs.org/@turf/polygon-smooth/-/polygon-smooth-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/polygon-to-line@^5.1.5", "@turf/polygon-to-line@5.1.x":
-  "integrity" "sha512-kVo0owPqyccy5+qZGvaxGvMsYkgueKE2OOgX2UV/HyrXF3uI3TomK1txjApqeFsLvwuSANxesvVbYLrYiIwvGw=="
-  "resolved" "https://registry.npmjs.org/@turf/polygon-to-line/-/polygon-to-line-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/polygon-tangents@^6.5.0":
+  "integrity" "sha512-sB4/IUqJMYRQH9jVBwqS/XDitkEfbyqRy+EH/cMRJURTg78eHunvJ708x5r6umXsbiUyQU4eqgPzEylWEQiunw=="
+  "resolved" "https://registry.npmjs.org/@turf/polygon-tangents/-/polygon-tangents-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/bbox" "^6.5.0"
+    "@turf/boolean-within" "^6.5.0"
+    "@turf/explode" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/nearest-point" "^6.5.0"
 
-"@turf/polygonize@5.1.x":
-  "integrity" "sha512-qzhtuzoOhldqZHm+ZPsWAs9nDpnkcDfsr+I0twmBF+wjAmo0HKiy9++sRQ4kEePpdwbMpF07D/NdZqYdmOJkGQ=="
-  "resolved" "https://registry.npmjs.org/@turf/polygonize/-/polygonize-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/polygon-to-line@^6.5.0":
+  "integrity" "sha512-5p4n/ij97EIttAq+ewSnKt0ruvuM+LIDzuczSzuHTpq4oS7Oq8yqg5TQ4nzMVuK41r/tALCk7nAoBuw3Su4Gcw=="
+  "resolved" "https://registry.npmjs.org/@turf/polygon-to-line/-/polygon-to-line-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/boolean-point-in-polygon" "^5.1.5"
-    "@turf/envelope" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/projection@^5.1.5", "@turf/projection@5.1.x":
-  "integrity" "sha512-TWKJDFeEKQhI4Ce1+2PuOSDggn4cnMibqyUoCpIW+4KxUC1R88SE3/SYomqzwxMn00O09glHSycPkGD5JzHd8A=="
-  "resolved" "https://registry.npmjs.org/@turf/projection/-/projection-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/polygonize@^6.5.0":
+  "integrity" "sha512-a/3GzHRaCyzg7tVYHo43QUChCspa99oK4yPqooVIwTC61npFzdrmnywMv0S+WZjHZwK37BrFJGFrZGf6ocmY5w=="
+  "resolved" "https://registry.npmjs.org/@turf/polygonize/-/polygonize-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/clone" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/envelope" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/projection@6.x":
+"@turf/projection@^6.5.0":
   "integrity" "sha512-/Pgh9mDvQWWu8HRxqpM+tKz8OzgauV+DiOcr3FCjD6ubDnrrmMJlsf6fFJmggw93mtVPrZRL6yyi9aYCQBOIvg=="
   "resolved" "https://registry.npmjs.org/@turf/projection/-/projection-6.5.0.tgz"
   "version" "6.5.0"
@@ -1257,12 +1246,21 @@
     "@turf/helpers" "^6.5.0"
     "@turf/meta" "^6.5.0"
 
-"@turf/random@5.1.x":
-  "integrity" "sha512-oitpBwEb6YXqoUkIAOVMK+vrTPxUi2rqITmtTa/FBHr6J8TDwMWq6bufE3Gmgjxsss50O2ITJunOksxrouWGDQ=="
-  "resolved" "https://registry.npmjs.org/@turf/random/-/random-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/random@^6.5.0":
+  "integrity" "sha512-8Q25gQ/XbA7HJAe+eXp4UhcXM9aOOJFaxZ02+XSNwMvY8gtWSCBLVqRcW4OhqilgZ8PeuQDWgBxeo+BIqqFWFQ=="
+  "resolved" "https://registry.npmjs.org/@turf/random/-/random-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+
+"@turf/rectangle-grid@^6.5.0":
+  "integrity" "sha512-yQZ/1vbW68O2KsSB3OZYK+72aWz/Adnf7m2CMKcC+aq6TwjxZjAvlbCOsNUnMAuldRUVN1ph6RXMG4e9KEvKvg=="
+  "resolved" "https://registry.npmjs.org/@turf/rectangle-grid/-/rectangle-grid-6.5.0.tgz"
+  "version" "6.5.0"
+  dependencies:
+    "@turf/boolean-intersects" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
 
 "@turf/rewind@^6.5.0":
   "integrity" "sha512-IoUAMcHWotBWYwSYuYypw/LlqZmO+wcBpn8ysrBNbazkFNkLf3btSDZMkKJO/bvOzl55imr/Xj4fi3DdsLsbzQ=="
@@ -1275,26 +1273,7 @@
     "@turf/invariant" "^6.5.0"
     "@turf/meta" "^6.5.0"
 
-"@turf/rewind@5.1.x":
-  "integrity" "sha512-Gdem7JXNu+G4hMllQHXRFRihJl3+pNl7qY+l4qhQFxq+hiU1cQoVFnyoleIqWKIrdK/i2YubaSwc3SCM7N5mMw=="
-  "resolved" "https://registry.npmjs.org/@turf/rewind/-/rewind-5.1.5.tgz"
-  "version" "5.1.5"
-  dependencies:
-    "@turf/boolean-clockwise" "^5.1.5"
-    "@turf/clone" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-
-"@turf/rhumb-bearing@^5.1.5", "@turf/rhumb-bearing@5.1.x":
-  "integrity" "sha512-zXTl2khjwf7mx2D1uPo5vgpGgP4sM2VrKDbJNKyulPu4TO4ELt8x7FsKyCBlRTzzQf284t/xnNcZOfUbkkd70g=="
-  "resolved" "https://registry.npmjs.org/@turf/rhumb-bearing/-/rhumb-bearing-5.1.5.tgz"
-  "version" "5.1.5"
-  dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-
-"@turf/rhumb-bearing@6.x":
+"@turf/rhumb-bearing@^6.5.0":
   "integrity" "sha512-jMyqiMRK4hzREjQmnLXmkJ+VTNTx1ii8vuqRwJPcTlKbNWfjDz/5JqJlb5NaFDcdMpftWovkW5GevfnuzHnOYA=="
   "resolved" "https://registry.npmjs.org/@turf/rhumb-bearing/-/rhumb-bearing-6.5.0.tgz"
   "version" "6.5.0"
@@ -1302,23 +1281,15 @@
     "@turf/helpers" "^6.5.0"
     "@turf/invariant" "^6.5.0"
 
-"@turf/rhumb-destination@^5.1.5", "@turf/rhumb-destination@5.1.x":
-  "integrity" "sha512-FdDUCSRfRAfsRmUaWjc76Wk32QYFJ6ckmSt6Ls6nEczO6eg/RgH1atF8CIYwR5ifl0Sk1rQzKiOSbpCyvVwQtw=="
-  "resolved" "https://registry.npmjs.org/@turf/rhumb-destination/-/rhumb-destination-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/rhumb-destination@^6.5.0":
+  "integrity" "sha512-RHNP1Oy+7xTTdRrTt375jOZeHceFbjwohPHlr9Hf68VdHHPMAWgAKqiX2YgSWDcvECVmiGaBKWus1Df+N7eE4Q=="
+  "resolved" "https://registry.npmjs.org/@turf/rhumb-destination/-/rhumb-destination-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/rhumb-distance@^5.1.5", "@turf/rhumb-distance@5.1.x":
-  "integrity" "sha512-AGA/ky5/BJJZtzQqafy2GvJfcUXSzCCrPFp8sDRPSKBoUN4gMBHN15ijDWYYLFoWFFj0urcauVx7chQlHZ/Qfw=="
-  "resolved" "https://registry.npmjs.org/@turf/rhumb-distance/-/rhumb-distance-5.1.5.tgz"
-  "version" "5.1.5"
-  dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-
-"@turf/rhumb-distance@6.x":
+"@turf/rhumb-distance@^6.5.0":
   "integrity" "sha512-oKp8KFE8E4huC2Z1a1KNcFwjVOqa99isxNOwfo4g3SUABQ6NezjKDDrnvC4yI5YZ3/huDjULLBvhed45xdCrzg=="
   "resolved" "https://registry.npmjs.org/@turf/rhumb-distance/-/rhumb-distance-6.5.0.tgz"
   "version" "6.5.0"
@@ -1326,156 +1297,151 @@
     "@turf/helpers" "^6.5.0"
     "@turf/invariant" "^6.5.0"
 
-"@turf/sample@5.1.x":
-  "integrity" "sha512-EJE8yx+5x7rXejTzwBdOKpvT4tOCS0jwYJfycyTVDuLUSh2rETeYdjy7EeJbofnxm9CRPXqWQMPWIBKWxNTjow=="
-  "resolved" "https://registry.npmjs.org/@turf/sample/-/sample-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/sample@^6.5.0":
+  "integrity" "sha512-kSdCwY7el15xQjnXYW520heKUrHwRvnzx8ka4eYxX9NFeOxaFITLW2G7UtXb6LJK8mmPXI8Aexv23F2ERqzGFg=="
+  "resolved" "https://registry.npmjs.org/@turf/sample/-/sample-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
 
-"@turf/sector@5.1.x":
-  "integrity" "sha512-dnWVifL3xWTqPPs8mfbbV9muDimNJtxRk4ogrkOLEDQ9ZZ1ALQMtQdYrg7kI3iC+L+LscV37tl+E8bayWyX8YA=="
-  "resolved" "https://registry.npmjs.org/@turf/sector/-/sector-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/sector@^6.5.0":
+  "integrity" "sha512-cYUOkgCTWqa23SOJBqxoFAc/yGCUsPRdn/ovbRTn1zNTm/Spmk6hVB84LCKOgHqvSF25i0d2kWqpZDzLDdAPbw=="
+  "resolved" "https://registry.npmjs.org/@turf/sector/-/sector-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/circle" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/line-arc" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/circle" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/line-arc" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/shortest-path@5.1.x":
-  "integrity" "sha512-ZGC8kSBj02GKWiI56Z5FNdrZ+fS0xyeOUNrPJWzudAlrv9wKGaRuWoIVRLGBu0j0OuO1HCwggic2c6WV/AhP0A=="
-  "resolved" "https://registry.npmjs.org/@turf/shortest-path/-/shortest-path-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/shortest-path@^6.5.0":
+  "integrity" "sha512-4de5+G7+P4hgSoPwn+SO9QSi9HY5NEV/xRJ+cmoFVRwv2CDsuOPDheHKeuIAhKyeKDvPvPt04XYWbac4insJMg=="
+  "resolved" "https://registry.npmjs.org/@turf/shortest-path/-/shortest-path-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/bbox-polygon" "^5.1.5"
-    "@turf/boolean-point-in-polygon" "^5.1.5"
-    "@turf/clean-coords" "^5.1.5"
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "@turf/transform-scale" "^5.1.5"
+    "@turf/bbox" "^6.5.0"
+    "@turf/bbox-polygon" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/clean-coords" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/transform-scale" "^6.5.0"
 
-"@turf/simplify@5.1.x":
-  "integrity" "sha512-IuBXEYdGSxbDOK3v949ajaPvs6NhjhTCTbKA6mSGuVbwGS7gzAuRiPSG4K/MvCVuQy3PKpkPcUGD+Uvt2Ov2PQ=="
-  "resolved" "https://registry.npmjs.org/@turf/simplify/-/simplify-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/simplify@^6.5.0":
+  "integrity" "sha512-USas3QqffPHUY184dwQdP8qsvcVH/PWBYdXY5am7YTBACaQOMAlf6AKJs9FT8jiO6fQpxfgxuEtwmox+pBtlOg=="
+  "resolved" "https://registry.npmjs.org/@turf/simplify/-/simplify-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/clean-coords" "^5.1.5"
-    "@turf/clone" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/clean-coords" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/square-grid@^5.1.5", "@turf/square-grid@5.1.x":
-  "integrity" "sha512-/pusEL4FmOwNWLcZfIXUyqUe0fOdkfaLO4wLhDlg/ZL1jWr/wZjhVlMU0tQ27kVN6dJTvlzNc9e0JWNw6yt2eQ=="
-  "resolved" "https://registry.npmjs.org/@turf/square-grid/-/square-grid-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/square-grid@^6.5.0":
+  "integrity" "sha512-mlR0ayUdA+L4c9h7p4k3pX6gPWHNGuZkt2c5II1TJRmhLkW2557d6b/Vjfd1z9OVaajb1HinIs1FMSAPXuuUrA=="
+  "resolved" "https://registry.npmjs.org/@turf/square-grid/-/square-grid-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/boolean-contains" "^5.1.5"
-    "@turf/boolean-overlap" "^5.1.5"
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/intersect" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/rectangle-grid" "^6.5.0"
 
-"@turf/square@^5.1.5", "@turf/square@5.1.x":
-  "integrity" "sha512-GgP2le9ksoW6vsVef5wFkjmWQiLPTJvcjGXqmoGWT4oMwDpvTJVQ91RBLs8qQbI4KACCQevz94N69klk3ah30Q=="
-  "resolved" "https://registry.npmjs.org/@turf/square/-/square-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/square@^6.5.0":
+  "integrity" "sha512-BM2UyWDmiuHCadVhHXKIx5CQQbNCpOxB6S/aCNOCLbhCeypKX5Q0Aosc5YcmCJgkwO5BERCC6Ee7NMbNB2vHmQ=="
+  "resolved" "https://registry.npmjs.org/@turf/square/-/square-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
 
-"@turf/standard-deviational-ellipse@5.1.x":
-  "integrity" "sha512-GOaxGKeeJAXV1H3Zz2fjQ5XeSbMKz1OkFRlTDBUipiAawe/9qTCF55L87I2ZPnO80B5BaaIT+AN2n0lMcAklzA=="
-  "resolved" "https://registry.npmjs.org/@turf/standard-deviational-ellipse/-/standard-deviational-ellipse-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/standard-deviational-ellipse@^6.5.0":
+  "integrity" "sha512-02CAlz8POvGPFK2BKK8uHGUk/LXb0MK459JVjKxLC2yJYieOBTqEbjP0qaWhiBhGzIxSMaqe8WxZ0KvqdnstHA=="
+  "resolved" "https://registry.npmjs.org/@turf/standard-deviational-ellipse/-/standard-deviational-ellipse-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/center-mean" "^5.1.5"
-    "@turf/ellipse" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "@turf/points-within-polygon" "^5.1.5"
+    "@turf/center-mean" "^6.5.0"
+    "@turf/ellipse" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/points-within-polygon" "^6.5.0"
 
-"@turf/tag@5.1.x":
-  "integrity" "sha512-XI3QFpva6tEsRnzFe1tJGdAAWlzjnXZPfJ9EKShTxEW8ZgPzm92b2odjiSAt2KuQusK82ltNfdw5Frlna5xGYQ=="
-  "resolved" "https://registry.npmjs.org/@turf/tag/-/tag-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/tag@^6.5.0":
+  "integrity" "sha512-XwlBvrOV38CQsrNfrxvBaAPBQgXMljeU0DV8ExOyGM7/hvuGHJw3y8kKnQ4lmEQcmcrycjDQhP7JqoRv8vFssg=="
+  "resolved" "https://registry.npmjs.org/@turf/tag/-/tag-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/boolean-point-in-polygon" "^5.1.5"
-    "@turf/clone" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/tesselate@5.1.x":
-  "integrity" "sha512-Rs/jAij26bcU4OzvFXkWDase1G3kSwyuuKZPFU0t7OmJu7eQJOR12WOZLGcVxd5oBlklo4xPE4EBQUqpQUsQgg=="
-  "resolved" "https://registry.npmjs.org/@turf/tesselate/-/tesselate-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/tesselate@^6.5.0":
+  "integrity" "sha512-M1HXuyZFCfEIIKkglh/r5L9H3c5QTEsnMBoZOFQiRnGPGmJWcaBissGb7mTFX2+DKE7FNWXh4TDnZlaLABB0dQ=="
+  "resolved" "https://registry.npmjs.org/@turf/tesselate/-/tesselate-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
     "earcut" "^2.0.0"
 
-"@turf/tin@^5.1.5", "@turf/tin@5.1.x":
-  "integrity" "sha512-lDyCTYKoThBIKmkBxBMupqEpFbvTDAYuZIs8qrWnmux2vntSb8OFGi7ZbGPC6apS2hdVwZZae3YB88Tp+Fg+xw=="
-  "resolved" "https://registry.npmjs.org/@turf/tin/-/tin-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/tin@^6.5.0":
+  "integrity" "sha512-YLYikRzKisfwj7+F+Tmyy/LE3d2H7D4kajajIfc9mlik2+esG7IolsX/+oUz1biguDYsG0DUA8kVYXDkobukfg=="
+  "resolved" "https://registry.npmjs.org/@turf/tin/-/tin-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
 
-"@turf/transform-rotate@^5.1.5", "@turf/transform-rotate@5.1.x":
-  "integrity" "sha512-3QKckeHKPXu5O5vEuT+nkszGDI6aknDD06ePb00+6H2oA7MZj7nj+fVQIJLs41MRb76IyKr4n5NvuKZU6idESA=="
-  "resolved" "https://registry.npmjs.org/@turf/transform-rotate/-/transform-rotate-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/transform-rotate@^6.5.0":
+  "integrity" "sha512-A2Ip1v4246ZmpssxpcL0hhiVBEf4L8lGnSPWTgSv5bWBEoya2fa/0SnFX9xJgP40rMP+ZzRaCN37vLHbv1Guag=="
+  "resolved" "https://registry.npmjs.org/@turf/transform-rotate/-/transform-rotate-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/centroid" "^5.1.5"
-    "@turf/clone" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "@turf/rhumb-bearing" "^5.1.5"
-    "@turf/rhumb-destination" "^5.1.5"
-    "@turf/rhumb-distance" "^5.1.5"
+    "@turf/centroid" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/rhumb-bearing" "^6.5.0"
+    "@turf/rhumb-destination" "^6.5.0"
+    "@turf/rhumb-distance" "^6.5.0"
 
-"@turf/transform-scale@^5.1.5", "@turf/transform-scale@5.1.x":
-  "integrity" "sha512-t1fCZX29ONA7DJiqCKA4YZy0+hCzhppWNOZhglBUv9vKHsWCFYZDUKfFInciaypUInsZyvm8eKxxixBVPdPGsw=="
-  "resolved" "https://registry.npmjs.org/@turf/transform-scale/-/transform-scale-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/transform-scale@^6.5.0":
+  "integrity" "sha512-VsATGXC9rYM8qTjbQJ/P7BswKWXHdnSJ35JlV4OsZyHBMxJQHftvmZJsFbOqVtQnIQIzf2OAly6rfzVV9QLr7g=="
+  "resolved" "https://registry.npmjs.org/@turf/transform-scale/-/transform-scale-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/bbox" "^5.1.5"
-    "@turf/center" "^5.1.5"
-    "@turf/centroid" "^5.1.5"
-    "@turf/clone" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "@turf/rhumb-bearing" "^5.1.5"
-    "@turf/rhumb-destination" "^5.1.5"
-    "@turf/rhumb-distance" "^5.1.5"
+    "@turf/bbox" "^6.5.0"
+    "@turf/center" "^6.5.0"
+    "@turf/centroid" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/rhumb-bearing" "^6.5.0"
+    "@turf/rhumb-destination" "^6.5.0"
+    "@turf/rhumb-distance" "^6.5.0"
 
-"@turf/transform-translate@5.1.x":
-  "integrity" "sha512-GdLFp7I7198oRQt311B8EjiqHupndeMSQ3Zclzki5L/niUrb1ptOIpo+mxSidSy03m+1Q5ylWlENroI1WBcQ3Q=="
-  "resolved" "https://registry.npmjs.org/@turf/transform-translate/-/transform-translate-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/transform-translate@^6.5.0":
+  "integrity" "sha512-NABLw5VdtJt/9vSstChp93pc6oel4qXEos56RBMsPlYB8hzNTEKYtC146XJvyF4twJeeYS8RVe1u7KhoFwEM5w=="
+  "resolved" "https://registry.npmjs.org/@turf/transform-translate/-/transform-translate-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/clone" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
-    "@turf/meta" "^5.1.5"
-    "@turf/rhumb-destination" "^5.1.5"
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/rhumb-destination" "^6.5.0"
 
-"@turf/triangle-grid@^5.1.5", "@turf/triangle-grid@5.1.x":
-  "integrity" "sha512-jmCRcynI80xsVqd+0rv0YxP6mvZn4BAaJv8dwthg2T3WfHB9OD+rNUMohMuUY8HmI0zRT3s/Ypdy2Cdri9u/tw=="
-  "resolved" "https://registry.npmjs.org/@turf/triangle-grid/-/triangle-grid-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/triangle-grid@^6.5.0":
+  "integrity" "sha512-2jToUSAS1R1htq4TyLQYPTIsoy6wg3e3BQXjm2rANzw4wPQCXGOxrur1Fy9RtzwqwljlC7DF4tg0OnWr8RjmfA=="
+  "resolved" "https://registry.npmjs.org/@turf/triangle-grid/-/triangle-grid-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/distance" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/intersect" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/intersect" "^6.5.0"
 
 "@turf/truncate@^4.7.3":
   "integrity" "sha512-QVhn747oSOpZCT3JqfeBPsGYKzMCgzL6DygraeZCtOLkb7SNAkmr9dlNrqpgDIc8sQ5/TJR5D9r7Ohqn/xRJcA=="
@@ -1484,146 +1450,152 @@
   dependencies:
     "@turf/meta" "^4.7.3"
 
-"@turf/truncate@^5.1.5", "@turf/truncate@5.1.x":
-  "integrity" "sha512-WjWGsRE6o1vUqULGb/O7O1eK6B4Eu6R/RBZWnF0rH0Os6WVel6tHktkeJdlKwz9WElIEO12wDIu6uKd54t7DDQ=="
-  "resolved" "https://registry.npmjs.org/@turf/truncate/-/truncate-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/truncate@^6.5.0":
+  "integrity" "sha512-pFxg71pLk+eJj134Z9yUoRhIi8vqnnKvCYwdT4x/DQl/19RVdq1tV3yqOT3gcTQNfniteylL5qV1uTBDV5sgrg=="
+  "resolved" "https://registry.npmjs.org/@turf/truncate/-/truncate-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/turf@^5.1.6":
-  "integrity" "sha512-NIjkt5jAbOrom+56ELw9ERZF6qsdf1xAIHyC9/PkDMIOQAxe7FVe2HaqbQ+x88F0q5FaSX4dtpIEf08md6h5/A=="
-  "resolved" "https://registry.npmjs.org/@turf/turf/-/turf-5.1.6.tgz"
-  "version" "5.1.6"
+"@turf/turf@^6.5.0":
+  "integrity" "sha512-ipMCPnhu59bh92MNt8+pr1VZQhHVuTMHklciQURo54heoxRzt1neNYZOBR6jdL+hNsbDGAECMuIpAutX+a3Y+w=="
+  "resolved" "https://registry.npmjs.org/@turf/turf/-/turf-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/along" "5.1.x"
-    "@turf/area" "5.1.x"
-    "@turf/bbox" "5.1.x"
-    "@turf/bbox-clip" "5.1.x"
-    "@turf/bbox-polygon" "5.1.x"
-    "@turf/bearing" "5.1.x"
-    "@turf/bezier-spline" "5.1.x"
-    "@turf/boolean-clockwise" "5.1.x"
-    "@turf/boolean-contains" "5.1.x"
-    "@turf/boolean-crosses" "5.1.x"
-    "@turf/boolean-disjoint" "5.1.x"
-    "@turf/boolean-equal" "5.1.x"
-    "@turf/boolean-overlap" "5.1.x"
-    "@turf/boolean-parallel" "5.1.x"
-    "@turf/boolean-point-in-polygon" "5.1.x"
-    "@turf/boolean-point-on-line" "5.1.x"
-    "@turf/boolean-within" "5.1.x"
-    "@turf/buffer" "5.1.x"
-    "@turf/center" "5.1.x"
-    "@turf/center-mean" "5.1.x"
-    "@turf/center-median" "5.1.x"
-    "@turf/center-of-mass" "5.1.x"
-    "@turf/centroid" "5.1.x"
-    "@turf/circle" "5.1.x"
-    "@turf/clean-coords" "5.1.x"
-    "@turf/clone" "5.1.x"
-    "@turf/clusters" "5.1.x"
-    "@turf/clusters-dbscan" "5.1.x"
-    "@turf/clusters-kmeans" "5.1.x"
-    "@turf/collect" "5.1.x"
-    "@turf/combine" "5.1.x"
-    "@turf/concave" "5.1.x"
-    "@turf/convex" "5.1.x"
-    "@turf/destination" "5.1.x"
-    "@turf/difference" "5.1.x"
-    "@turf/dissolve" "5.1.x"
-    "@turf/distance" "5.1.x"
-    "@turf/ellipse" "5.1.x"
-    "@turf/envelope" "5.1.x"
-    "@turf/explode" "5.1.x"
-    "@turf/flatten" "5.1.x"
-    "@turf/flip" "5.1.x"
-    "@turf/great-circle" "5.1.x"
-    "@turf/helpers" "5.1.x"
-    "@turf/hex-grid" "5.1.x"
-    "@turf/interpolate" "5.1.x"
-    "@turf/intersect" "5.1.x"
-    "@turf/invariant" "5.1.x"
-    "@turf/isobands" "5.1.x"
-    "@turf/isolines" "5.1.x"
-    "@turf/kinks" "5.1.x"
-    "@turf/length" "5.1.x"
-    "@turf/line-arc" "5.1.x"
-    "@turf/line-chunk" "5.1.x"
-    "@turf/line-intersect" "5.1.x"
-    "@turf/line-offset" "5.1.x"
-    "@turf/line-overlap" "5.1.x"
-    "@turf/line-segment" "5.1.x"
-    "@turf/line-slice" "5.1.x"
-    "@turf/line-slice-along" "5.1.x"
-    "@turf/line-split" "5.1.x"
-    "@turf/line-to-polygon" "5.1.x"
-    "@turf/mask" "5.1.x"
-    "@turf/meta" "5.1.x"
-    "@turf/midpoint" "5.1.x"
-    "@turf/nearest-point" "5.1.x"
-    "@turf/nearest-point-on-line" "5.1.x"
-    "@turf/nearest-point-to-line" "5.1.x"
-    "@turf/planepoint" "5.1.x"
-    "@turf/point-grid" "5.1.x"
-    "@turf/point-on-feature" "5.1.x"
-    "@turf/point-to-line-distance" "5.1.x"
-    "@turf/points-within-polygon" "5.1.x"
-    "@turf/polygon-tangents" "5.1.x"
-    "@turf/polygon-to-line" "5.1.x"
-    "@turf/polygonize" "5.1.x"
-    "@turf/projection" "5.1.x"
-    "@turf/random" "5.1.x"
-    "@turf/rewind" "5.1.x"
-    "@turf/rhumb-bearing" "5.1.x"
-    "@turf/rhumb-destination" "5.1.x"
-    "@turf/rhumb-distance" "5.1.x"
-    "@turf/sample" "5.1.x"
-    "@turf/sector" "5.1.x"
-    "@turf/shortest-path" "5.1.x"
-    "@turf/simplify" "5.1.x"
-    "@turf/square" "5.1.x"
-    "@turf/square-grid" "5.1.x"
-    "@turf/standard-deviational-ellipse" "5.1.x"
-    "@turf/tag" "5.1.x"
-    "@turf/tesselate" "5.1.x"
-    "@turf/tin" "5.1.x"
-    "@turf/transform-rotate" "5.1.x"
-    "@turf/transform-scale" "5.1.x"
-    "@turf/transform-translate" "5.1.x"
-    "@turf/triangle-grid" "5.1.x"
-    "@turf/truncate" "5.1.x"
-    "@turf/union" "5.1.x"
-    "@turf/unkink-polygon" "5.1.x"
-    "@turf/voronoi" "5.1.x"
+    "@turf/along" "^6.5.0"
+    "@turf/angle" "^6.5.0"
+    "@turf/area" "^6.5.0"
+    "@turf/bbox" "^6.5.0"
+    "@turf/bbox-clip" "^6.5.0"
+    "@turf/bbox-polygon" "^6.5.0"
+    "@turf/bearing" "^6.5.0"
+    "@turf/bezier-spline" "^6.5.0"
+    "@turf/boolean-clockwise" "^6.5.0"
+    "@turf/boolean-contains" "^6.5.0"
+    "@turf/boolean-crosses" "^6.5.0"
+    "@turf/boolean-disjoint" "^6.5.0"
+    "@turf/boolean-equal" "^6.5.0"
+    "@turf/boolean-intersects" "^6.5.0"
+    "@turf/boolean-overlap" "^6.5.0"
+    "@turf/boolean-parallel" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/boolean-point-on-line" "^6.5.0"
+    "@turf/boolean-within" "^6.5.0"
+    "@turf/buffer" "^6.5.0"
+    "@turf/center" "^6.5.0"
+    "@turf/center-mean" "^6.5.0"
+    "@turf/center-median" "^6.5.0"
+    "@turf/center-of-mass" "^6.5.0"
+    "@turf/centroid" "^6.5.0"
+    "@turf/circle" "^6.5.0"
+    "@turf/clean-coords" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/clusters" "^6.5.0"
+    "@turf/clusters-dbscan" "^6.5.0"
+    "@turf/clusters-kmeans" "^6.5.0"
+    "@turf/collect" "^6.5.0"
+    "@turf/combine" "^6.5.0"
+    "@turf/concave" "^6.5.0"
+    "@turf/convex" "^6.5.0"
+    "@turf/destination" "^6.5.0"
+    "@turf/difference" "^6.5.0"
+    "@turf/dissolve" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/distance-weight" "^6.5.0"
+    "@turf/ellipse" "^6.5.0"
+    "@turf/envelope" "^6.5.0"
+    "@turf/explode" "^6.5.0"
+    "@turf/flatten" "^6.5.0"
+    "@turf/flip" "^6.5.0"
+    "@turf/great-circle" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/hex-grid" "^6.5.0"
+    "@turf/interpolate" "^6.5.0"
+    "@turf/intersect" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/isobands" "^6.5.0"
+    "@turf/isolines" "^6.5.0"
+    "@turf/kinks" "^6.5.0"
+    "@turf/length" "^6.5.0"
+    "@turf/line-arc" "^6.5.0"
+    "@turf/line-chunk" "^6.5.0"
+    "@turf/line-intersect" "^6.5.0"
+    "@turf/line-offset" "^6.5.0"
+    "@turf/line-overlap" "^6.5.0"
+    "@turf/line-segment" "^6.5.0"
+    "@turf/line-slice" "^6.5.0"
+    "@turf/line-slice-along" "^6.5.0"
+    "@turf/line-split" "^6.5.0"
+    "@turf/line-to-polygon" "^6.5.0"
+    "@turf/mask" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/midpoint" "^6.5.0"
+    "@turf/moran-index" "^6.5.0"
+    "@turf/nearest-point" "^6.5.0"
+    "@turf/nearest-point-on-line" "^6.5.0"
+    "@turf/nearest-point-to-line" "^6.5.0"
+    "@turf/planepoint" "^6.5.0"
+    "@turf/point-grid" "^6.5.0"
+    "@turf/point-on-feature" "^6.5.0"
+    "@turf/point-to-line-distance" "^6.5.0"
+    "@turf/points-within-polygon" "^6.5.0"
+    "@turf/polygon-smooth" "^6.5.0"
+    "@turf/polygon-tangents" "^6.5.0"
+    "@turf/polygon-to-line" "^6.5.0"
+    "@turf/polygonize" "^6.5.0"
+    "@turf/projection" "^6.5.0"
+    "@turf/random" "^6.5.0"
+    "@turf/rewind" "^6.5.0"
+    "@turf/rhumb-bearing" "^6.5.0"
+    "@turf/rhumb-destination" "^6.5.0"
+    "@turf/rhumb-distance" "^6.5.0"
+    "@turf/sample" "^6.5.0"
+    "@turf/sector" "^6.5.0"
+    "@turf/shortest-path" "^6.5.0"
+    "@turf/simplify" "^6.5.0"
+    "@turf/square" "^6.5.0"
+    "@turf/square-grid" "^6.5.0"
+    "@turf/standard-deviational-ellipse" "^6.5.0"
+    "@turf/tag" "^6.5.0"
+    "@turf/tesselate" "^6.5.0"
+    "@turf/tin" "^6.5.0"
+    "@turf/transform-rotate" "^6.5.0"
+    "@turf/transform-scale" "^6.5.0"
+    "@turf/transform-translate" "^6.5.0"
+    "@turf/triangle-grid" "^6.5.0"
+    "@turf/truncate" "^6.5.0"
+    "@turf/union" "^6.5.0"
+    "@turf/unkink-polygon" "^6.5.0"
+    "@turf/voronoi" "^6.5.0"
 
-"@turf/union@^5.1.5", "@turf/union@5.1.x":
-  "integrity" "sha512-wBy1ixxC68PpsTeEDebk/EfnbI1Za5dCyY7xFY9NMzrtVEOy0l0lQ5syOsaqY4Ire+dbsDM66p2GGxmefoyIEA=="
-  "resolved" "https://registry.npmjs.org/@turf/union/-/union-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/union@^6.5.0":
+  "integrity" "sha512-igYWCwP/f0RFHIlC2c0SKDuM/ObBaqSljI3IdV/x71805QbIvY/BYGcJdyNcgEA6cylIGl/0VSlIbpJHZ9ldhw=="
+  "resolved" "https://registry.npmjs.org/@turf/union/-/union-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "turf-jsts" "*"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "polygon-clipping" "^0.15.3"
 
-"@turf/unkink-polygon@5.1.x":
-  "integrity" "sha512-lzSrgsfSuyxIc4pkE2qyM2dsHxR992e6oItoZAT8G58A2Ef4qc5gRocmXPWZakGx41fQobegSo7wlo4I49wyHg=="
-  "resolved" "https://registry.npmjs.org/@turf/unkink-polygon/-/unkink-polygon-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/unkink-polygon@^6.5.0":
+  "integrity" "sha512-8QswkzC0UqKmN1DT6HpA9upfa1HdAA5n6bbuzHy8NJOX8oVizVAqfEPY0wqqTgboDjmBR4yyImsdPGUl3gZ8JQ=="
+  "resolved" "https://registry.npmjs.org/@turf/unkink-polygon/-/unkink-polygon-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/area" "^5.1.5"
-    "@turf/boolean-point-in-polygon" "^5.1.5"
-    "@turf/helpers" "^5.1.5"
-    "@turf/meta" "^5.1.5"
+    "@turf/area" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
     "rbush" "^2.0.1"
 
-"@turf/voronoi@5.1.x":
-  "integrity" "sha512-Ad0HZAyYjOpMIZfDGV+Q+30M9PQHIirTyn32kWyTjEI1O6uhL5NOYjzSha4Sr77xOls3hGzKOj+JET7eDtOvsg=="
-  "resolved" "https://registry.npmjs.org/@turf/voronoi/-/voronoi-5.1.5.tgz"
-  "version" "5.1.5"
+"@turf/voronoi@^6.5.0":
+  "integrity" "sha512-C/xUsywYX+7h1UyNqnydHXiun4UPjK88VDghtoRypR9cLlb7qozkiLRphQxxsCM0KxyxpVPHBVQXdAL3+Yurow=="
+  "resolved" "https://registry.npmjs.org/@turf/voronoi/-/voronoi-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
-    "@turf/helpers" "^5.1.5"
-    "@turf/invariant" "^5.1.5"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
     "d3-voronoi" "1.1.2"
 
 "@types/estree@*", "@types/estree@0.0.39":
@@ -1637,6 +1609,11 @@
   "version" "8.1.5"
   dependencies:
     "@types/node" "*"
+
+"@types/geojson@7946.0.8":
+  "integrity" "sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA=="
+  "resolved" "https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.8.tgz"
+  "version" "7946.0.8"
 
 "@types/glob@^7.1.1":
   "integrity" "sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA=="
@@ -2166,6 +2143,11 @@
   "resolved" "https://registry.npmjs.org/commondir/-/commondir-1.0.1.tgz"
   "version" "1.0.1"
 
+"complex.js@^2.0.15":
+  "integrity" "sha512-8njCHOTtFFLtegk6zQo0kkVX1rngygb/KQI6z1qZxlFI3scluC+LVTCFbrkWjBv4vvLlbQ9t88IPMC6k95VTTg=="
+  "resolved" "https://registry.npmjs.org/complex.js/-/complex.js-2.1.1.tgz"
+  "version" "2.1.1"
+
 "concat-map@0.0.1":
   "integrity" "sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg=="
   "resolved" "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
@@ -2304,7 +2286,12 @@
   dependencies:
     "ms" "2.1.2"
 
-"deep-equal@^1.0.0":
+"decimal.js@^10.3.1":
+  "integrity" "sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA=="
+  "resolved" "https://registry.npmjs.org/decimal.js/-/decimal.js-10.4.3.tgz"
+  "version" "10.4.3"
+
+"deep-equal@^1.0.0", "deep-equal@1.x":
   "integrity" "sha512-5tdhKF6DbU7iIzrIOa1AOUt39ZRm13cmL1cGEh//aqR8x9+tNfbywRf0n5FD/18OKMdo7DNEtrX2t22ZAkI+eg=="
   "resolved" "https://registry.npmjs.org/deep-equal/-/deep-equal-1.1.2.tgz"
   "version" "1.1.2"
@@ -2432,6 +2419,11 @@
 
 "escalade@^3.1.1":
   "version" "3.1.1"
+
+"escape-latex@^1.2.0":
+  "integrity" "sha512-nV5aVWW1K0wEiUIEdZ4erkGGH8mDxGyxSeqPzRNtWP7ataw+/olFObw7hujFWlVjNsaDFw5VZ5NzVSIqRgfTiw=="
+  "resolved" "https://registry.npmjs.org/escape-latex/-/escape-latex-1.2.0.tgz"
+  "version" "1.2.0"
 
 "escape-string-regexp@^1.0.2", "escape-string-regexp@^1.0.5":
   "integrity" "sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg=="
@@ -2578,6 +2570,11 @@
     "babylon" "^6.15.0"
     "vlq" "^0.2.1"
 
+"fraction.js@^4.1.1":
+  "integrity" "sha512-pwiTgt0Q7t+GHZA4yaLjObx4vXmmdcS0iSJ19o8d/goUGgItX9UZWKWNnLHehxviD8wU2IWRsnR8cD5+yOJP2Q=="
+  "resolved" "https://registry.npmjs.org/fraction.js/-/fraction.js-4.3.4.tgz"
+  "version" "4.3.4"
+
 "fs-extra@^8.1.0":
   "integrity" "sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g=="
   "resolved" "https://registry.npmjs.org/fs-extra/-/fs-extra-8.1.0.tgz"
@@ -2622,14 +2619,16 @@
   "resolved" "https://registry.npmjs.org/geojson-flatten/-/geojson-flatten-1.1.1.tgz"
   "version" "1.1.1"
 
-"geojson-rbush@2.1.0":
-  "integrity" "sha512-9HvLGhmAJBYkYYDdPlCrlfkKGwNW3PapiS0xPekdJLobkZE4rjtduKJXsO7+kUr97SsUlz4VtMcPuSIbjjJaQg=="
-  "resolved" "https://registry.npmjs.org/geojson-rbush/-/geojson-rbush-2.1.0.tgz"
-  "version" "2.1.0"
+"geojson-rbush@3.x":
+  "integrity" "sha512-oVltQTXolxvsz1sZnutlSuLDEcQAKYC/uXt9zDzJJ6bu0W+baTI8LZBaTup5afzibEH4N3jlq2p+a152wlBJ7w=="
+  "resolved" "https://registry.npmjs.org/geojson-rbush/-/geojson-rbush-3.2.0.tgz"
+  "version" "3.2.0"
   dependencies:
-    "@turf/helpers" "*"
-    "@turf/meta" "*"
-    "rbush" "*"
+    "@turf/bbox" "*"
+    "@turf/helpers" "6.x"
+    "@turf/meta" "6.x"
+    "@types/geojson" "7946.0.8"
+    "rbush" "^3.0.1"
 
 "geojson-rewind@^0.3.0":
   "integrity" "sha512-mdR8a2JjahsZ+pR3oav3XO+R4HpEomhjAwD+RkTQQdm5vE+AOhxH9x+3aaz8vVDb1r5oklUMM89zRW5xyOTiGw=="
@@ -2650,11 +2649,6 @@
   "integrity" "sha512-mBBwmeGTrxEMO4pMaaf/uUEFHnYtwr8FTe8Y/mer4rcV/bye0qGm6pw1bGZFGStxC5O76c5ZAVBGnqHmOaJpdQ=="
   "resolved" "https://registry.npmjs.org/get-assigned-identifiers/-/get-assigned-identifiers-1.2.0.tgz"
   "version" "1.2.0"
-
-"get-closest@*":
-  "integrity" "sha512-oMgZYUtnPMZB6XieXiUADpRIc5kfD+RPfpiYe9aIlEYGIcOx2mTGgKmUkctlLof/ANleypqOJRhQypbrh33DkA=="
-  "resolved" "https://registry.npmjs.org/get-closest/-/get-closest-0.0.4.tgz"
-  "version" "0.0.4"
 
 "get-intrinsic@^1.0.2", "get-intrinsic@^1.1.3", "get-intrinsic@^1.2.1", "get-intrinsic@^1.2.2":
   "integrity" "sha512-0gSo4ml/0j98Y3lngkFEot/zhiCeWsbYIlZ+uZOVgzLyLaUw7wxUL+nCTP0XJvJg1AXulJRI3UJi8GsbDuxdGA=="
@@ -2974,6 +2968,11 @@
   "resolved" "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
   "version" "1.0.0"
 
+"javascript-natural-sort@^0.7.1":
+  "integrity" "sha512-nO6jcEfZWQXDhOiBtG2KvKyEptz7RVbpGP4vTD2hLBdmNQSsCiicO2Ioinv6UI4y9ukqnBpy+XZ9H6uLNgJTlw=="
+  "resolved" "https://registry.npmjs.org/javascript-natural-sort/-/javascript-natural-sort-0.7.1.tgz"
+  "version" "0.7.1"
+
 "jest-worker@^26.2.1":
   "integrity" "sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ=="
   "resolved" "https://registry.npmjs.org/jest-worker/-/jest-worker-26.6.2.tgz"
@@ -3073,11 +3072,6 @@
     "prelude-ls" "~1.1.2"
     "type-check" "~0.3.2"
 
-"lineclip@^1.1.5":
-  "integrity" "sha512-KlA/wRSjpKl7tS9iRUdlG72oQ7qZ1IlVbVgHwoO10TBR/4gQ86uhKow6nlzMAJJhjCWKto8OeoAzzIzKSmN25A=="
-  "resolved" "https://registry.npmjs.org/lineclip/-/lineclip-1.1.5.tgz"
-  "version" "1.1.5"
-
 "lodash.debounce@^4.0.8":
   "integrity" "sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow=="
   "resolved" "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
@@ -3147,13 +3141,6 @@
     "lodash.debounce" "^4.0.8"
     "mapbox-gl" "^0.44.1"
 
-"mapbox-gl-draw-snap-mode@^0.1.11":
-  "integrity" "sha512-vM6SfTRA+lwGyXL7ivq0qYBMvzhgKeqRfxeOohYnPmVjzTKAODOwp/cuS8nZ4VmtxhmnSeajXdFrTAKJDqPYiA=="
-  "resolved" "https://registry.npmjs.org/mapbox-gl-draw-snap-mode/-/mapbox-gl-draw-snap-mode-0.1.11.tgz"
-  "version" "0.1.11"
-  dependencies:
-    "@turf/turf" "^5.1.6"
-
 "mapbox-gl@^0.44.1", "mapbox-gl@>=0.32.1 <2.0.0":
   "integrity" "sha512-UzrfDEit6pX+HSj5qQTDG633JiF4JKn1MD8vz58S7kAnGRqnnSfFc7rrSVXZ/E6G5SFKsfESURUbLLuGkOcfWA=="
   "resolved" "https://registry.npmjs.org/mapbox-gl/-/mapbox-gl-0.44.2.tgz"
@@ -3190,6 +3177,21 @@
     "unflowify" "^1.0.0"
     "vt-pbf" "^3.0.1"
     "webworkify" "^1.5.0"
+
+"mathjs@^9.4.4":
+  "integrity" "sha512-c0erTq0GP503/Ch2OtDOAn50GIOsuxTMjmE00NI/vKJFSWrDaQHRjx6ai+16xYv70yBSnnpUgHZGNf9FR9IwmA=="
+  "resolved" "https://registry.npmjs.org/mathjs/-/mathjs-9.5.2.tgz"
+  "version" "9.5.2"
+  dependencies:
+    "@babel/runtime" "^7.15.4"
+    "complex.js" "^2.0.15"
+    "decimal.js" "^10.3.1"
+    "escape-latex" "^1.2.0"
+    "fraction.js" "^4.1.1"
+    "javascript-natural-sort" "^0.7.1"
+    "seedrandom" "^3.0.5"
+    "tiny-emitter" "^2.1.0"
+    "typed-function" "^2.0.0"
 
 "md5.js@^1.3.4":
   "integrity" "sha512-xitP+WxNPcTTOgnTJcrhM0xvdPepipPSf3I8EIpGKeFLjt3PlJLIDG3u8EX53ZIubkb+5U2+3rELYpEhHhzdkg=="
@@ -3498,6 +3500,14 @@
   "resolved" "https://registry.npmjs.org/point-in-polygon/-/point-in-polygon-1.1.0.tgz"
   "version" "1.1.0"
 
+"polygon-clipping@^0.15.3":
+  "integrity" "sha512-nhfdr83ECBg6xtqOAJab1tbksbBAOMUltN60bU+llHVOL0e5Onm1WpAXXWXVB39L8AJFssoIhEVuy/S90MmotA=="
+  "resolved" "https://registry.npmjs.org/polygon-clipping/-/polygon-clipping-0.15.7.tgz"
+  "version" "0.15.7"
+  dependencies:
+    "robust-predicates" "^3.0.2"
+    "splaytree" "^3.1.0"
+
 "polygon-splitter@^0.0.11":
   "integrity" "sha512-g+uion0orbjfbOew3hYXHfevLQyedR8BgsAX9Hq+ztFj4hXLwTOK92AfgOdzteJEmDojVShvsCMHQdLPc7kW/A=="
   "resolved" "https://registry.npmjs.org/polygon-splitter/-/polygon-splitter-0.0.11.tgz"
@@ -3596,7 +3606,7 @@
     "randombytes" "^2.0.5"
     "safe-buffer" "^5.1.0"
 
-"rbush@*", "rbush@^2.0.1":
+"rbush@^2.0.1", "rbush@2.x":
   "integrity" "sha512-XBOuALcTm+O/H8G90b6pzu6nX6v2zCKiFG4BJho8a+bY6AER6t8uQUZdi5bomQc0AprCWhEGa7ncAbbRap0bRA=="
   "resolved" "https://registry.npmjs.org/rbush/-/rbush-2.0.2.tgz"
   "version" "2.0.2"
@@ -3655,6 +3665,11 @@
   dependencies:
     "esprima" "~1.0.4"
 
+"regenerator-runtime@^0.14.0":
+  "integrity" "sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw=="
+  "resolved" "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.14.1.tgz"
+  "version" "0.14.1"
+
 "regexp.prototype.flags@^1.5.1":
   "integrity" "sha512-sy6TXMN+hnP/wMy+ISxg3krXx7BAtWVO4UouuCN/ziM9UEne0euamVNafDfvC83bRNr95y0V5iijeDQFUNpvrg=="
   "resolved" "https://registry.npmjs.org/regexp.prototype.flags/-/regexp.prototype.flags-1.5.1.tgz"
@@ -3697,6 +3712,11 @@
   "integrity" "sha512-l4NwboJM74Ilm4VKfbAtFeGq7aEjWL+5kVFcmgFA2MrdnQWx9iE/tUGvxY5HyMI7o/WpSIUFLbC5fbeaHgSCYg=="
   "resolved" "https://registry.npmjs.org/robust-predicates/-/robust-predicates-2.0.4.tgz"
   "version" "2.0.4"
+
+"robust-predicates@^3.0.2":
+  "integrity" "sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg=="
+  "resolved" "https://registry.npmjs.org/robust-predicates/-/robust-predicates-3.0.2.tgz"
+  "version" "3.0.2"
 
 "rollup-plugin-copy@^3.4.0":
   "integrity" "sha512-wI8D5dvYovRMx/YYKtUNt3Yxaw4ORC9xo6Gt9t22kveWz1enG9QrhVlagzwrxSC455xD1dHMKhIJkbsQ7d48BA=="
@@ -3762,6 +3782,11 @@
   "integrity" "sha512-9A+PDmgm+2du77B5i0Ip2cxOqqHjgNxnBgglxLcX78A2D6c2rTo61z4jnVABpF4cKeDMDG+cmXXvdnqse2VqMA=="
   "resolved" "https://registry.npmjs.org/seedrandom/-/seedrandom-2.4.4.tgz"
   "version" "2.4.4"
+
+"seedrandom@^3.0.5":
+  "integrity" "sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg=="
+  "resolved" "https://registry.npmjs.org/seedrandom/-/seedrandom-3.0.5.tgz"
+  "version" "3.0.5"
 
 "semver@^6.3.1":
   "version" "6.3.1"
@@ -3917,6 +3942,11 @@
   "integrity" "sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA=="
   "resolved" "https://registry.npmjs.org/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz"
   "version" "1.4.8"
+
+"splaytree@^3.1.0":
+  "integrity" "sha512-4OM2BJgC5UzrhVnnJA4BkHKGtjXNzzUfpQjCO8I05xYPsfS/VuQDwjCGGMi8rYQilHEV4j8NBqTFbls/PZEE7A=="
+  "resolved" "https://registry.npmjs.org/splaytree/-/splaytree-3.1.2.tgz"
+  "version" "3.1.2"
 
 "split@~0.2.10":
   "integrity" "sha512-e0pKq+UUH2Xq/sXbYpZBZc3BawsfDZ7dgv+JtRTUPNcvF5CMR4Y9cvJqkMY0MoxWzTHvZuz1beg6pNEKlszPiQ=="
@@ -4097,6 +4127,11 @@
   dependencies:
     "process" "~0.11.0"
 
+"tiny-emitter@^2.1.0":
+  "integrity" "sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q=="
+  "resolved" "https://registry.npmjs.org/tiny-emitter/-/tiny-emitter-2.1.0.tgz"
+  "version" "2.1.0"
+
 "tinyqueue@^1.1.0":
   "integrity" "sha512-Qz9RgWuO9l8lT+Y9xvbzhPT2efIUIFd69N7eF7tJ9lnQl0iLj1M7peK7IoUGZL9DJHw9XftqLreccfxcQgYLxA=="
   "resolved" "https://registry.npmjs.org/tinyqueue/-/tinyqueue-1.2.3.tgz"
@@ -4154,6 +4189,11 @@
   "version" "0.3.2"
   dependencies:
     "prelude-ls" "~1.1.2"
+
+"typed-function@^2.0.0":
+  "integrity" "sha512-bctQIOqx2iVbWGDGPWwIm18QScpu2XRmkC19D8rQGFsjKSgteq/o1hTZvIG/wuDq8fanpBDrLkLq+aEN/6y5XQ=="
+  "resolved" "https://registry.npmjs.org/typed-function/-/typed-function-2.1.0.tgz"
+  "version" "2.1.0"
 
 "typedarray@^0.0.6":
   "integrity" "sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA=="

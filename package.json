@@ -40,10 +40,10 @@
     "dependencies": {
         "@geostarters/mapbox-gl-draw-rectangle-assisted-mode": "^3.0.4",
         "@mapbox/mapbox-gl-draw": "github:Tunchz/mapbox-gl-draw",
-        "@turf/turf": "^5.1.6",
+        "@turf/turf": "^6.5.0",
         "lodash.unionby": "^4.8.0",
         "mapbox-gl-circle": "^1.6.7",
-        "mapbox-gl-draw-snap-mode": "^0.1.11",
+        "mathjs": "^9.4.4",
         "polygon-splitter": "^0.0.11"
     },
     "browserslist": {
