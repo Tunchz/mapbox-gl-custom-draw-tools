@@ -559,6 +559,8 @@ SRMode.toDisplayFeatures = function (state, geojson, push) {
 SRMode.onStop = function () {
   doubleClickZoom.enable(this);
   this.clearSelectedCoordinates();
+
+  this?._ctx?.api?.setActiveButton();
 };
 
 // TODO why I need this?

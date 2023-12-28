@@ -50,6 +50,8 @@ FreehandMode.onMouseUp = function (state, e){
         this.fireUpdate();
         this.changeMode(modes.SIMPLE_SELECT, { featureIds: [state.polygon.id] });
     }
+
+    this?._ctx?.api?.setActiveButton();
 }
 
 FreehandMode.onTouchEnd = function(state, e) {

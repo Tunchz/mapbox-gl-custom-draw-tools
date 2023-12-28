@@ -159,6 +159,8 @@ pinMode.onDrag = function (state, e) {
 pinMode.clickAnywhere = function (state) {
   this.onStop(state);
   this.originalClickAnywhere(state);
+
+  this?._ctx?.api?.setActiveButton();
 };
 
 pinMode.onStop = function (state) {

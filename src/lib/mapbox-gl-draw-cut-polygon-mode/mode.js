@@ -53,10 +53,14 @@ CutPolygonMode.onSetup = function (opt) {
             console.info("The feature is not Polygon/MultiPolygon!");
           }
         });
+        // console.log("---- this : ", this)
+        this?._ctx?.api?.setActiveButton();
       },
       onCancel: () => {
         if (main?.[0]?.id)
           api.setFeatureProperty(main[0].id, highlightPropertyName, undefined);
+
+        this?._ctx?.api?.setActiveButton();
       },
     });
   }, 500);

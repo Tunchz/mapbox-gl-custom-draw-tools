@@ -127,9 +127,11 @@ SplitPolygonMode.drawAndSplit = function (state) {
 
         this.fireUpdate(newPolygons);
         this.highlighFeatures(state, false);
+        this?._ctx?.api?.setActiveButton();
       },
       onCancel: () => {
         this.highlighFeatures(state, false);
+        this?._ctx?.api?.setActiveButton();
       },
     });
   } catch (err) {

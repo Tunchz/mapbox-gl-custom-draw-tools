@@ -188,7 +188,9 @@ const DrawAssistedRectangle = {
     this.updateUIClasses({
       mouse: "none"
     });
-    this.activateUIButton();
+    // this.activateUIButton();
+
+    this?._ctx?.api?.setActiveButton();
 
     // check to see if we've deleted this feature
     if (this.getFeature(state.rectangle.id) === undefined) return;

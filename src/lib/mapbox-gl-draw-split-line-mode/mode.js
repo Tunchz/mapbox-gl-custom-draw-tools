@@ -173,9 +173,13 @@ SplitLineMode.toDisplayFeatures = function (state, geojson, display) {
         this.fireUpdate(afterCutMultiLineString);
         this.highlighFeatures(state, false);
       });
+
+      this?._ctx?.api?.setActiveButton();
     },
     onCancel: () => {
       this.highlighFeatures(state, false);
+
+      this?._ctx?.api?.setActiveButton();
     },
   });
 };
@@ -188,6 +192,7 @@ SplitLineMode.fireUpdate = function(newF) {
 
 SplitLineMode.onStop = function ({ main }) {
   console.log("🚀 ~ file: mode.js ~ line 60 ~ onStop");
+  
 };
 
 export default SplitLineMode;

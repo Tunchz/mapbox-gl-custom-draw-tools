@@ -303,18 +303,21 @@ class extendDrawBar {
   }
 
   toPoints(this_) {
-    const selectedFeatures = (this_.draw||draw).getSelected().features;
+    const selectedFeatures = (this_.draw||draw).getSelected()?.features;
+    // console.log((this_.draw||draw).getSelected());
     if (!selectedFeatures.length) return;
     let ids = [];
-    let vertcies = [];
+    let vertices = [];
     selectedFeatures.forEach((main) => {
       if (['Point', 'MultiPoint'].includes(main.geometry.type)) return;
       let vertex = helpers.multiPoint(meta.coordAll(main.geometry));
       vertex.id = `${main.id}_vertex_${Math.floor(Math.random() * Math.floor(1000))}`;
       ids.push(vertex.id);
-      vertcies.push(vertex);
+      vertices.push(vertex);
+      // console.log(vertices);
+      (this_.draw||draw).add({type: 'FeatureCollection', features: vertices});
     });
-    this_.fireCreateVertcies(vertcies);
+    this_.fireCreateVertcies(vertices);
     (this_.draw||draw).changeMode('simple_select', { featureIds: ids });
   }
 

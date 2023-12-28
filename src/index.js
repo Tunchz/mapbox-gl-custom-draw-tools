@@ -18,7 +18,7 @@ import CutPolygonMode, { drawStyles as cutPolygonDrawStyles } from './lib/mapbox
 // import SplitLineMode from './lib/mapbox-gl-draw-split-line-mode';
 import SplitLineMode, {drawStyles as splitLineDrawStyles } from './lib/mapbox-gl-draw-split-line-mode';
 import FreehandMode from './lib/mapbox-gl-draw-freehand-mode';
-import DrawRectangle, { DrawStyles as RectRestrictStyles } from 'mapbox-gl-draw-rectangle-restrict-area';
+import DrawRectangle, { DrawStyles as RectRestrictStyles } from './lib/mapbox-gl-draw-rectangle-restrict-area';
 import DrawRectangleAssisted from './lib/mapbox-gl-draw-rectangle-assisted-mode';
 import { additionalTools, measurement, addToolStyle } from './lib/mapbox-gl-draw-additional-tools';
 
@@ -789,6 +789,8 @@ export default class MapboxDrawPro extends MapboxDraw {
       this.activeButton.cancel&&this.activeButton.cancel()
       this.activeButton = null;
     }
+
+    this.activateUIButton = (id) => {console.log("--- activateUIButton : ", id)}
   
     this.setActiveButton = (id) => {
       this.curActiveButton = id
