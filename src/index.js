@@ -478,9 +478,9 @@ export default class MapboxDrawPro extends MapboxDraw {
         action: () => {
           const selectedFeatureIDs = this.getSelectedIds();
 
-          function goSplitMode(selectedFeatures) {
+          function goSplitMode(draw,selectedFeatures) {
             try {
-              this.changeMode('split_line', {
+              draw?.changeMode('split_line', {
                 spliter: 'line_string',
                 features: selectedFeatures,
                 /** Default option vlaues: */
@@ -495,13 +495,13 @@ export default class MapboxDrawPro extends MapboxDraw {
           if (selectedFeatureIDs.length > 0) {
             let selectedFeatures = this.getSelected()
             // console.log("---- selectedFeatures : ", selectedFeatures)
-            goSplitMode(selectedFeatures.features || null);
+            goSplitMode(this,selectedFeatures.features || null);
           } else {
             // console.log("--- change mode : select_feature")
             this.changeMode('select_feature', {
               selectHighlightColor: 'yellow',
               onSelect(state) {
-                goSplitMode([{
+                goSplitMode(state.draw,[{
                   id: state.selectedFeatureID,
                   type:"Feature",
                   geometry:state.selectedFeature?._geometry,
@@ -521,9 +521,9 @@ export default class MapboxDrawPro extends MapboxDraw {
         action: () => {
           const selectedFeatureIDs = this.getSelectedIds();
 
-          function goSplitMode(selectedFeatures) {
+          function goSplitMode(draw, selectedFeatures) {
             try {
-              this.changeMode('split_line', {
+              draw?.changeMode('split_line', {
                 spliter: 'polygon',
                 features: selectedFeatures,
                 /** Default option vlaues: */
@@ -538,13 +538,13 @@ export default class MapboxDrawPro extends MapboxDraw {
           if (selectedFeatureIDs.length > 0) {
             let selectedFeatures = this.getSelected()
             // console.log("---- selectedFeatures : ", selectedFeatures)
-            goSplitMode(selectedFeatures.features || null);
+            goSplitMode(this,selectedFeatures.features || null);
           } else {
             // console.log("--- change mode : select_feature")
             this.changeMode('select_feature', {
               selectHighlightColor: 'yellow',
               onSelect(state) {
-                goSplitMode([{
+                goSplitMode(state.draw, [{
                   id: state.selectedFeatureID,
                   type:"Feature",
                   geometry:state.selectedFeature?._geometry,
@@ -568,9 +568,9 @@ export default class MapboxDrawPro extends MapboxDraw {
           //   selectedFeatureIDs
           // );
 
-          function goSplitMode(selectedFeatures) {
+          function goSplitMode(draw,selectedFeatures) {
             try {
-              this.changeMode('split_polygon', {
+              draw?.changeMode('split_polygon', {
                 // featureIds: selectedFeatureIDs,
                 features: selectedFeatures,
                 /** Default option vlaues: */
@@ -585,13 +585,14 @@ export default class MapboxDrawPro extends MapboxDraw {
 
           if (selectedFeatureIDs.length > 0) {
             let selectedFeatures = this.getSelected()
-            goSplitMode(selectedFeatures.features || null);
+            goSplitMode(this,selectedFeatures.features || null);
           } else {
             // console.log("--- change mode : select_feature")
             this.changeMode('select_feature', {
               selectHighlightColor: 'yellow',
               onSelect(state) {
-                goSplitMode([{
+                console.log("---- this : ", this)
+                goSplitMode(state.draw,[{
                   id: state.selectedFeatureID,
                   type:"Feature",
                   geometry:state.selectedFeature?._geometry,
@@ -622,7 +623,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           function goCutPolygonMode(selectedFeatures) {
             try {
               // this.changeMode('cut_polygon');
-              this.changeMode('cut_polygon', {
+              draw?.changeMode('cut_polygon', {
                 features: selectedFeatures,
                 highlightColor: '#222',
               });

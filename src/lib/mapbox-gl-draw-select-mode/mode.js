@@ -16,6 +16,7 @@ select_mode.onSetup = function (opt) {
   state.onSelect = onSelect;
   state.onCancel = onCancel;
   state.api = this._ctx.api;
+  state.draw = this;
   state.types2Select = types2Select;
   const {
     selectHighlightColor:
@@ -91,6 +92,7 @@ select_mode.onStop = function (state) {
   if (state.selectedFeatureID) {
     if (typeof state.onSelect === "function")
       setTimeout(state.onSelect.bind(null, {
+        draw: state.draw,
         selectedFeatureID:state.selectedFeatureID,
         selectedFeature:state.selectedFeature
       }), 0);
