@@ -158,7 +158,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         //===== line
         on: "click",
         action: () => {
-          draw.changeMode('draw_line_string');
+          this.changeMode('draw_line_string');
         },
         classes: ["mapbox-gl-draw_line"],
         id: "draw-line-tool",
@@ -168,7 +168,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         //===== polygon
         on: "click",
         action: () => {
-          draw.changeMode('draw_polygon');
+          this.changeMode('draw_polygon');
         },
         classes: ["mapbox-gl-draw_polygon"],
         id: "draw-polygon-tool",
@@ -178,7 +178,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         //===== point
         on: "click",
         action: () => {
-          draw.changeMode('draw_point');
+          this.changeMode('draw_point');
         },
         classes: ["mapbox-gl-draw_point"],
         id: "draw-point-tool",
@@ -187,7 +187,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         on: "click", 
         action: () => {
-          draw.changeMode("draw_bezier_curve")
+          this.changeMode("draw_bezier_curve")
         }, 
         classes: ["bezier-curve-icon"], 
         title:'Bezier tool'
@@ -196,7 +196,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         //===== drag circle
         on: "click",
         action: () => {
-          draw.changeMode('drag_circle');
+          this.changeMode('drag_circle');
         },
         classes: ["draw-circle"],
         id: "Drag-Circle",
@@ -206,7 +206,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         //===== ellipse
         on: "click",
         action: () => {
-          draw.changeMode('drag_ellipse', { eccentricity: 0.8, divisions: 60 });
+          this.changeMode('drag_ellipse', { eccentricity: 0.8, divisions: 60 });
         },
         classes: ["draw-ellipse"],
         id: "Ellipse",
@@ -269,7 +269,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           const drawRec = (limit) => {
             console.log("=== draw rec limit : ", limit)
             try {
-              draw.changeMode('draw_rectangle', {
+              this.changeMode('draw_rectangle', {
                 areaLimit: parseInt(limit), //limit, 
               });
             } catch (err) {
@@ -282,7 +282,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           let menuContainer = document.createElement('div');
           menuContainer.className = 'mapboxgl-ctrl-group';
           menuContainer.classList.add('horizontal');
-          menuContainer.classList.add(draw.options?.edge);
+          menuContainer.classList.add(this.options?.edge);
           menuContainer.classList.add('button-submenu-container');
           menuContainer.id = 'rectangle-submenu';
           menuContainer.style.display = "none";
@@ -312,7 +312,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           document.getElementById("rectangle-submenu").style.display = "flex";
           this.map?.fire("draw.instruction",{message:"open rectangle submenu", action:"open-rectangle-submenu"})
           try {
-            draw.changeMode('draw_rectangle', {
+            this.changeMode('draw_rectangle', {
               areaLimit: null, 
             });
           } catch (err) {
@@ -320,7 +320,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           }
 
           // try {
-          //   draw.changeMode('draw_rectangle', {
+          //   this.changeMode('draw_rectangle', {
           //     areaLimit: parseInt(prompt('Max Area? (empty for no restriction)')), // 5 * 1_000_000, // 5 km2, optional
           //     // escapeKeyStopsDrawing: true, // default true
           //     // allowCreateExceeded: false, // default false
@@ -345,7 +345,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         action: () => {
 
           try {
-            draw.changeMode('draw_rectangle_assisted');
+            this.changeMode('draw_rectangle_assisted');
           } catch (err) {
             console.error(err);
           }
@@ -358,21 +358,21 @@ export default class MapboxDrawPro extends MapboxDraw {
         on: "click",
         action: () => {
           try {
-            draw.changeMode("draw_paint_mode");
+            this.changeMode("draw_paint_mode");
           } catch (err) {
             console.error(err);
           }
         },
         classes: ["draw-paint"],
         title: "Paint (Free Drawing)",
-        cancel: ()=>{draw.trash();}
+        cancel: ()=>{this.trash();}
       },
       {
         //===== Freform Polygon
         on: 'click',
         action: () => {
           try {
-            draw.changeMode('freehandMode');
+            this.changeMode('freehandMode');
           } catch (err) {
             console.error(err);
           }
@@ -387,7 +387,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       //     const splitLine = (mode) => {
       //       console.log("=== split line mode : ", mode, draw)
       //       try {
-      //         draw.changeMode('splitLineMode', { spliter: mode });
+      //         this.changeMode('splitLineMode', { spliter: mode });
       //       } catch (err) {
       //         document.getElementById("split-line-menu-container").style.display = "flex";
       //         alert(err.message);
@@ -461,7 +461,7 @@ export default class MapboxDrawPro extends MapboxDraw {
 
 
       //     // try {
-      //     //   draw.changeMode('splitLineMode', {
+      //     //   this.changeMode('splitLineMode', {
       //     //     spliter: prompt('Which Mode? (point, line_string, polygon)'),
       //     //   });
       //     // } catch (err) {
@@ -476,7 +476,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         //===== Split Lind with Line
         on: 'click',
         action: () => {
-          const selectedFeatureIDs = draw.getSelectedIds();
+          const selectedFeatureIDs = this.getSelectedIds();
 
           function goSplitMode(selectedFeatures) {
             try {
@@ -493,12 +493,12 @@ export default class MapboxDrawPro extends MapboxDraw {
           }
 
           if (selectedFeatureIDs.length > 0) {
-            let selectedFeatures = draw.getSelected()
+            let selectedFeatures = this.getSelected()
             // console.log("---- selectedFeatures : ", selectedFeatures)
             goSplitMode(selectedFeatures.features || null);
           } else {
             // console.log("--- change mode : select_feature")
-            draw.changeMode('select_feature', {
+            this.changeMode('select_feature', {
               selectHighlightColor: 'yellow',
               onSelect(state) {
                 goSplitMode([{
@@ -519,7 +519,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         //===== Split Lind with Polygon
         on: 'click',
         action: () => {
-          const selectedFeatureIDs = draw.getSelectedIds();
+          const selectedFeatureIDs = this.getSelectedIds();
 
           function goSplitMode(selectedFeatures) {
             try {
@@ -536,12 +536,12 @@ export default class MapboxDrawPro extends MapboxDraw {
           }
 
           if (selectedFeatureIDs.length > 0) {
-            let selectedFeatures = draw.getSelected()
+            let selectedFeatures = this.getSelected()
             // console.log("---- selectedFeatures : ", selectedFeatures)
             goSplitMode(selectedFeatures.features || null);
           } else {
             // console.log("--- change mode : select_feature")
-            draw.changeMode('select_feature', {
+            this.changeMode('select_feature', {
               selectHighlightColor: 'yellow',
               onSelect(state) {
                 goSplitMode([{
@@ -562,7 +562,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         //===== Split Polygon
         on: 'click',
         action: () => {
-          const selectedFeatureIDs = draw.getSelectedIds();
+          const selectedFeatureIDs = this.getSelectedIds();
           // console.log(
           //   '🚀 ~ file: index.js ~ line 222 ~ MapboxDrawPro ~ constructor ~ selectedFeatureIDs',
           //   selectedFeatureIDs
@@ -584,11 +584,11 @@ export default class MapboxDrawPro extends MapboxDraw {
           }
 
           if (selectedFeatureIDs.length > 0) {
-            let selectedFeatures = draw.getSelected()
+            let selectedFeatures = this.getSelected()
             goSplitMode(selectedFeatures.features || null);
           } else {
             // console.log("--- change mode : select_feature")
-            draw.changeMode('select_feature', {
+            this.changeMode('select_feature', {
               selectHighlightColor: 'yellow',
               onSelect(state) {
                 goSplitMode([{
@@ -610,18 +610,18 @@ export default class MapboxDrawPro extends MapboxDraw {
         on: 'click',
         action: () => {
           // try {
-          //   draw.changeMode('cut_polygon');
+          //   this.changeMode('cut_polygon');
           // } catch (err) {
           //   alert(err.message);
           //   console.error(err);
           // }
 
-          const selectedFeatureIDs = draw.getSelectedIds();
+          const selectedFeatureIDs = this.getSelectedIds();
           // console.log("----- selectedFeatureIDs : ", selectedFeatureIDs)
 
           function goCutPolygonMode(selectedFeatures) {
             try {
-              // draw.changeMode('cut_polygon');
+              // this.changeMode('cut_polygon');
               draw?.changeMode('cut_polygon', {
                 features: selectedFeatures,
                 highlightColor: '#222',
@@ -634,11 +634,11 @@ export default class MapboxDrawPro extends MapboxDraw {
           }
 
           if (selectedFeatureIDs?.length > 0) {
-            let selectedFeatures = draw.getSelected()
+            let selectedFeatures = this.getSelected()
             goCutPolygonMode(selectedFeatures.features || null);
           } else {
             // console.log("--- change mode : select_feature")
-            draw.changeMode('select_feature', {
+            this.changeMode('select_feature', {
               selectHighlightColor: 'yellow',
               onSelect(state) {
                 console.log("--- state : ", state)
@@ -662,7 +662,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         on: 'click',
         action: () =>{
           try {
-            draw.changeMode('scaleRotateMode', {
+            this.changeMode('scaleRotateMode', {
               // required
               canScale: true,
               canRotate: true, // only rotation enabled
@@ -688,7 +688,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         //===== Pinning
         on: 'click',
         action: () => {
-          draw.changeMode('pinning_mode');
+          this.changeMode('pinning_mode');
         },
         classes: ['pinning_mode'],
         title: 'Pinning Mode tool',
@@ -696,7 +696,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       // {
       //     on: 'click',
       //     action: () => {
-      //         draw.changeMode('passing_mode_point');
+      //         this.changeMode('passing_mode_point');
       //     },
       //     classes: ['passing_mode', 'point'],
       //     title: 'Passing-Point tool',
@@ -704,7 +704,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       // {
       //     on: 'click',
       //     action: () => {
-      //         draw.changeMode('passing_mode_line_string', (info) => {
+      //         this.changeMode('passing_mode_line_string', (info) => {
       //             console.log(info);
       //         });
       //     },
@@ -714,7 +714,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       // {
       //     on: 'click',
       //     action: () => {
-      //         draw.changeMode('passing_mode_polygon');
+      //         this.changeMode('passing_mode_polygon');
       //     },
       //     classes: ['passing_mode', 'polygon'],
       //     title: 'Passing-Polygon tool',
@@ -723,7 +723,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         //===== combine
         on: "click",
         action: () => {
-          draw.combineFeatures();
+          this.combineFeatures();
         },
         classes: ["mapbox-gl-draw_combine"],
         title: "Combine",
@@ -732,7 +732,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         //===== Trash
         on: "click",
         action: () => {
-          draw.uncombineFeatures();
+          this.uncombineFeatures();
         },
         classes: ["mapbox-gl-draw_uncombine"],
         title: "Uncombine",
@@ -741,7 +741,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         //===== Trash
         on: "click",
         action: () => {
-          draw.trash();
+          this.trash();
         },
         classes: ["mapbox-gl-draw_trash"],
         title: "Trash",
@@ -759,8 +759,8 @@ export default class MapboxDrawPro extends MapboxDraw {
       placement = placement || 'top-right'
       this.elContainer = this.onAddOrig(map, placement);
       
-      // draw.options.edge = placement?.split('-')[draw.options.horizontal?0:1]
-      // !!draw.options.edge&&(draw.options.edge = draw.options.horizontal?'top':'right')
+      // this.options.edge = placement?.split('-')[this.options.horizontal?0:1]
+      // !!this.options.edge&&(this.options.edge = this.options.horizontal?'top':'right')
       // console.log(" draw | placement : ", draw, placement);
 
       console.log("==== edge : ", this.options.edge)
