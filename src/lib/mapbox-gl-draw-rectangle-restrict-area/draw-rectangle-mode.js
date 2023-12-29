@@ -2,7 +2,7 @@ import area from "@turf/area";
 import { Constants, CommonSelectors, createVertex } from "./lib";
 
 import { getIneractionSwitch } from "./switchIteractions";
-
+const mapboxgl = require('mapbox-gl');
 const doubleClickZoom = getIneractionSwitch("doubleClickZoom");
 const dragPan = getIneractionSwitch("dragPan");
 
@@ -47,6 +47,7 @@ DrawRectangle.onSetup = function ({
   if (exceedCallback) this.exceedCallback = exceedCallback;
   if (areaChangedCallback) this.areaChangedCallback = areaChangedCallback;
 
+  this.popupWindow = new mapboxgl.Popup({ closeButton: false, closeOnClick: true , anchor:"left"});
   return {
     rectangle,
     dragMoving: false,
@@ -114,6 +115,12 @@ DrawRectangle.onMouseMove = function (state, e) {
       state.startPoint[0],
       state.startPoint[1]
     );
+    let area = getArea(state.rectangle);
+    state.rectangle.properties.areaInM2 = area;
+    this.popupWindow
+      .setLngLat([e.lngLat.lng, e.lngLat.lat])
+      .setHTML(`<div style="margin-top:-8px;margin-bottom:-17px;">${this.areaLimit?('จำกัด：' + this.areaLimit + ' m2<br>'):''}พื้นที่：${area.toFixed(2)} m2</div>`)
+      .addTo(this.map);
   } else {
     state.rectangle.updateCoordinate(`0.0`, e.lngLat.lng, e.lngLat.lat);
   }
@@ -145,7 +152,7 @@ DrawRectangle.onStop = function (state) {
   dragPan.enable(this);
   this.activateUIButton();
   this?._ctx?.api?.setActiveButton();
-  
+  this.popupWindow.remove()
 
   // check to see if we've deleted this feature
   if (this.getFeature(state.rectangle.id) === undefined) return;

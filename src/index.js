@@ -28,6 +28,8 @@ import {
   DrawBezierCurve, 
   customStyles as bezierStyles,
 } from './lib/mapbox-gl-draw-bezier-curve-mode';
+import DragCircleMode from './lib/mapbox-gl-draw-drag-circle-mode'
+import DragEllipseMode from './lib/mapbox-gl-draw-drag-ellipse-mode'
 
 import PaintMode, { drawStyles as paintDrawStyles } from './lib/mapbox-gl-draw-paint-mode';
 
@@ -122,6 +124,8 @@ export default class MapboxDrawPro extends MapboxDraw {
       simple_select: SimpleSelectModeBezierOverride,
       direct_select: DirectModeBezierOverride,
       draw_bezier_curve: DrawBezierCurve,
+      drag_circle: DragCircleMode,
+      drag_ellipse: DragEllipseMode,
     };
 
     const customOptions = {
@@ -145,6 +149,7 @@ export default class MapboxDrawPro extends MapboxDraw {
     const __styles = [...paintDrawStyles(cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(defaultDrawStyle)))))];
     const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle, bezierStyles, 'id');
     const _options = { modes: _modes, styles: _styles, controls:_controls, ...customOptions, ...otherOtions };
+    console.log("--- options : ", options, _options.edge, otherOtions)
     super(_options);
 
 
@@ -188,12 +193,22 @@ export default class MapboxDrawPro extends MapboxDraw {
         title:'Bezier tool'
       },
       {
+        //===== drag circle
+        on: "click",
+        action: () => {
+          draw.changeMode('drag_circle');
+        },
+        classes: ["draw-circle"],
+        id: "Drag-Circle",
+        title: "Cicle",
+      },
+      {
         //===== ellipse
         on: "click",
         action: () => {
-          draw.changeMode('draw_ellipse', { eccentricity: 0.8, divisions: 60 });
+          draw.changeMode('drag_ellipse', { eccentricity: 0.8, divisions: 60 });
         },
-        classes: ["draw-circle"],
+        classes: ["draw-ellipse"],
         id: "Ellipse",
         title: "Ellipse",
       },
@@ -267,8 +282,9 @@ export default class MapboxDrawPro extends MapboxDraw {
           let menuContainer = document.createElement('div');
           menuContainer.className = 'mapboxgl-ctrl-group';
           menuContainer.classList.add('horizontal');
+          menuContainer.classList.add(draw.options?.edge);
           menuContainer.classList.add('button-submenu-container');
-          menuContainer.id = 'rectangel-submenu';
+          menuContainer.id = 'rectangle-submenu';
           menuContainer.style.display = "none";
 
           var input = document.createElement('input');
@@ -293,7 +309,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           return bottonContainer; //elButton;
         },
         action: () => {
-          document.getElementById("rectangel-submenu").style.display = "flex";
+          document.getElementById("rectangle-submenu").style.display = "flex";
           this.map?.fire("draw.instruction",{message:"open rectangle submenu", action:"open-rectangle-submenu"})
           try {
             draw.changeMode('draw_rectangle', {
@@ -317,7 +333,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           // }
         },
         cancel: () => {
-          document.getElementById("rectangel-submenu").style.display = "none";
+          document.getElementById("rectangle-submenu").style.display = "none";
           this.map?.fire("draw.instruction",{message:"close rectangle submenu", action:"close-rectangle-submenu"})
         },
         classes: ['draw-rectangle'],
@@ -738,13 +754,15 @@ export default class MapboxDrawPro extends MapboxDraw {
 
     this.onAdd = (map, placement) => {
       this.map = map;
-      console.log("==== placement : ", placement)
+      // console.log("==== placement : ", placement)
       placement = placement || 'top-right'
       this.elContainer = this.onAddOrig(map, placement);
       
-      draw.options.edge = placement?.split('-')[draw.options.horizontal?0:1]
+      // draw.options.edge = placement?.split('-')[draw.options.horizontal?0:1]
+      // !!draw.options.edge&&(draw.options.edge = draw.options.horizontal?'top':'right')
       // console.log(" draw | placement : ", draw, placement);
 
+      console.log("==== edge : ", draw.options.edge)
       // console.log("==== this.elContainer : ", this.elContainer)
       this.elContainer.classList.add(draw.options.horizontal?"horizontal":"")
       this.elContainer.classList.add(draw.options.edge)

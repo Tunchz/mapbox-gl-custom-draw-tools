@@ -43,7 +43,7 @@ function App() {
       },
     });
 
-    draw = new MapboxDrawPro({otherOtions:{horizontal:true}});
+    draw = new MapboxDrawPro({otherOtions:{horizontal:true,edge:'bottom'}});
     window.draw = draw;
 
     map.once('load', () => {

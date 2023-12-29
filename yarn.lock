@@ -282,7 +282,7 @@
   "version" "0.0.1"
 
 "@mapbox/mapbox-gl-draw@github:Tunchz/mapbox-gl-draw":
-  "resolved" "git+ssh://git@github.com/Tunchz/mapbox-gl-draw.git#dcc429e8363f47f7778e6fec941c5afa64b9cbf4"
+  "resolved" "git+ssh://git@github.com/Tunchz/mapbox-gl-draw.git#0ad0199fd5e061464c6994e73ef13cdf0f4fc85e"
   "version" "1.4.2"
   dependencies:
     "@mapbox/geojson-area" "^0.2.2"

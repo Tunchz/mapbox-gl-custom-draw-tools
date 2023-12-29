@@ -1,4 +1,7 @@
 
+const mapboxgl = require('mapbox-gl');
+import area from "@turf/area";
+const getArea = (feature) => area(feature);
 const doubleClickZoom = {
   enable: ctx => {
     setTimeout(() => {
@@ -48,6 +51,8 @@ const DrawAssistedRectangle = {
     this.setActionableState({
       trash: true
     });
+    this.popupWindow = new mapboxgl.Popup({ closeButton: false, closeOnClick: true , anchor:"left"});
+
     return {
       rectangle,
       currentVertexPosition: 0
@@ -93,11 +98,22 @@ const DrawAssistedRectangle = {
 
       this.calculateOrientedAnglePolygon(state);
 
+      state.rectangle.properties.angle = state.angle;
+      this.popupWindow
+        .setLngLat([e.lngLat.lng, e.lngLat.lat])
+        .setHTML(`<div style="margin-top:-8px;margin-bottom:-17px;">${state.angle?('มุม ： ' + state.angle + ''):''} ดีกรี</div>`)
+        .addTo(this.map);
     }
 
     if (state.currentVertexPosition === 2) {
       const getpXY3 = this.calculatepXY3(state, e, true);
 
+      let area = getArea(state.rectangle);
+      state.rectangle.properties.areaInM2 = area;
+      this.popupWindow
+        .setLngLat([e.lngLat.lng, e.lngLat.lat])
+        .setHTML(`<div style="margin-top:-8px;margin-bottom:-13px;">${state.angle?('มุม  ：' + state.angle + ' ดีกรี<br>'):''}พื้นที่：${area.toFixed(2)} m2</div>`)
+        .addTo(this.map);
       if (getpXY3) {
         state.rectangle.updateCoordinate("0." + (state.currentVertexPosition + 1), getpXY3[0], getpXY3[1]);
       }
@@ -191,6 +207,7 @@ const DrawAssistedRectangle = {
     // this.activateUIButton();
 
     this?._ctx?.api?.setActiveButton();
+    this.popupWindow.remove()
 
     // check to see if we've deleted this feature
     if (this.getFeature(state.rectangle.id) === undefined) return;
