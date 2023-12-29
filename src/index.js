@@ -38,7 +38,7 @@ const MapboxCircle = require('mapbox-gl-circle');
 require('@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css');
 require('./custom-draw-tools.css');
 
-import SimpleSelectMode from '@mapbox/mapbox-gl-draw/src/modes/simple_select';
+// import SimpleSelectMode from '@mapbox/mapbox-gl-draw/src/modes/simple_select';
 
 class SnapOptionsToolbar {
   constructor(opt) {
@@ -149,7 +149,7 @@ export default class MapboxDrawPro extends MapboxDraw {
     const __styles = [...paintDrawStyles(cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(defaultDrawStyle)))))];
     const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle, bezierStyles, 'id');
     const _options = { modes: _modes, styles: _styles, controls:_controls, ...customOptions, ...otherOtions };
-    console.log("--- options : ", options, _options.edge, otherOtions)
+    // console.log("--- options : ", options, _options.edge, otherOtions)
     super(_options);
 
 
@@ -754,6 +754,7 @@ export default class MapboxDrawPro extends MapboxDraw {
 
     this.onAdd = (map, placement) => {
       this.map = map;
+      // console.log("==== this | draw : ", this, draw)
       // console.log("==== placement : ", placement)
       placement = placement || 'top-right'
       this.elContainer = this.onAddOrig(map, placement);
@@ -762,10 +763,10 @@ export default class MapboxDrawPro extends MapboxDraw {
       // !!draw.options.edge&&(draw.options.edge = draw.options.horizontal?'top':'right')
       // console.log(" draw | placement : ", draw, placement);
 
-      console.log("==== edge : ", draw.options.edge)
+      console.log("==== edge : ", this.options.edge)
       // console.log("==== this.elContainer : ", this.elContainer)
-      this.elContainer.classList.add(draw.options.horizontal?"horizontal":"")
-      this.elContainer.classList.add(draw.options.edge)
+      this.elContainer.classList.add(this.options.horizontal?"horizontal":"")
+      this.elContainer.classList.add(this.options.edge)
       this.elContainer.classList.add('custom-tools-group')
 
       this.buttons.forEach((b) => {
@@ -865,8 +866,8 @@ const addExtraHandling = (map, draw) => {
   // console.log("==== this : ", draw)
 
   // map.on('mousemove', function (e) {
-  //   // console.log("=== draw.getMode() : ", draw.getMode())
-  //   if (draw.getMode() === "draw_rectangle_assisted") {
+  //   // console.log("=== this.getMode() : ", this.getMode())
+  //   if (this.getMode() === "draw_rectangle_assisted") {
        
   //       const features = map.queryRenderedFeatures(e.point);
 

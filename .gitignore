@@ -108,8 +108,8 @@ typings/
 .vscode/
 
 demo/node_modules/
-# demo/build/
 demo/.idea/
 demo/.DS_store/
 demo/.vscode/
 # dist/
+# demo/build/
