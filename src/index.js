@@ -480,7 +480,7 @@ export default class MapboxDrawPro extends MapboxDraw {
 
           function goSplitMode(selectedFeatures) {
             try {
-              draw?.changeMode('split_line', {
+              this.changeMode('split_line', {
                 spliter: 'line_string',
                 features: selectedFeatures,
                 /** Default option vlaues: */
@@ -523,7 +523,7 @@ export default class MapboxDrawPro extends MapboxDraw {
 
           function goSplitMode(selectedFeatures) {
             try {
-              draw?.changeMode('split_line', {
+              this.changeMode('split_line', {
                 spliter: 'polygon',
                 features: selectedFeatures,
                 /** Default option vlaues: */
@@ -570,7 +570,7 @@ export default class MapboxDrawPro extends MapboxDraw {
 
           function goSplitMode(selectedFeatures) {
             try {
-              draw?.changeMode('split_polygon', {
+              this.changeMode('split_polygon', {
                 // featureIds: selectedFeatureIDs,
                 features: selectedFeatures,
                 /** Default option vlaues: */
@@ -622,7 +622,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           function goCutPolygonMode(selectedFeatures) {
             try {
               // this.changeMode('cut_polygon');
-              draw?.changeMode('cut_polygon', {
+              this.changeMode('cut_polygon', {
                 features: selectedFeatures,
                 highlightColor: '#222',
               });
