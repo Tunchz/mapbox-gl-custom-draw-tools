@@ -35,8 +35,8 @@ import PaintMode, { drawStyles as paintDrawStyles } from './lib/mapbox-gl-draw-p
 
 // import MapboxCircle from 'mapbox-gl-circle';
 const MapboxCircle = require('mapbox-gl-circle');
+require('@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css');
 require('./custom-draw-tools.css');
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 
 import SimpleSelectMode from '@mapbox/mapbox-gl-draw/src/modes/simple_select';
 

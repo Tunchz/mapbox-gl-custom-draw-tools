@@ -394,6 +394,14 @@
     "estree-walker" "^1.0.1"
     "picomatch" "^2.2.2"
 
+"@rollup/pluginutils@4":
+  "integrity" "sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ=="
+  "resolved" "https://registry.npmjs.org/@rollup/pluginutils/-/pluginutils-4.2.1.tgz"
+  "version" "4.2.1"
+  dependencies:
+    "estree-walker" "^2.0.1"
+    "picomatch" "^2.2.2"
+
 "@turf/along@^6.5.0":
   "integrity" "sha512-LLyWQ0AARqJCmMcIEAXF4GEu8usmd4Kbz3qk1Oy5HoRNpZX47+i5exQtmIWKdqJ1MMhW26fCTXgpsEs5zgJ5gw=="
   "resolved" "https://registry.npmjs.org/@turf/along/-/along-6.5.0.tgz"
@@ -3729,6 +3737,13 @@
     "globby" "10.0.1"
     "is-plain-object" "^3.0.0"
 
+"rollup-plugin-css-only@^3.0.0":
+  "integrity" "sha512-TYMOE5uoD76vpj+RTkQLzC9cQtbnJNktHPB507FzRWBVaofg7KhIqq1kGbcVOadARSozWF883Ho9KpSPKH8gqA=="
+  "resolved" "https://registry.npmjs.org/rollup-plugin-css-only/-/rollup-plugin-css-only-3.1.0.tgz"
+  "version" "3.1.0"
+  dependencies:
+    "@rollup/pluginutils" "4"
+
 "rollup-plugin-terser@^7.0.2":
   "integrity" "sha512-w3iIaU4OxcF52UUXiZNsNeuXIMDvFrr+ZXK6bFZ0Q60qyVfq4uLptoS4bbq3paG3x216eQllFZX7zt6TIImguQ=="
   "resolved" "https://registry.npmjs.org/rollup-plugin-terser/-/rollup-plugin-terser-7.0.2.tgz"
@@ -3739,7 +3754,7 @@
     "serialize-javascript" "^4.0.0"
     "terser" "^5.0.0"
 
-"rollup@^1.20.0 || ^2.0.0", "rollup@^1.20.0||^2.0.0", "rollup@^2.0.0", "rollup@^2.38.3", "rollup@^2.42.0", "rollup@^2.79.1":
+"rollup@^1.20.0 || ^2.0.0", "rollup@^1.20.0||^2.0.0", "rollup@^2.0.0", "rollup@^2.38.3", "rollup@^2.42.0", "rollup@^2.79.1", "rollup@1 || 2":
   "integrity" "sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw=="
   "resolved" "https://registry.npmjs.org/rollup/-/rollup-2.79.1.tgz"
   "version" "2.79.1"
