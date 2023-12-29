@@ -25,7 +25,9 @@
         "url": "https://github.com/Tunchz/mapbox-gl-custom-draw-tools/issues"
     },
     "homepage": "https://github.com/Tunchz/mapbox-gl-custom-draw-tools#readme",
-    "files": ["dist"],
+    "files": [
+        "dist"
+    ],
     "devDependencies": {
         "@rollup/plugin-commonjs": "21.0.1",
         "@rollup/plugin-inject": "4.0.3",

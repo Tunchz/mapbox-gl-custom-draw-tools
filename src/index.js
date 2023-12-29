@@ -620,7 +620,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           const selectedFeatureIDs = this.getSelectedIds();
           // console.log("----- selectedFeatureIDs : ", selectedFeatureIDs)
 
-          function goCutPolygonMode(selectedFeatures) {
+          function goCutPolygonMode(draw,selectedFeatures) {
             try {
               // this.changeMode('cut_polygon');
               draw?.changeMode('cut_polygon', {
@@ -636,14 +636,14 @@ export default class MapboxDrawPro extends MapboxDraw {
 
           if (selectedFeatureIDs?.length > 0) {
             let selectedFeatures = this.getSelected()
-            goCutPolygonMode(selectedFeatures.features || null);
+            goCutPolygonMode(this,selectedFeatures.features || null);
           } else {
             // console.log("--- change mode : select_feature")
             this.changeMode('select_feature', {
               selectHighlightColor: 'yellow',
               onSelect(state) {
-                console.log("--- state : ", state)
-                goCutPolygonMode([{
+                // console.log("--- state : ", state)
+                goCutPolygonMode(state.draw,[{
                   id: state.selectedFeatureID,
                   type:"Feature",
                   geometry:state.selectedFeature?._geometry,
