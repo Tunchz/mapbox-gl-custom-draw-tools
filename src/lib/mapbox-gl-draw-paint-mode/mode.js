@@ -3,10 +3,10 @@ import {geojsonTypes, cursors, types, updateActions, modes, events} from '@mapbo
 import simplify from "@turf/simplify";
 // import "./icon/paint-brush.css";
 
-const PaintMode = Object.assign({}, DrawPolygon)
+const PaintMode = Object.assign({}, {toDisplayFeatures:DrawPolygon.toDisplayFeatures})
 
 PaintMode.onSetup = function() {
-    console.log("==== PaintMode.onSetup")
+    // console.log("==== PaintMode.onSetup")
     const polygon = this.newFeature({
         type: geojsonTypes.FEATURE,
         properties: {},
@@ -56,7 +56,9 @@ PaintMode.onMouseUp = function (state, e){
         this.fireUpdate();
         this.changeMode(modes.SIMPLE_SELECT, { featureIds: [state.polygon.id] });
         this.changeMode("draw_paint_mode");
-        // this.onSetup();
+        
+
+        // this?._ctx?.api?.setActiveButton();
     }
 }
 
@@ -78,7 +80,7 @@ PaintMode.simplify = function(polygon) {
       tolerance: tolerance,
       highQuality: true
   });
-  console.log("=== simplify after : ", polygon)
+//   console.log("=== simplify after : ", polygon)
 }
 
 export default PaintMode

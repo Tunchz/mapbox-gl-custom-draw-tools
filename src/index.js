@@ -38,7 +38,7 @@ const MapboxCircle = require('mapbox-gl-circle');
 require('@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css');
 require('./custom-draw-tools.css');
 
-// import SimpleSelectMode from '@mapbox/mapbox-gl-draw/src/modes/simple_select';
+import SimpleSelectMode from '@mapbox/mapbox-gl-draw/src/modes/simple_select';
 
 class SnapOptionsToolbar {
   constructor(opt) {
