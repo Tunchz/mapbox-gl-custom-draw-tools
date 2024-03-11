@@ -132,7 +132,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       bufferSize: 0.5,
       bufferUnit: 'kilometers',
       bufferSteps: 64,
-      snap: true,
+      snap: false,
       // snapOptions: {
       //   snapPx: 15,
       //   snapToMidPoints: true,
@@ -149,7 +149,7 @@ export default class MapboxDrawPro extends MapboxDraw {
     const __styles = [...paintDrawStyles(cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(defaultDrawStyle)))))];
     const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle, bezierStyles, 'id');
     const _options = { modes: _modes, styles: _styles, controls:_controls, ...customOptions, ...otherOtions };
-    // console.log("--- options : ", options, _options.edge, otherOtions)
+    console.log("--- options : ", _options)
     super(_options);
 
 
@@ -900,6 +900,8 @@ const addExtraHandling = (map, draw) => {
 }
 
 const addOtherControls = async (map, draw, placement) => {
+
+  console.log("---- draw.options : ", draw.options)
   const snapOptionsBar = new SnapOptionsToolbar({
     draw,
     checkboxes: [
@@ -907,10 +909,11 @@ const addOtherControls = async (map, draw, placement) => {
         on: 'change',
         action: (e) => {
           draw.options.snap = e.target.checked;
+          console.log("---- draw.options.snap : ", draw.options.snap)
         },
         classes: ['snap_mode', 'snap'],
         title: 'Snap when Draw',
-        initialState: 'checked',
+        initialState: draw?.options?.snap?'checked':'unchecked',
       },
       {
         on: 'change',
@@ -919,12 +922,14 @@ const addOtherControls = async (map, draw, placement) => {
         },
         classes: ['snap_mode', 'grid'],
         title: 'Show Guides',
+        initialState: draw?.options?.guides?'checked':'unchecked',
       },
     ],
   });
   setTimeout(() => {
     map.addControl(additionalTools(draw), placement);
     map.addControl(snapOptionsBar, placement);
+    draw.options.snap = false;
 
     setTimeout(()=>draw.groups_item?.map((el)=>{draw.group_elContainer.appendChild(el)}),10);
   }, 400);
