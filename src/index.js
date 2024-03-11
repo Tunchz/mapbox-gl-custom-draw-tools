@@ -133,10 +133,10 @@ export default class MapboxDrawPro extends MapboxDraw {
       bufferUnit: 'kilometers',
       bufferSteps: 64,
       snap: true,
-      snapOptions: {
-        snapPx: 15,
-        snapToMidPoints: true,
-      },
+      // snapOptions: {
+      //   snapPx: 15,
+      //   snapToMidPoints: true,
+      // },
       guides: false,
       userProperties: true,
       ...other,
@@ -365,7 +365,11 @@ export default class MapboxDrawPro extends MapboxDraw {
         },
         classes: ["draw-paint"],
         title: "Paint (Free Drawing)",
-        cancel: ()=>{this.trash();}
+        cancel: ()=>{
+          console.log("--- cancel");
+          // this.changeMode('simple_select');
+          // this.trash();
+        }
       },
       {
         //===== Freform Polygon

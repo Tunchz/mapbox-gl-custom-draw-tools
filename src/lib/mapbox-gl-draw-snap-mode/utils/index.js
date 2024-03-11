@@ -289,6 +289,8 @@ function snapToLineOrPolygon(
   const C = [closestLayer.latlng.lng, closestLayer.latlng.lat];
 
   // distances from A to C and B to C to check which one is closer to C
+  // console.log("==== A, B, C : ", A, B, C)
+  if (!A || !B) return;
   const distanceAC = distance(A, C);
   const distanceBC = distance(B, C);
 

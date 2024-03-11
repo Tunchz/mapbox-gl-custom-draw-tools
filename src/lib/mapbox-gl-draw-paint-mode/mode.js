@@ -55,11 +55,10 @@ PaintMode.onMouseUp = function (state, e){
         }
         this.fireUpdate();
         this.changeMode(modes.SIMPLE_SELECT, { featureIds: [state.polygon.id] });
-        this.changeMode("draw_paint_mode");
-        
-
-        // this?._ctx?.api?.setActiveButton();
+        // this.changeMode("draw_paint_mode");
     }
+
+    this?._ctx?.api?.setActiveButton();
 }
 
 PaintMode.onTouchEnd = function(state, e) {

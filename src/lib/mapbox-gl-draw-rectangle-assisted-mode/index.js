@@ -101,7 +101,7 @@ const DrawAssistedRectangle = {
       state.rectangle.properties.angle = state.angle;
       this.popupWindow
         .setLngLat([e.lngLat.lng, e.lngLat.lat])
-        .setHTML(`<div style="margin-top:-8px;margin-bottom:-17px;">${state.angle?('มุม ： ' + state.angle + ''):''} ดีกรี</div>`)
+        .setHTML(`<div style="margin-top:-8px;margin-bottom:-17px;color:#000000;">${state.angle?('มุม ： ' + state.angle + ''):''} ดีกรี</div>`)
         .addTo(this.map);
     }
 
@@ -112,7 +112,7 @@ const DrawAssistedRectangle = {
       state.rectangle.properties.areaInM2 = area;
       this.popupWindow
         .setLngLat([e.lngLat.lng, e.lngLat.lat])
-        .setHTML(`<div style="margin-top:-8px;margin-bottom:-13px;">${state.angle?('มุม  ：' + state.angle + ' ดีกรี<br>'):''}พื้นที่：${area.toFixed(2)} m2</div>`)
+        .setHTML(`<div style="margin-top:-8px;margin-bottom:-13px;color:#000000;">${state.angle?('มุม  ：' + state.angle + ' ดีกรี<br>'):''}พื้นที่：${area.toFixed(2)} m2</div>`)
         .addTo(this.map);
       if (getpXY3) {
         state.rectangle.updateCoordinate("0." + (state.currentVertexPosition + 1), getpXY3[0], getpXY3[1]);
