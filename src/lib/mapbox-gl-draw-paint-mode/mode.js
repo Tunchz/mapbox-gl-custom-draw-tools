@@ -59,6 +59,7 @@ PaintMode.onMouseUp = function (state, e){
     }
 
     this?._ctx?.api?.setActiveButton();
+    // this?._ctx?.api?.deactiveButton();
 }
 
 PaintMode.onTouchEnd = function(state, e) {
