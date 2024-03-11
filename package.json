@@ -1,6 +1,6 @@
 {
     "name": "mapbox-gl-custom-draw-tools",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Advanced tools for geospatial edit and analysis based on Mapbox Gl Draw",
     "main": "dist/index.js",
     "module": "src/index.js",
