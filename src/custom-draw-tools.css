@@ -165,6 +165,20 @@
     background-size: 60%;
 }
 
+.mapboxgl-ctrl-group .file-import {
+    background-image: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="utf-8"%3F><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --><svg fill="%23000000" xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 52 52" enable-background="new 0 0 52 52" xml:space="preserve"><g><path d="M46,14H23.3c-1.4,0-2.7-0.8-3.5-2l-3.5-6c-0.7-1.2-2-2-3.5-2H6C3.8,4,2,5.8,2,8v8v28c0,2.2,1.8,4,4,4h40c2.2,0,4-1.8,4-4V18C50,15.8,48.2,14,46,14z"/><path d="M46,6H21.9c-0.4,0-0.6,0.4-0.4,0.7l1.6,2.7C23.3,9.8,23.6,10,24,10h22c1.1,0,2.2,0.2,3.1,0.6c0.4,0.2,0.9-0.1,0.9-0.6V10C50,7.8,48.2,6,46,6z"/></g></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60%;
+}
+
+.mapboxgl-ctrl-group .file-export {
+    background-image: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="utf-8"%3F><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --><svg fill="%23000000" height="800px" width="800px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve"><g id="save-filled"><path d="M19,0H1C0.448,0,0,0.448,0,1v22c0,0.552,0.448,1,1,1h22c0.552,0,1-0.448,1-1V5L19,0z M6,3c0-0.552,0.448-1,1-1h10c0.552,0,1,0.448,1,1v6c0,0.552-0.448,1-1,1H7c-0.552,0-1-0.448-1-1V3z M20,22H4v-7c0-0.552,0.448-1,1-1h14c0.552,0,1,0.448,1,1V22z"/><path d="M16,9h-4V3h4V9z"/></g></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60%;
+}
+
 .mapboxgl-ctrl-attrib {
     display: none;
   }
@@ -259,4 +273,8 @@
 
 .custom-tools-container {
     display:flex;
+}
+
+.file-input-hidden {
+    opacity:0;
 }

@@ -22,12 +22,12 @@ import DrawRectangle, { DrawStyles as RectRestrictStyles } from './lib/mapbox-gl
 import DrawRectangleAssisted from './lib/mapbox-gl-draw-rectangle-assisted-mode';
 import { additionalTools, measurement, addToolStyle } from './lib/mapbox-gl-draw-additional-tools';
 import DrawEllipse from './lib/mapbox-gl-draw-ellipse';
-import {
-  SimpleSelectModeBezierOverride, 
-  DirectModeBezierOverride, 
-  DrawBezierCurve, 
-  customStyles as bezierStyles,
-} from './lib/mapbox-gl-draw-bezier-curve-mode';
+// import {
+//   SimpleSelectModeBezierOverride, 
+//   DirectModeBezierOverride, 
+//   DrawBezierCurve, 
+//   customStyles as bezierStyles,
+// } from './lib/mapbox-gl-draw-bezier-curve-mode';
 import DragCircleMode from './lib/mapbox-gl-draw-drag-circle-mode'
 import DragEllipseMode from './lib/mapbox-gl-draw-drag-ellipse-mode'
 
@@ -70,10 +70,12 @@ class SnapOptionsToolbar {
   }
   addCheckbox(opt) {
     let ctrl = this;
-    var elCheckbox = document.createElement('input');
-    elCheckbox.setAttribute('type', 'checkbox');
+    console.log("----- opt : ", opt)
+    var elCheckbox = opt.initialState?document.createElement('input'):document.createElement('button');
+    opt.initialState&&elCheckbox.setAttribute('type', 'checkbox');
     elCheckbox.setAttribute('title', opt.title);
-    elCheckbox.checked = opt.initialState === 'checked';
+    opt.initialState&&(elCheckbox.checked = opt.initialState === 'checked');
+    elCheckbox.id = opt.id;
     elCheckbox.className = 'mapbox-gl-draw_ctrl-draw-btn';
     if (opt.classes instanceof Array) {
       opt.classes.forEach((c) => {
@@ -119,11 +121,11 @@ export default class MapboxDrawPro extends MapboxDraw {
       freehandMode: FreehandMode,
       draw_rectangle: DrawRectangle,
       draw_rectangle_assisted: DrawRectangleAssisted,
-      // simple_select: SimpleSelectMode,
       draw_ellipse : DrawEllipse,
-      simple_select: SimpleSelectModeBezierOverride,
-      direct_select: DirectModeBezierOverride,
-      draw_bezier_curve: DrawBezierCurve,
+      simple_select: SimpleSelectMode,
+      // simple_select: SimpleSelectModeBezierOverride,
+      // direct_select: DirectModeBezierOverride,
+      // draw_bezier_curve: DrawBezierCurve,
       drag_circle: DragCircleMode,
       drag_ellipse: DragEllipseMode,
     };
@@ -147,7 +149,7 @@ export default class MapboxDrawPro extends MapboxDraw {
 
     const _modes = { ...customModes, ...modes };
     const __styles = [...paintDrawStyles(cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(defaultDrawStyle)))))];
-    const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle, bezierStyles, 'id');
+    const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle/*, bezierStyles*/, 'id');
     const _options = { modes: _modes, styles: _styles, controls:_controls, ...customOptions, ...otherOtions };
     console.log("--- options : ", _options)
     super(_options);
@@ -184,14 +186,14 @@ export default class MapboxDrawPro extends MapboxDraw {
         id: "draw-point-tool",
         title: "Point",
       },
-      {
-        on: "click", 
-        action: () => {
-          this.changeMode("draw_bezier_curve")
-        }, 
-        classes: ["bezier-curve-icon"], 
-        title:'Bezier tool'
-      },
+      // {
+      //   on: "click", 
+      //   action: () => {
+      //     this.changeMode("draw_bezier_curve")
+      //   }, 
+      //   classes: ["bezier-curve-icon"], 
+      //   title:'Bezier tool'
+      // },
       {
         //===== drag circle
         on: "click",
@@ -926,10 +928,100 @@ const addOtherControls = async (map, draw, placement) => {
       },
     ],
   });
+
+  const fileOptionsBar = new SnapOptionsToolbar({
+    draw,
+    checkboxes: [
+      {
+        on: 'click',
+        id: 'import',
+        action: (e) => {
+          if (!document.getElementById('import')?.innerHTML) {
+            console.log("---- attach form !!!")
+            // let _form = document.createElement('form');
+            // _form.action = "{{ url_for('upload') }}"
+            // _form.method="POST"
+            // _form.enctype="multipart/form-data"
+            let _input = document.createElement('input');
+            _input.id="selectFiles"
+            _input.classList="mapbox-gl-draw_ctrl-draw-btn file-input-hidden"
+            _input.type="file"
+            _input.name="file"
+            _input.accept="application/JSON" //"image/*"
+            _input.onchange=(e)=>{
+              console.log("--- input onchange : ",e )
+              var files = document.getElementById('selectFiles').files;
+              console.log(files);
+              if (files.length <= 0) {
+                return false;
+              }
+              
+              var fr = new FileReader();
+              
+              fr.onload = function(e) { 
+              console.log(e);
+                var result = JSON.parse(e.target.result);
+                console.log("--- import file : ",result)
+                if (result?.type=="FeatureCollection" && result?.features?.length) {
+                  draw.set(result)
+                } else {
+                  console.log("---- unable to import file : ", file)
+                  alert("the imported file has incorrect format !!!")
+                }
+                // var formatted = JSON.stringify(result, null, 2);
+                // document.getElementById('result').value = formatted;
+              }
+              
+              fr.readAsText(files.item(0));
+            }
+            document.getElementById('import').append(_input)
+            _input.click()
+          }
+          console.log("---- import : ")
+          // draw.options.guides = e.target.checked;
+
+
+
+        },
+        classes: ['file-import', 'load'],
+        title: 'Export GeoJson',
+      },
+      {
+        on: 'click',
+        id: 'export',
+        action: (e) => {
+          // draw.options.snap = e.target.checked;
+          var data = draw.getAll();
+
+          if (data.features.length > 0) {
+              // Stringify the GeoJson
+              var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+              // Create export
+              if (!document.getElementById('export')?.innerHTML) {
+                console.log("---- attach link !!!")
+                let _a = document.createElement('a');
+                _a.id = "export-file";
+                _a.setAttribute('href', 'data:' + convertedData);
+                _a.setAttribute('download','data.json'); 
+                document.getElementById('export').append(_a)  
+              } 
+              !draw.options?.onExport&&document.getElementById('export-file')?.click();
+          } else {
+              alert("no data found!!!");
+          }
+          console.log("---- exported data : ", data)
+          draw.options?.onExport&&draw.options?.onExport(data)
+        },
+        classes: ['file-export', 'save'],
+        title: 'Import GeoJson',
+      },
+    ],
+  });
+
   setTimeout(() => {
     map.addControl(additionalTools(draw), placement);
     map.addControl(snapOptionsBar, placement);
-    draw.options.snap = false;
+    map.addControl(fileOptionsBar, placement);
 
     setTimeout(()=>draw.groups_item?.map((el)=>{draw.group_elContainer.appendChild(el)}),10);
   }, 400);
