@@ -17,6 +17,7 @@ import CutPolygonMode, { drawStyles as cutPolygonDrawStyles } from './lib/mapbox
 // import SplitLineMode from 'mapbox-gl-draw-split-line-mode';
 // import SplitLineMode from './lib/mapbox-gl-draw-split-line-mode';
 import SplitLineMode, {drawStyles as splitLineDrawStyles } from './lib/mapbox-gl-draw-split-line-mode';
+import PaintMode, { drawStyles as paintDrawStyles } from './lib/mapbox-gl-draw-paint-mode';
 import FreehandMode from './lib/mapbox-gl-draw-freehand-mode';
 import DrawRectangle, { DrawStyles as RectRestrictStyles } from './lib/mapbox-gl-draw-rectangle-restrict-area';
 import DrawRectangleAssisted from './lib/mapbox-gl-draw-rectangle-assisted-mode';
@@ -30,8 +31,8 @@ import DrawEllipse from './lib/mapbox-gl-draw-ellipse';
 // } from './lib/mapbox-gl-draw-bezier-curve-mode';
 import DragCircleMode from './lib/mapbox-gl-draw-drag-circle-mode'
 import DragEllipseMode from './lib/mapbox-gl-draw-drag-ellipse-mode'
+import StaticMode from './lib/mapbox-gl-draw-static-mode';
 
-import PaintMode, { drawStyles as paintDrawStyles } from './lib/mapbox-gl-draw-paint-mode';
 
 // import MapboxCircle from 'mapbox-gl-circle';
 const MapboxCircle = require('mapbox-gl-circle');
@@ -40,7 +41,7 @@ require('./custom-draw-tools.css');
 
 import SimpleSelectMode from '@mapbox/mapbox-gl-draw/src/modes/simple_select';
 
-class SnapOptionsToolbar {
+class OptionsToolbar {
   constructor(opt) {
     let ctrl = this;
     ctrl.checkboxes = opt.checkboxes || [];
@@ -52,11 +53,11 @@ class SnapOptionsToolbar {
     let ctrl = this;
     ctrl.map = map;
     ctrl._container = document.createElement('div');
-    ctrl._container.className = `mapboxgl-ctrl-group mapboxgl-ctrl custom-tools-group${ctrl.horizontal?" horizontal":""} ${ctrl.edge}`;
+    ctrl._container.className = `mapboxgl-ctrl-group mapboxgl-ctrl custom-tools-group${ctrl.horizontal?" horizontal":"vertical"} ${ctrl.edge}`;
     ctrl.elContainer = ctrl._container;
     ctrl.draw.groups_item&&ctrl.draw.groups_item.push(ctrl.elContainer)
     ctrl.checkboxes.forEach((b) => {
-      ctrl.addCheckbox(b);
+      !b.disabled&&ctrl.addCheckbox(b);
     });
     ctrl.buttonElements={}
     ctrl.activeButton=null
@@ -70,7 +71,7 @@ class SnapOptionsToolbar {
   }
   addCheckbox(opt) {
     let ctrl = this;
-    console.log("----- opt : ", opt)
+    // console.log("----- opt : ", opt)
     var elCheckbox = opt.initialState?document.createElement('input'):document.createElement('button');
     opt.initialState&&elCheckbox.setAttribute('type', 'checkbox');
     elCheckbox.setAttribute('title', opt.title);
@@ -97,7 +98,7 @@ export default class MapboxDrawPro extends MapboxDraw {
   
   constructor(options) {
     options = options || {};
-    const { modes, styles, controls, otherOtions, ...other } = options;
+    const { modes, styles, controls, otherOptions, ...other } = options;
 
 
     // const [isTypeMenuActive, setIsTypeMenuActive] = useState(false);
@@ -109,7 +110,8 @@ export default class MapboxDrawPro extends MapboxDraw {
 
     const customModes = {
       // ...MapboxDraw.modes,
-      ...PaintMode(CutPolygonMode(SplitPolygonMode(SplitLineMode(SelectFeatureMode(MapboxDraw.modes))))),
+      ...PaintMode(CutPolygonMode(SplitPolygonMode(SplitLineMode(SelectFeatureMode(MapboxDraw.modes)))),{...otherOptions?.paint||{}}),
+      static: StaticMode,
       draw_point: SnapPointMode,
       draw_polygon: SnapPolygonMode,
       draw_line_string: SnapLineMode,
@@ -135,10 +137,10 @@ export default class MapboxDrawPro extends MapboxDraw {
       bufferUnit: 'kilometers',
       bufferSteps: 64,
       snap: false,
-      // snapOptions: {
-      //   snapPx: 15,
-      //   snapToMidPoints: true,
-      // },
+      snapOptions: {
+        snapPx: 15,
+        snapToMidPoints: true,
+      },
       guides: false,
       userProperties: true,
       ...other,
@@ -148,122 +150,104 @@ export default class MapboxDrawPro extends MapboxDraw {
     const _controls = {...controls, line_string:false, polygon:false, point:false, combine:false, uncombine:false, trash:false}
 
     const _modes = { ...customModes, ...modes };
-    const __styles = [...paintDrawStyles(cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(defaultDrawStyle)))))];
+    const __styles = [...cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(paintDrawStyles(defaultDrawStyle)))))];
     const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle/*, bezierStyles*/, 'id');
-    const _options = { modes: _modes, styles: _styles, controls:_controls, ...customOptions, ...otherOtions };
+    const _options = { modes: _modes, styles: _styles, controls:_controls, ...customOptions, ...otherOptions };
     console.log("--- options : ", _options)
     super(_options);
 
 
     this.buttons = [
       {
-        //===== line
+        //===== point
         on: "click",
         action: () => {
-          this.changeMode('draw_line_string');
+          this.changeMode('static');
+          // this.map?.fire("draw.instruction",{
+          //   action:"วาดจุด",
+          //   message:"คลิกเพื่อกำหนดจุด", 
+          // })
         },
-        classes: ["mapbox-gl-draw_line"],
-        id: "draw-line-tool",
-        title: "Line",
-      },
-      {
-        //===== polygon
-        on: "click",
-        action: () => {
-          this.changeMode('draw_polygon');
-        },
-        classes: ["mapbox-gl-draw_polygon"],
-        id: "draw-polygon-tool",
-        title: "Polygon",
+        classes: ["static-mode"],
+        id: "static-mode",
+        title: "static",
+        disabled: controls.static==false,
       },
       {
         //===== point
         on: "click",
         action: () => {
           this.changeMode('draw_point');
+          this.map?.fire("draw.instruction",{
+            action:"วาดจุด",
+            message:"คลิกเพื่อกำหนดจุด", 
+          })
         },
         classes: ["mapbox-gl-draw_point"],
         id: "draw-point-tool",
         title: "Point",
+        disabled: controls.point==false,
       },
-      // {
-      //   on: "click", 
-      //   action: () => {
-      //     this.changeMode("draw_bezier_curve")
-      //   }, 
-      //   classes: ["bezier-curve-icon"], 
-      //   title:'Bezier tool'
-      // },
+      {
+        //===== line
+        on: "click",
+        action: () => {
+          this.changeMode('draw_line_string');
+          this.map?.fire("draw.instruction",{
+            action:"วาดเส้น",
+            message:"คลิกเพื่อเริ่ม คลิกสองครั้งเมื่อเสร็จสิ้น", 
+          })
+        },
+        classes: ["mapbox-gl-draw_line"],
+        id: "draw-line-tool",
+        title: "Line",
+        disabled: controls.line==false,
+      },
+      {
+        //===== polygon
+        on: "click",
+        action: () => {
+          this.changeMode('draw_polygon');
+          this.map?.fire("draw.instruction",{
+            action:"วาดรูปหลายเหลี่ยม",
+            message:"คลิกเพื่อเริ่ม คลิกสองครั้งเมื่อเสร็จสิ้น", 
+          })
+        },
+        classes: ["mapbox-gl-draw_polygon"],
+        id: "draw-polygon-tool",
+        title: "Polygon",
+        disabled: controls.polygon==false,
+      },
       {
         //===== drag circle
         on: "click",
         action: () => {
           this.changeMode('drag_circle');
+          this.map?.fire("draw.instruction",{
+            action:"วาดวงกลม",
+            message:"คลิกเพื่อกำหนดจุดศูนย์กลาง คลิกอีกครั้งเพื่อกำหนดรัศมี", 
+          })
         },
         classes: ["draw-circle"],
         id: "Drag-Circle",
-        title: "Cicle",
+        title: "Circle",
+        disabled: controls.circle==false,
       },
       {
         //===== ellipse
         on: "click",
         action: () => {
           this.changeMode('drag_ellipse', { eccentricity: 0.8, divisions: 60 });
+          this.map?.fire("draw.instruction",{
+            action:"วาดวงรี",
+            message:"คลิกเพื่อกำหนดจุดศูนย์กลาง คลิกอีกครั้งเพื่อกำหนดรัศมี", 
+          })
         },
         classes: ["draw-ellipse"],
         id: "Ellipse",
         title: "Ellipse",
+        disabled: controls.ellipse==false,
       },
-    
-      // {
-      //   //===== Circle
-      //   on: 'click',
-      //   action: (map) => {
-      //     this.map.getCanvas().style.cursor = 'pointer';
-      //     this.map.once('click', (e) => {
-      //       this.map.getCanvas().style.cursor = '';
-      //       var myCircle = new MapboxCircle(e.lngLat, 250, {
-      //         editable: false,
-      //         fillColor: '#3bb2d0',
-      //         fillOpacity: 0.1,
-      //         strokeColor: '#3bb2d0',
-      //         strokeWeight: 2,
-      //       }).addTo(this.map);
-      //       myCircle.on('click', (mapMouseEvent) => {
-      //         myCircle.remove();
-      //         if (!myCircle.options.editable) {
-      //           myCircle.options.editable = true;
-      //           myCircle.options.fillColor = '#fbb03b';
-      //           myCircle.options.strokeColor = '#fbb03b';
-      //         } else {
-      //           myCircle.options.editable = false;
-      //           myCircle.options.fillColor = '#3bb2d0';
-      //           myCircle.options.strokeColor = '#3bb2d0';
-      //         }
-      //         myCircle._updateCircle(); // <-- this re-initializes internal values of the circle
-      //         myCircle.addTo(this.map);
-      //       });
-      //       myCircle.on('centerchanged', (circleObj) => {
-      //         myCircle.remove();
-      //         myCircle.options.editable = false;
-      //         myCircle.options.fillColor = '#3bb2d0';
-      //         myCircle.options.strokeColor = '#3bb2d0';
-      //         myCircle._updateCircle(); // <-- this re-initializes internal values of the circle
-      //         myCircle.addTo(this.map);
-      //       });
-      //       myCircle.on('radiuschanged', (circleObj) => {
-      //         myCircle.remove();
-      //         myCircle.options.editable = false;
-      //         myCircle.options.fillColor = '#3bb2d0';
-      //         myCircle.options.strokeColor = '#3bb2d0';
-      //         myCircle._updateCircle(); // <-- this re-initializes internal values of the circle
-      //         myCircle.addTo(this.map);
-      //       });
-      //     });
-      //   },
-      //   classes: ['draw-circle'],
-      //   title: 'Draw Circle tool',
-      // },
       {
         //===== Rectangle with max area
         on: 'click',
@@ -317,6 +301,10 @@ export default class MapboxDrawPro extends MapboxDraw {
             this.changeMode('draw_rectangle', {
               areaLimit: null, 
             });
+            this.map?.fire("draw.instruction",{
+              action:"วาดสี่เหลี่ยม",
+              message:"คลิกเพื่อกำหนดจุดแรก คลิกอีกครั้งเพื่อกำหนดสิ้นสุด", 
+            })
           } catch (err) {
             console.error(err);
           }
@@ -340,6 +328,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         },
         classes: ['draw-rectangle'],
         title: 'Rectangle Draw Mode tool',
+        disabled: controls.rectangle==false,
       },
       {
         //===== Rectangle Assisted
@@ -348,19 +337,28 @@ export default class MapboxDrawPro extends MapboxDraw {
 
           try {
             this.changeMode('draw_rectangle_assisted');
+            this.map?.fire("draw.instruction",{
+              action:"วาดสี่เหลี่ยมในแนวมุม",
+              message:"คลิกเพื่อกำหนดจุดแรก คลิกครั้งที่สองเพื่อกำหนดมุมของด้านแรก คลิกอีกครั้งเมื่อสิ้นสุด", 
+            })
           } catch (err) {
             console.error(err);
           }
         },
         classes: ['draw-rectangle-assisted'],
         title: 'Assisted Rectangle Draw Mode tool',
+        disabled: controls.assisted_rectangle==false,
       },
       {
         //===== Paint 
         on: "click",
         action: () => {
           try {
-            this.changeMode("draw_paint_mode");
+            this.changeMode("draw_paint_mode",{...otherOptions?.paint||{}});
+            this.map?.fire("draw.instruction",{
+              action:"วาดเส้นแบบอิสระ",
+              message:otherOptions?.paint?.mode==2?"คลิกเพื่อเริ่ม ลากเพื่อวาด และคลิกสองครั้งเพื่อสิ้นสุด":"คลิกค้างเพื่อลากเส้น", 
+            })
           } catch (err) {
             console.error(err);
           }
@@ -371,7 +369,8 @@ export default class MapboxDrawPro extends MapboxDraw {
           console.log("--- cancel");
           // this.changeMode('simple_select');
           // this.trash();
-        }
+        },
+        disabled: controls.paint==false,
       },
       {
         //===== Freform Polygon
@@ -379,105 +378,18 @@ export default class MapboxDrawPro extends MapboxDraw {
         action: () => {
           try {
             this.changeMode('freehandMode');
+            this.map?.fire("draw.instruction",{
+              action:"วาดรูปหลายเหลี่ยมแบบอิสระ",
+              message:"คลิกเพื่อเริ่ม ลากเพื่อวาด และคลิกสองครั้งเพื่อสิ้นสุด", 
+            })
           } catch (err) {
             console.error(err);
           }
         },
         classes: ['free-hand'],
         title: 'Free-Hand Draw Mode tool',
+        disabled: controls.freehand==false,
       },
-      // {
-      //   //===== Split Line
-      //   on: 'click',
-      //   customize_button: (elButton) => {
-      //     const splitLine = (mode) => {
-      //       console.log("=== split line mode : ", mode, draw)
-      //       try {
-      //         this.changeMode('splitLineMode', { spliter: mode });
-      //       } catch (err) {
-      //         document.getElementById("split-line-menu-container").style.display = "flex";
-      //         alert(err.message);
-      //         console.error(err);
-      //       }
-      //     };
-      //     // construct menu
-      //     let bottonContainer = document.createElement('div');
-      //     bottonContainer.id = 'split-line-menu-container-wrapper';
-      //     let menuContainer = document.createElement('div');
-      //     menuContainer.className = 'mapboxgl-ctrl-group';
-      //     menuContainer.classList.add('horizontal');
-      //     menuContainer.id = 'split-line-menu-container';
-      //     menuContainer.style.display = "none";
-
-      //     var elButton1 = document.createElement('button');
-      //     elButton1.className = 'mapbox-gl-draw_ctrl-draw-btn';
-      //     elButton1.classList.add('mapbox-gl-draw_line');
-      //     elButton1.addEventListener('click', ()=>{
-      //       console.log("=== action click")
-      //       document.getElementById("split-line-menu-container").style.display = "none";
-      //       splitLine('line_string');
-      //     });
-
-      //     // var elButton2 = document.createElement('button');
-      //     // elButton2.className = 'mapbox-gl-draw_ctrl-draw-btn';
-      //     // elButton2.classList.add('mapbox-gl-draw_point');
-      //     // elButton2.addEventListener('click', ()=>{
-      //     //   document.getElementById("split-line-menu-container").style.display = "none";
-      //     //   splitLine('point');
-      //     // });
-
-      //     var elButton3 = document.createElement('button');
-      //     elButton3.className = 'mapbox-gl-draw_ctrl-draw-btn';
-      //     elButton3.classList.add('mapbox-gl-draw_polygon');
-      //     elButton3.addEventListener('click', ()=>{
-      //       document.getElementById("split-line-menu-container").style.display = "none";
-      //       splitLine('polygon');
-      //     });
-      //     menuContainer.appendChild(elButton1)
-      //     // menuContainer.appendChild(elButton2)
-      //     menuContainer.appendChild(elButton3)
-      //     elButton.splitMenu=menuContainer
-      //     bottonContainer.appendChild(menuContainer)
-      //     bottonContainer.appendChild(elButton)
-
-      //     return bottonContainer; //elButton;
-      //   },
-      //   action: () => {
-      //     let isVisible = ("flex"==document.getElementById("split-line-menu-container").style.display);
-      //     if (isVisible) {
-      //       document.getElementById("split-line-menu-container").style.display = "none";
-      //       return;
-      //     }
-
-      //     // console.log("==== selected feature", this.getSelectedIds(), this.getSelected())
-      //     let selectedIds = this.getSelectedIds(), selected = this.getSelected();
-      //     if (selectedIds.length!=1 || !['MultiLinestring','LineString'].includes(selected.features[0]?.geometry?.type)) {
-      //       document.getElementById("split-line-menu-container").style.display = "none"
-      //       // alert("Please select a Linestring/MultiLinestring! to precess line-split");
-      //       // return;
-            
-      //     }
-
-      //     document.getElementById("split-line-menu-container").style.display = "flex";
-
-      //     // console.log("==== click action", this, isVisible?"none":"flex")
-      //     this.map?.fire("draw.instruction",{message:"open line split menu", action:"open-split-menu"})
-      //     // alert("==== click action | "+document.getElementById("split-line-menu-container").style.display+" | "+isVisible?"none":"flex");
-
-
-
-      //     // try {
-      //     //   this.changeMode('splitLineMode', {
-      //     //     spliter: prompt('Which Mode? (point, line_string, polygon)'),
-      //     //   });
-      //     // } catch (err) {
-      //     //   alert(err.message);
-      //     //   console.error(err);
-      //     // }
-      //   },
-      //   classes: ['split-line'],
-      //   title: 'Split Line Mode tool',
-      // },
       {
         //===== Split Lind with Line
         on: 'click',
@@ -492,6 +404,10 @@ export default class MapboxDrawPro extends MapboxDraw {
                 /** Default option vlaues: */
                 highlightColor: '#222',
               });
+              this.map?.fire("draw.instruction",{
+                action:"ตัดแยกเส้นด้วยเส้น",
+                message:"คลิกเพื่อกำหนดจุดเริ่มเส้นตัด คลิกอีกครั้งเพื่อสิ้นสุด", 
+              })
             } catch (err) {
               alert(err.message);
               console.error(err);
@@ -516,10 +432,15 @@ export default class MapboxDrawPro extends MapboxDraw {
               },
               types2Select:["LineString", "MultiLineString"]
             });
+            this.map?.fire("draw.instruction",{
+              action:"ตัดแยกเส้นด้วยเส้น",
+              message:"เลือกเส้นที่ต้องการตัด", 
+            })
           }
         },
         classes: ['split-line'],
         title: 'Split Line Mode tool (by line)',
+        disabled: controls.split_line_line==false,
       },
       {
         //===== Split Lind with Polygon
@@ -563,6 +484,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         },
         classes: ['split-line-polygon'],
         title: 'Split Line Mode tool (by polygon)',
+        disabled: controls.split_line_polygon==false,
       },
       {
         //===== Split Polygon
@@ -611,6 +533,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         },
         classes: ['split-polygon'],
         title: 'Split Polygon Mode tool',
+        disabled: controls.split_polygon==false,
       },
       {
         //===== Cut Polygon
@@ -663,6 +586,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         },
         classes: ['cut-polygon'],
         title: 'Cut Polygon Mode tool',
+        disabled: controls.cut_polygon==false,
       },
       {
         //===== Scal&Rotate
@@ -690,6 +614,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         },
         classes: ['rotate-icon'],
         title: 'Scale and Rotate Mode tool',
+        disabled: controls.scale_rotate==false,
       },
       {
         //===== Pinning
@@ -699,33 +624,8 @@ export default class MapboxDrawPro extends MapboxDraw {
         },
         classes: ['pinning_mode'],
         title: 'Pinning Mode tool',
+        disabled: controls.pinning==false,
       },
-      // {
-      //     on: 'click',
-      //     action: () => {
-      //         this.changeMode('passing_mode_point');
-      //     },
-      //     classes: ['passing_mode', 'point'],
-      //     title: 'Passing-Point tool',
-      // },
-      // {
-      //     on: 'click',
-      //     action: () => {
-      //         this.changeMode('passing_mode_line_string', (info) => {
-      //             console.log(info);
-      //         });
-      //     },
-      //     classes: ['passing_mode', 'line'],
-      //     title: 'Passing-LineString tool',
-      // },
-      // {
-      //     on: 'click',
-      //     action: () => {
-      //         this.changeMode('passing_mode_polygon');
-      //     },
-      //     classes: ['passing_mode', 'polygon'],
-      //     title: 'Passing-Polygon tool',
-      // },
       {
         //===== combine
         on: "click",
@@ -734,6 +634,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         },
         classes: ["mapbox-gl-draw_combine"],
         title: "Combine",
+        disabled: controls.combine==false,
       },
       {
         //===== Trash
@@ -743,15 +644,18 @@ export default class MapboxDrawPro extends MapboxDraw {
         },
         classes: ["mapbox-gl-draw_uncombine"],
         title: "Uncombine",
+        disabled: controls.uncombine==false,
       },
       {
         //===== Trash
         on: "click",
+        id: "trash",
         action: () => {
           this.trash();
         },
         classes: ["mapbox-gl-draw_trash"],
         title: "Trash",
+        disabled: controls.trash==false,
       }
     ];
 
@@ -772,20 +676,24 @@ export default class MapboxDrawPro extends MapboxDraw {
 
       console.log("==== edge : ", this.options.edge)
       // console.log("==== this.elContainer : ", this.elContainer)
-      this.elContainer.classList.add(this.options.horizontal?"horizontal":"")
+      this.elContainer.classList.add(this.options.horizontal?"horizontal":"vertical")
       this.elContainer.classList.add(this.options.edge)
       this.elContainer.classList.add('custom-tools-group')
 
       this.buttons.forEach((b) => {
-        this.addButton(b);
+        !b.disabled&&this.addButton(b);
       });
 
-      addOtherControls(map, this, placement);
+      addOtherControls(map, this, placement, controls);
       addExtraHandling(map, this)
+
+      this.instruction_elContainer = document.createElement('div')
+      this.instruction_elContainer.id = 'instruction-container'
 
       this.group_elContainer = document.createElement('div')
       this.group_elContainer.id = 'custom-tools-container'
-      this.group_elContainer.className = 'custom-tools-container'
+      this.group_elContainer.className = 'custom-tools-container' + (this.options.horizontal?" horizontal":" vertical")
+      this.group_elContainer.appendChild(this.instruction_elContainer)
       this.group_elContainer.appendChild(this.elContainer)
 
       this.groups_item = []
@@ -815,13 +723,18 @@ export default class MapboxDrawPro extends MapboxDraw {
       }
       elButton.cancel = opt.cancel
       elButton.addEventListener(opt.on, (e)=>{
+        // document.getElementById("trash").click();
         e.preventDefault();
         e.stopPropagation();
         const clickedButton = e.target;
         if (clickedButton === this.activeButton) {
           // elButton?.classList?.remove("active")
           this.deactivateButtons();
+          document.getElementById("trash").click();
           return;
+        } else {
+          this.changeMode("simple_select",{})
+          document.getElementById("trash").click();
         }
         // elButton?.classList?.add("active")
         this.setActiveButton(opt.title)
@@ -843,11 +756,13 @@ export default class MapboxDrawPro extends MapboxDraw {
       this.activeButton.classList.remove(Constants.classes.ACTIVE_BUTTON);
       this.activeButton.cancel&&this.activeButton.cancel()
       this.activeButton = null;
+      document.getElementById("instruction-container").innerHTML="";
     }
 
     this.activateUIButton = (id) => {console.log("--- activateUIButton : ", id)}
   
     this.setActiveButton = (id) => {
+
       this.curActiveButton = id
       this.deactivateButtons();
   
@@ -870,66 +785,60 @@ export default class MapboxDrawPro extends MapboxDraw {
 }
 
 const addExtraHandling = (map, draw) => {
-  // console.log("==== this : ", draw)
-
-  // map.on('mousemove', function (e) {
-  //   // console.log("=== this.getMode() : ", this.getMode())
-  //   if (this.getMode() === "draw_rectangle_assisted") {
-       
-  //       const features = map.queryRenderedFeatures(e.point);
-
-  //       // console.log("=== features : ", features)
-  //       if (features[0] && features[0].layer && features[0].layer.id === "gl-draw-line-active.hot") {
-  //           console.log("--- instruction : ", "Angle:" + features[0].properties.angle)
-  //           document.getElementById("mapbox-gl-custom-draw-tool-instruction").innerHTML = "Angle:" + features[0].properties.angle;
-  //       }
-  //   }
-  // });
 
 
   map.on('draw.instruction', function (e) {
     console.log("----- on draw.instruction > action | msg : ", e.action, e.message);
 
-    // if (e.action=="open-split-menu") {
-    //   let isVisible = ("flex"==document.getElementById("split-line-menu-container").style.display);
-    //       document.getElementById("split-line-menu-container").style.display = (isVisible?"none":"flex");
-    // } else {
-    //   console.log(">>> no action")
-    // }
+    document.getElementById("instruction-container").innerHTML=`${e.action} : ${e.message}`;
+
 
 
   });
 }
 
-const addOtherControls = async (map, draw, placement) => {
+const addOtherControls = async (map, draw, placement, controls) => {
 
   console.log("---- draw.options : ", draw.options)
-  const snapOptionsBar = new SnapOptionsToolbar({
+  const snapOptionsBar = new OptionsToolbar({
     draw,
     checkboxes: [
       {
         on: 'change',
+        id: 'snap',
         action: (e) => {
           draw.options.snap = e.target.checked;
-          console.log("---- draw.options.snap : ", draw.options.snap)
+          if (e.target.checked) {
+            draw.options.guides = false;
+            document.getElementById("guides").checked = false;
+          }
+          // console.log("---- snap | guides : ", draw.options?.snap, draw.options?.guides)
         },
         classes: ['snap_mode', 'snap'],
         title: 'Snap when Draw',
         initialState: draw?.options?.snap?'checked':'unchecked',
+        disabled: controls.snap==false,
       },
       {
         on: 'change',
+        id: 'guides',
         action: (e) => {
           draw.options.guides = e.target.checked;
+          if (e.target.checked) {
+            draw.options.snap = false;
+            document.getElementById("snap").checked = false;
+          }
+          // console.log("---- snap | guides : ", draw.options?.snap, draw.options?.guides)
         },
         classes: ['snap_mode', 'grid'],
         title: 'Show Guides',
         initialState: draw?.options?.guides?'checked':'unchecked',
+        disabled: controls.guides==false,
       },
     ],
   });
 
-  const fileOptionsBar = new SnapOptionsToolbar({
+  const fileOptionsBar = new OptionsToolbar({
     draw,
     checkboxes: [
       {
@@ -978,19 +887,20 @@ const addOtherControls = async (map, draw, placement) => {
             _input.click()
           }
           console.log("---- import : ")
-          // draw.options.guides = e.target.checked;
+          // draw.options?.guides = e.target.checked;
 
 
 
         },
         classes: ['file-import', 'load'],
         title: 'Export GeoJson',
+        disabled: controls.export==false,
       },
       {
         on: 'click',
         id: 'export',
         action: (e) => {
-          // draw.options.snap = e.target.checked;
+          // draw.options?.snap = e.target.checked;
           var data = draw.getAll();
 
           if (data.features.length > 0) {
@@ -1014,14 +924,15 @@ const addOtherControls = async (map, draw, placement) => {
         },
         classes: ['file-export', 'save'],
         title: 'Import GeoJson',
+        disabled: controls.import==false,
       },
     ],
   });
 
   setTimeout(() => {
-    map.addControl(additionalTools(draw), placement);
-    map.addControl(snapOptionsBar, placement);
-    map.addControl(fileOptionsBar, placement);
+    (controls.additional_tools!=false)&&map.addControl(additionalTools({...draw, controls}), placement);
+    (controls.snap_tools!=false)&&map.addControl(snapOptionsBar, placement);
+    (controls.file_tools!=false)&&map.addControl(fileOptionsBar, placement);
 
     setTimeout(()=>draw.groups_item?.map((el)=>{draw.group_elContainer.appendChild(el)}),10);
   }, 400);

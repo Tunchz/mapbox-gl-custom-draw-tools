@@ -5,8 +5,8 @@ import simplify from "@turf/simplify";
 
 const PaintMode = Object.assign({}, {toDisplayFeatures:DrawPolygon.toDisplayFeatures})
 
-PaintMode.onSetup = function() {
-    // console.log("==== PaintMode.onSetup")
+PaintMode.onSetup = function(opt) {
+    console.log("==== PaintMode.onSetup : ", opt)
     const polygon = this.newFeature({
         type: geojsonTypes.FEATURE,
         properties: {},
@@ -34,7 +34,8 @@ PaintMode.onSetup = function() {
     return {
         polygon,
         currentVertexPosition: 0,
-        dragMoving: false
+        dragMoving: false,
+        isSimplify: opt?.simplify,
     };
 };
 
@@ -48,10 +49,13 @@ PaintMode.onDrag = PaintMode.onTouchMove = function (state, e){
 
 PaintMode.onMouseUp = function (state, e){
     if (state.dragMoving) {
-        try {
-            this.simplify(state.polygon);
-        } catch(err) {
-            console.error(err);
+    
+        if (state.isSimplify) {
+            try {
+                this.simplify(state.polygon);
+            } catch(err) {
+                console.error(err);
+            }
         }
         this.fireUpdate();
         this.changeMode(modes.SIMPLE_SELECT, { featureIds: [state.polygon.id] });
@@ -74,6 +78,7 @@ PaintMode.fireUpdate = function() {
 };
 
 PaintMode.simplify = function(polygon) {
+//   console.log("=== simplify before : ", polygon)
   const tolerance = 1 / Math.pow(1.05, 12 * this.map.getZoom()) // https://www.desmos.com/calculator/nolp0g6pwr
   polygon = simplify(polygon.features[0], {
       mutate: true,

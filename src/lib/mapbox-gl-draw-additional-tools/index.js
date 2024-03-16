@@ -91,6 +91,7 @@ const addToolStyle = [
 ];
 class extendDrawBar {
   constructor(opt) {
+    console.log("---- opt.draw : ",opt.draw)
     this.draw = opt.draw;
     this.onRemoveOrig = opt.draw.onRemove;
     // this.addButton = opt.draw.addButton;
@@ -106,6 +107,7 @@ class extendDrawBar {
         action: this.centroidPolygons,
         title: `Centroid tool`,
         classes: ['mapbox-gl-draw_centroid', opt.classPrefix ? `${opt.classPrefix}-centroid` : null],
+        disabled: this.draw?.controls?.centroid==false,
       },
       {
         on: 'click',
@@ -113,6 +115,7 @@ class extendDrawBar {
         action: this.toPoints,
         title: `PolygonToPoints tool`,
         classes: ['mapbox-gl-draw_poly_to_points', opt.classPrefix ? `${opt.classPrefix}-poly_to_points` : null],
+        disabled: this.draw?.controls?.polygon_to_points==false,
       },
       {
         on: 'click',
@@ -120,6 +123,7 @@ class extendDrawBar {
         action: this.toPoints,
         title: `LineToPoints tool`,
         classes: ['mapbox-gl-draw_line_to_points', opt.classPrefix ? `${opt.classPrefix}-line_to_points` : null],
+        disabled: this.draw?.controls?.line_to_points==false,
       },
       {
         on: 'click',
@@ -127,6 +131,7 @@ class extendDrawBar {
         action: this.unionPolygons,
         title: `Union tool`,
         classes: ['mapbox-gl-draw_union', opt.classPrefix ? `${opt.classPrefix}-union` : null],
+        disabled: this.draw?.controls?.union==false,
       },
       {
         on: 'click',
@@ -134,6 +139,7 @@ class extendDrawBar {
         action: this.bufferFeature,
         title: `Buffer tool`,
         classes: ['mapbox-gl-draw_buffer', opt.classPrefix ? `${opt.classPrefix}-buffer` : null],
+        disabled: this.draw?.controls?.buffer==false,
       },
       {
         on: 'click',
@@ -141,6 +147,7 @@ class extendDrawBar {
         action: this.copyFeature,
         title: `Copy tool`,
         classes: ['mapbox-gl-draw_copy', opt.classPrefix ? `${opt.classPrefix}-copy` : null],
+        disabled: this.draw?.controls?.copy==false,
       },
       // {
       //   on: 'click',
@@ -155,6 +162,7 @@ class extendDrawBar {
         action: this.lengthOfFeature,
         title: `Length tool`,
         classes: ['mapbox-gl-draw_length', opt.classPrefix ? `${opt.classPrefix}-length` : null],
+        disabled: this.draw?.controls?.length==false,
       },
       {
         on: 'click',
@@ -162,6 +170,7 @@ class extendDrawBar {
         action: this.areaOfPolygon,
         title: `Area tool`,
         classes: ['mapbox-gl-draw_area', opt.classPrefix ? `${opt.classPrefix}-area` : null],
+        disabled: this.draw?.controls?.area==false,
       },
     ];
   }
@@ -177,7 +186,7 @@ class extendDrawBar {
     this.buttons
       .filter((button) => this.initialOptions[button.name.toLowerCase()] !== false)
       .forEach((b) => {
-        this.addButton(b);
+        !b.disabled&&this.addButton(b);
       });
     return this._container;
   }

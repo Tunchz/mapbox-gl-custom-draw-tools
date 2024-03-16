@@ -15,8 +15,46 @@ const modifiedDefaultStyles = theme.map(defaultStyle => {
   return defaultStyle;
 });
 
+const lineInactiveStyle = {
+  "id": "gl-draw-line-inactive",
+  "type": "line",
+  "filter": [
+      "all",
+      [
+          "==",
+          "active",
+          "false"
+      ],
+      [
+          "==",
+          "$type",
+          "LineString"
+      ],
+      [
+          "!=",
+          "mode",
+          "static"
+      ],
+      [
+          "!=",
+          "user_isSnapGuide",
+          "true"
+      ]
+  ],
+  "layout": {
+      "line-cap": "round",
+      "line-join": "round"
+  },
+  "paint": {
+      "line-color": "#3bb2d0",
+      "line-width": 2
+  }
+}
+
+console.log('--- modifiedDefaultStyles : ', modifiedDefaultStyles)
 const customDrawStyles = [
-  ...modifiedDefaultStyles,
+  // ...modifiedDefaultStyles,
+  lineInactiveStyle,
   {
     id: "guide",
     type: "line",
@@ -38,3 +76,6 @@ const customDrawStyles = [
 ];
 
 export default customDrawStyles;
+
+
+
