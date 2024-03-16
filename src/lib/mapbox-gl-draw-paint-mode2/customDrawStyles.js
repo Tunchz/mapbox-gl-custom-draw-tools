@@ -231,5 +231,5 @@ const paintStyles = [
   },
 ];
 
-  const customDrawStyles = (defaultStyle) => [...defaultStyle, ...paintStyles]
+  const customDrawStyles = (defaultStyle) => [...paintStyles, ...defaultStyle]
   export default customDrawStyles;

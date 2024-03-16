@@ -205,6 +205,7 @@
 .mapboxgl-ctrl-group button.active,
 .mapboxgl-ctrl-group.horizontal button.active {
     border: 1px solid #2165D1;
+    background-color: #2165D133;
 }
 
 .mapboxgl-ctrl-group.horizontal {

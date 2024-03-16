@@ -2,20 +2,13 @@ import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import defaultDrawStyle from '@mapbox/mapbox-gl-draw/src/lib/theme';
 import * as Constants from '@mapbox/mapbox-gl-draw/src/constants';
 import unionBy from 'lodash.unionby';
-// import SelectFeatureMode, { drawStyles as selectFeatureDrawStyles } from 'mapbox-gl-draw-select-mode';
 import SelectFeatureMode, { drawStyles as selectFeatureDrawStyles } from './lib/mapbox-gl-draw-select-mode';
 import { SnapPolygonMode, SnapPointMode, SnapLineMode, SnapModeDrawStyles } from './lib/mapbox-gl-draw-snap-mode';
 import mapboxGlDrawPinningMode from './lib/mapbox-gl-draw-pinning-mode';
 import * as mapboxGlDrawPassingMode from './lib/mapbox-gl-draw-passing-mode';
-// import mapboxGlDrawPassingMode from 'mapbox-gl-draw-passing-mode';
-// import { SRMode, SRCenter, SRStyle } from 'mapbox-gl-draw-scale-rotate-mode';
 import { SRMode, SRCenter, SRStyle } from './lib/mapbox-gl-draw-scale-rotate-mode';
-// import SplitPolygonMode, { drawStyles as splitPolygonDrawStyles } from 'mapbox-gl-draw-split-polygon-mode';
-// import CutPolygonMode, { drawStyles as cutPolygonDrawStyles } from 'mapbox-gl-draw-cut-polygon-mode';
 import SplitPolygonMode, { drawStyles as splitPolygonDrawStyles } from './lib/mapbox-gl-draw-split-polygon-mode';
 import CutPolygonMode, { drawStyles as cutPolygonDrawStyles } from './lib/mapbox-gl-draw-cut-polygon-mode';
-// import SplitLineMode from 'mapbox-gl-draw-split-line-mode';
-// import SplitLineMode from './lib/mapbox-gl-draw-split-line-mode';
 import SplitLineMode, {drawStyles as splitLineDrawStyles } from './lib/mapbox-gl-draw-split-line-mode';
 import PaintMode, { drawStyles as paintDrawStyles } from './lib/mapbox-gl-draw-paint-mode';
 import FreehandMode from './lib/mapbox-gl-draw-freehand-mode';
@@ -23,15 +16,15 @@ import DrawRectangle, { DrawStyles as RectRestrictStyles } from './lib/mapbox-gl
 import DrawRectangleAssisted from './lib/mapbox-gl-draw-rectangle-assisted-mode';
 import { additionalTools, measurement, addToolStyle } from './lib/mapbox-gl-draw-additional-tools';
 import DrawEllipse from './lib/mapbox-gl-draw-ellipse';
-// import {
-//   SimpleSelectModeBezierOverride, 
-//   DirectModeBezierOverride, 
-//   DrawBezierCurve, 
-//   customStyles as bezierStyles,
-// } from './lib/mapbox-gl-draw-bezier-curve-mode';
+import {
+  SimpleSelectModeBezierOverride, 
+  DirectModeBezierOverride, 
+  DrawBezierCurve, 
+  customStyles as bezierStyles,
+} from './lib/mapbox-gl-draw-bezier-curve-mode';
 import DragCircleMode from './lib/mapbox-gl-draw-drag-circle-mode'
 import DragEllipseMode from './lib/mapbox-gl-draw-drag-ellipse-mode'
-import StaticMode from './lib/mapbox-gl-draw-static-mode';
+import StaticMode, {drawStyles as staticStyles} from './lib/mapbox-gl-draw-static-mode';
 
 
 // import MapboxCircle from 'mapbox-gl-circle';
@@ -124,10 +117,10 @@ export default class MapboxDrawPro extends MapboxDraw {
       draw_rectangle: DrawRectangle,
       draw_rectangle_assisted: DrawRectangleAssisted,
       draw_ellipse : DrawEllipse,
-      simple_select: SimpleSelectMode,
-      // simple_select: SimpleSelectModeBezierOverride,
-      // direct_select: DirectModeBezierOverride,
-      // draw_bezier_curve: DrawBezierCurve,
+      // simple_select: SimpleSelectMode,
+      simple_select: SimpleSelectModeBezierOverride,
+      direct_select: DirectModeBezierOverride,
+      draw_bezier_curve: DrawBezierCurve,
       drag_circle: DragCircleMode,
       drag_ellipse: DragEllipseMode,
     };
@@ -150,8 +143,10 @@ export default class MapboxDrawPro extends MapboxDraw {
     const _controls = {...controls, line_string:false, polygon:false, point:false, combine:false, uncombine:false, trash:false}
 
     const _modes = { ...customModes, ...modes };
-    const __styles = [...cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(paintDrawStyles(defaultDrawStyle)))))];
-    const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle/*, bezierStyles*/, 'id');
+    const __styles = [...staticStyles(paintDrawStyles(cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(defaultDrawStyle))))))];
+    const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle, bezierStyles, 'id');
+    console.log("---- styles : ", __styles)
+    console.log("---- styles : ", _styles)
     const _options = { modes: _modes, styles: _styles, controls:_controls, ...customOptions, ...otherOptions };
     console.log("--- options : ", _options)
     super(_options);
@@ -176,6 +171,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== point
         on: "click",
+        id: "point",
         action: () => {
           this.changeMode('draw_point');
           this.map?.fire("draw.instruction",{
@@ -191,11 +187,12 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== line
         on: "click",
+        id: "line",
         action: () => {
           this.changeMode('draw_line_string');
           this.map?.fire("draw.instruction",{
             action:"วาดเส้น",
-            message:"คลิกเพื่อเริ่ม คลิกสองครั้งเมื่อเสร็จสิ้น", 
+            message:"คลิกเพื่อกำหนดจุดบนเส้น คลิกสองครั้งเมื่อเสร็จสิ้น", 
           })
         },
         classes: ["mapbox-gl-draw_line"],
@@ -206,11 +203,12 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== polygon
         on: "click",
+        id: "polygon",
         action: () => {
           this.changeMode('draw_polygon');
           this.map?.fire("draw.instruction",{
             action:"วาดรูปหลายเหลี่ยม",
-            message:"คลิกเพื่อเริ่ม คลิกสองครั้งเมื่อเสร็จสิ้น", 
+            message:"คลิกเพื่อกำหนดจุดยอด คลิกสองครั้งเมื่อเสร็จสิ้น", 
           })
         },
         classes: ["mapbox-gl-draw_polygon"],
@@ -219,8 +217,23 @@ export default class MapboxDrawPro extends MapboxDraw {
         disabled: controls.polygon==false,
       },
       {
+        on: "click", 
+        id: 'bezier',
+        action: () => {
+          this.changeMode("draw_bezier_curve")
+          this.map?.fire("draw.instruction",{
+            action:"วาดเส้น bezier",
+            message:"คลิกเพื่อกำหนดจุดบนเส้น คลิกสองครั้งเมื่อเสร็จสิ้น คลิกเลือกจุด กด alt+ลาก เพื่อแสดง bezier handle", 
+          })
+        }, 
+        classes: ["bezier-curve-icon"], 
+        title:'Bezier tool',
+        disabled: controls.bezier==false,
+      },
+      {
         //===== drag circle
         on: "click",
+        id: "circle",
         action: () => {
           this.changeMode('drag_circle');
           this.map?.fire("draw.instruction",{
@@ -236,6 +249,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== ellipse
         on: "click",
+        id: "ellipse",
         action: () => {
           this.changeMode('drag_ellipse', { eccentricity: 0.8, divisions: 60 });
           this.map?.fire("draw.instruction",{
@@ -251,6 +265,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== Rectangle with max area
         on: 'click',
+        id: "rectangle",
         customize_button: (elButton) => {
           const drawRec = (limit) => {
             console.log("=== draw rec limit : ", limit)
@@ -308,19 +323,6 @@ export default class MapboxDrawPro extends MapboxDraw {
           } catch (err) {
             console.error(err);
           }
-
-          // try {
-          //   this.changeMode('draw_rectangle', {
-          //     areaLimit: parseInt(prompt('Max Area? (empty for no restriction)')), // 5 * 1_000_000, // 5 km2, optional
-          //     // escapeKeyStopsDrawing: true, // default true
-          //     // allowCreateExceeded: false, // default false
-          //     // exceedCallsOnEachMove: false, // default false
-          //     // exceedCallback: (area) => console.log('exceeded!', area), // optional
-          //     // areaChangedCallback: (area) => console.log('updated', area), // optional
-          //   });
-          // } catch (err) {
-          //   console.error(err);
-          // }
         },
         cancel: () => {
           document.getElementById("rectangle-submenu").style.display = "none";
@@ -333,6 +335,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== Rectangle Assisted
         on: 'click',
+        id: "assisted_rectangle",
         action: () => {
 
           try {
@@ -352,6 +355,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== Paint 
         on: "click",
+        id: "paint",
         action: () => {
           try {
             this.changeMode("draw_paint_mode",{...otherOptions?.paint||{}});
@@ -373,14 +377,15 @@ export default class MapboxDrawPro extends MapboxDraw {
         disabled: controls.paint==false,
       },
       {
-        //===== Freform Polygon
+        //===== Freeform Polygon
         on: 'click',
+        id: "freehand",
         action: () => {
           try {
             this.changeMode('freehandMode');
             this.map?.fire("draw.instruction",{
               action:"วาดรูปหลายเหลี่ยมแบบอิสระ",
-              message:"คลิกเพื่อเริ่ม ลากเพื่อวาด และคลิกสองครั้งเพื่อสิ้นสุด", 
+              message:"คลิกเพื่อกำหนดจุดยอด และคลิกสองครั้งเพื่อสิ้นสุด", 
             })
           } catch (err) {
             console.error(err);
@@ -393,6 +398,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== Split Lind with Line
         on: 'click',
+        id: "split_line_line",
         action: () => {
           const selectedFeatureIDs = this.getSelectedIds();
 
@@ -404,9 +410,9 @@ export default class MapboxDrawPro extends MapboxDraw {
                 /** Default option vlaues: */
                 highlightColor: '#222',
               });
-              this.map?.fire("draw.instruction",{
+              draw.map?.fire("draw.instruction",{
                 action:"ตัดแยกเส้นด้วยเส้น",
-                message:"คลิกเพื่อกำหนดจุดเริ่มเส้นตัด คลิกอีกครั้งเพื่อสิ้นสุด", 
+                message:"คลิกเพื่อกำหนดจุดบนเส้นตัด คลิกสองครั้งเพื่อสิ้นสุด", 
               })
             } catch (err) {
               alert(err.message);
@@ -423,6 +429,7 @@ export default class MapboxDrawPro extends MapboxDraw {
             this.changeMode('select_feature', {
               selectHighlightColor: 'yellow',
               onSelect(state) {
+                console.log("--- onselect state : ", state)
                 goSplitMode(state.draw,[{
                   id: state.selectedFeatureID,
                   type:"Feature",
@@ -434,7 +441,7 @@ export default class MapboxDrawPro extends MapboxDraw {
             });
             this.map?.fire("draw.instruction",{
               action:"ตัดแยกเส้นด้วยเส้น",
-              message:"เลือกเส้นที่ต้องการตัด", 
+              message:"เลือกเส้นที่ต้องการตัดแยก", 
             })
           }
         },
@@ -445,6 +452,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== Split Lind with Polygon
         on: 'click',
+        id: "split_line_polygon",
         action: () => {
           const selectedFeatureIDs = this.getSelectedIds();
 
@@ -456,6 +464,10 @@ export default class MapboxDrawPro extends MapboxDraw {
                 /** Default option vlaues: */
                 highlightColor: '#222',
               });
+              draw.map?.fire("draw.instruction",{
+                action:"ตัดแยกเส้นด้วยรูปหลายเหลี่ยม",
+                message:"คลิกเพื่อกำหนดจุดรูปหลายเหลี่ยม คลิกสองครั้งเพื่อสิ้นสุด", 
+              })
             } catch (err) {
               alert(err.message);
               console.error(err);
@@ -480,6 +492,10 @@ export default class MapboxDrawPro extends MapboxDraw {
               },
               types2Select:["LineString", "MultiLineString"]
             });
+            this.map?.fire("draw.instruction",{
+              action:"ตัดแยกเส้นด้วยรูปหลายเหลี่ยม",
+              message:"เลือกเส้นที่ต้องการตัดแยก", 
+            })
           }
         },
         classes: ['split-line-polygon'],
@@ -489,6 +505,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== Split Polygon
         on: 'click',
+        id: "split_polygon",
         action: () => {
           const selectedFeatureIDs = this.getSelectedIds();
           // console.log(
@@ -506,6 +523,10 @@ export default class MapboxDrawPro extends MapboxDraw {
                 // lineWidth: 0,
                 // lineWidthUnit: "kilometers",
               });
+              draw.map?.fire("draw.instruction",{
+                action:"ตัดแยกรูปหลายเหลี่ยมด้วยเส้น",
+                message:"คลิกเพื่อกำหนดจุดบนเส้นตัด คลิกสองครั้งเพื่อสิ้นสุด", 
+              })
             } catch (err) {
               console.error(err);
             }
@@ -529,6 +550,10 @@ export default class MapboxDrawPro extends MapboxDraw {
               },
               types2Select:["Polygon", "MultiPolygon"]
             });
+            this.map?.fire("draw.instruction",{
+              action:"ตัดแยกรูปหลายเหลี่ยมด้วยเส้น",
+              message:"เลือกรูปหลายเหลี่ยมที่ต้องการตัดแยก", 
+            })
           }
         },
         classes: ['split-polygon'],
@@ -538,13 +563,8 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== Cut Polygon
         on: 'click',
+        id: "cut_polygon",
         action: () => {
-          // try {
-          //   this.changeMode('cut_polygon');
-          // } catch (err) {
-          //   alert(err.message);
-          //   console.error(err);
-          // }
 
           const selectedFeatureIDs = this.getSelectedIds();
           // console.log("----- selectedFeatureIDs : ", selectedFeatureIDs)
@@ -556,6 +576,10 @@ export default class MapboxDrawPro extends MapboxDraw {
                 features: selectedFeatures,
                 highlightColor: '#222',
               });
+              draw.map?.fire("draw.instruction",{
+                action:"ตัดรูปหลายเหลี่ยม",
+                message:"คลิกเพื่อกำหนดจุดรูปหลายเหลี่ยมที่ใช้ตัด คลิกสองครั้งเพื่อสิ้นสุด", 
+              })
             } catch (err) {
               alert(err.message);
               console.error(err);
@@ -582,6 +606,10 @@ export default class MapboxDrawPro extends MapboxDraw {
               },
               types2Select:["Polygon","MultiPolygon"]
             });
+            this.map?.fire("draw.instruction",{
+              action:"ตัดรูปหลายเหลี่ยม",
+              message:"เลือกรูปหลายเหลี่ยมที่ต้องการตัด", 
+            })
           }
         },
         classes: ['cut-polygon'],
@@ -591,25 +619,39 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== Scal&Rotate
         on: 'click',
+        id: "scale_rotate",
         action: () =>{
-          try {
-            this.changeMode('scaleRotateMode', {
-              // required
-              canScale: true,
-              canRotate: true, // only rotation enabled
-              canTrash: false, // disable feature delete
-      
-              rotatePivot: SRCenter.Center, // rotate around center
-              scaleCenter: SRCenter.Opposite, // scale around opposite vertex
-      
-              singleRotationPoint: true, // only one rotation point
-              rotationPointRadius: 1.2, // offset rotation point
-      
-              canSelectFeatures: true,
-            });
-          } catch (err) {
-            alert(err.message);
-            console.error(err);
+          const selectedFeatureIDs = this.getSelectedIds();
+          if (selectedFeatureIDs?.length > 0) {
+            try {
+              this.changeMode('scaleRotateMode', {
+                // required
+                canScale: true,
+                canRotate: true, // only rotation enabled
+                canTrash: false, // disable feature delete
+        
+                rotatePivot: SRCenter.Center, // rotate around center
+                scaleCenter: SRCenter.Opposite, // scale around opposite vertex
+        
+                singleRotationPoint: true, // only one rotation point
+                rotationPointRadius: 1.2, // offset rotation point
+        
+                canSelectFeatures: true,
+              });
+              this.map?.fire("draw.instruction",{
+                action:"ย่อ/ขยาย และหมุน",
+                message:"ลากลูกศรตรง เพื่อย่อ/ขยาย ลากลูกศรวงกลมเพื่อหมุน", 
+              })
+            } catch (err) {
+              alert(err.message);
+              console.error(err);
+            }
+          } else {
+            document.getElementById('scale_rotate').click()
+            this.map?.fire("draw.instruction",{
+              action:"ย่อ/ขยาย และหมุน",
+              message:"*** ต้องเลือกเส้น/รูปหลายเหลี่ยม ก่อนจึงสามารถดำเนินการต่อได้ !!! ***", 
+            })
           }
         },
         classes: ['rotate-icon'],
@@ -619,6 +661,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== Pinning
         on: 'click',
+        id: "pinning",
         action: () => {
           this.changeMode('pinning_mode');
         },
@@ -629,6 +672,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== combine
         on: "click",
+        id: "combine",
         action: () => {
           this.combineFeatures();
         },
@@ -637,8 +681,9 @@ export default class MapboxDrawPro extends MapboxDraw {
         disabled: controls.combine==false,
       },
       {
-        //===== Trash
+        //===== Uncombine
         on: "click",
+        id: "uncombine",
         action: () => {
           this.uncombineFeatures();
         },
@@ -723,18 +768,24 @@ export default class MapboxDrawPro extends MapboxDraw {
       }
       elButton.cancel = opt.cancel
       elButton.addEventListener(opt.on, (e)=>{
-        // document.getElementById("trash").click();
+        
         e.preventDefault();
         e.stopPropagation();
         const clickedButton = e.target;
         if (clickedButton === this.activeButton) {
+          console.log("---- old id")
           // elButton?.classList?.remove("active")
           this.deactivateButtons();
+          this.changeMode("simple_select",{})
           document.getElementById("trash").click();
           return;
         } else {
-          this.changeMode("simple_select",{})
-          document.getElementById("trash").click();
+          // console.log("---- new id", clickedButton)
+          if (!['trash', 'combine', 'uncombine', 'split_line_line', 'split_line_polygon', 'split_polygon', 'cut_polygon', 'scale_rotate', 'pinning'].includes(clickedButton?.id)) {
+            console.log("--- change simple select mode")
+            this.changeMode("simple_select",{})
+          }
+          // document.getElementById("trash").click();
         }
         // elButton?.classList?.add("active")
         this.setActiveButton(opt.title)
@@ -790,7 +841,7 @@ const addExtraHandling = (map, draw) => {
   map.on('draw.instruction', function (e) {
     console.log("----- on draw.instruction > action | msg : ", e.action, e.message);
 
-    document.getElementById("instruction-container").innerHTML=`${e.action} : ${e.message}`;
+    document.getElementById("instruction-container").innerHTML=`◉ ${e.action} ▸ ${e.message}`;
 
 
 
