@@ -43,7 +43,18 @@ function App() {
       },
     });
 
-    draw = new MapboxDrawPro({otherOtions:{horizontal:true,edge:'bottom'}});
+    draw = new MapboxDrawPro({
+      controls: {
+        // line: false,
+        // additional_tools: false,
+        // snap_tools: false,
+        // file_tools: false,
+        // import: false,
+        // snap: false,
+        // centroid: false
+      },
+      otherOptions:{horizontal:true,edge:'bottom', paint:{simplify:true, mode:2}}
+    });
     window.draw = draw;
 
     map.once('load', () => {
