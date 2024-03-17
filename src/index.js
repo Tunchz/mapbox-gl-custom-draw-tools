@@ -26,13 +26,19 @@ import DragCircleMode from './lib/mapbox-gl-draw-drag-circle-mode'
 import DragEllipseMode from './lib/mapbox-gl-draw-drag-ellipse-mode'
 import StaticMode, {drawStyles as staticStyles} from './lib/mapbox-gl-draw-static-mode';
 
+import colorPickerDrawStyle from './lib/color-picker/customDrawStyles.js'
+require('./lib/color-picker/coloris.js');
+require('./lib/color-picker/coloris.css');
+
 
 // import MapboxCircle from 'mapbox-gl-circle';
-const MapboxCircle = require('mapbox-gl-circle');
+// const MapboxCircle = require('mapbox-gl-circle');
 require('@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css');
 require('./custom-draw-tools.css');
 
-import SimpleSelectMode from '@mapbox/mapbox-gl-draw/src/modes/simple_select';
+import { data64Images } from './icon.js';
+
+// import SimpleSelectMode from '@mapbox/mapbox-gl-draw/src/modes/simple_select';
 
 class OptionsToolbar {
   constructor(opt) {
@@ -166,7 +172,7 @@ export default class MapboxDrawPro extends MapboxDraw {
     const _controls = {...controls, line_string:false, polygon:false, point:false, combine:false, uncombine:false, trash:false}
 
     const _modes = { ...customModes, ...modes };
-    const __styles = [...staticStyles(paintDrawStyles(cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(defaultDrawStyle))))))];
+    const __styles = [...staticStyles(paintDrawStyles(cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(colorPickerDrawStyle(defaultDrawStyle)))))))];
     const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle, bezierStyles, 'id');
     // console.log("---- styles : ", __styles)
     // console.log("---- styles : ", _styles)
@@ -813,14 +819,28 @@ export default class MapboxDrawPro extends MapboxDraw {
       addOtherControls(map, this, placement, controls);
       addExtraHandling(map, this)
 
+      // --- instruction container
       this.instruction_elContainer = document.createElement('div')
       this.instruction_elContainer.id = 'instruction-container'
+
+      // --- color picker container
+      this.colorpicker_elContainer = document.createElement('div')
+      this.colorpicker_elContainer.className="color-picker-container square hidden";
+      this.colorpicker_elContainer.id="color-picker-container";
+      let colorInput = document.createElement('input');
+      colorInput.type = 'text';
+      colorInput.id = "color-picker";
+      colorInput.className = 'coloris instance1';
+      colorInput.value = "#00a5cc";
+      // colorInput.addEventListener("change", (e)=>console.log("--- color change !!! : ", e.target?.value))
+      this.colorpicker_elContainer.append(colorInput)
 
       this.group_elContainer = document.createElement('div')
       this.group_elContainer.id = 'custom-tools-container'
       this.group_elContainer.className = 'custom-tools-container' + (this.options.horizontal?" horizontal":" vertical")
       this.group_elContainer.appendChild(this.instruction_elContainer)
       this.group_elContainer.appendChild(this.elContainer)
+      this.group_elContainer.appendChild(this.colorpicker_elContainer)
 
       this.groups_item = []
       this.groups_item.push(this.elContainer)
@@ -977,11 +997,159 @@ const addExtraHandling = (map, draw) => {
   map.on('draw.instruction', function (e) {
     console.log("----- on draw.instruction > action | msg : ", e.action, e.message);
 
-    document.getElementById("instruction-container").innerHTML=`◉ ${e.action} ▸ ${e.message}`;
+    // document.getElementById("instruction-container").innerHTML=`◉ ${e.action} ▶ ${e.message}`;
+    document.getElementById("instruction-container").innerHTML=`▶ ${e.action} ◉ ${e.message}`;
 
 
 
   });
+
+  
+  //------ handleling change colors for each feature
+  draw.newDrawFeature = false;
+  draw.drawFeatureID = null;
+  draw.colorFeatureIdMaps = {default: "#2165D1", last_selected: "#2165D1"};
+
+  function changeColor(draw,color) {
+    console.log("--- changeColor call !!!", draw, color)
+    // console.log("--- draw | drawFeatureID", draw, draw.drawFeatureID)
+    if (!color) {
+      draw.colorFeatureIdMaps[draw.drawFeatureID] = null;
+      draw?.setFeatureProperty(draw.drawFeatureID, 'portColor', undefined);
+      draw?.changeMode("simple_select", {})
+      document.getElementById("color-picker-container").classList.add("hidden")
+      return
+    } else {
+      draw.colorFeatureIdMaps["last_selected"]=color
+    }
+    if (draw.drawFeatureID !== '' && typeof draw === 'object') {
+
+      draw.colorFeatureIdMaps[draw.drawFeatureID] = color;
+      draw.setFeatureProperty(draw.drawFeatureID, 'portColor', color);
+      draw.setFeatureProperty(draw.drawFeatureID, 'portIcon', 'custom-icon')
+      var feat = draw.get(draw.drawFeatureID);
+      draw.add(feat)
+    }
+  }
+
+  // callback for draw.update and draw.selectionchange
+  var setDrawFeature = function(e) {
+      console.log("----- setDrawFeatur !!!", e.features)
+      if (e.features.length && e.features[0].type === 'Feature') {
+          var feat = e.features[0];
+          draw.drawFeatureID = feat.id;
+          let featureColor = draw.colorFeatureIdMaps[draw.drawFeatureID] || draw.colorFeatureIdMaps["default"];
+          console.log("---- new feature selected id | color : ", draw.drawFeatureID, featureColor)
+          document.getElementById("color-picker").value = featureColor;
+          document.getElementById("color-picker").dispatchEvent(new Event('input', { bubbles: true }));
+          document.getElementById("color-picker-container").classList.remove("hidden")
+          // Coloris.setColorFromStr(featureColor);
+          
+      } else {
+        console.log("---- hide color picker")
+        document.getElementById("color-picker-container").classList.add("hidden")
+      }
+  }
+
+  /* Event Handlers for Draw Tools */
+
+  map.on('draw.create', function() {
+      draw.newDrawFeature = true;
+  });
+
+  map.on('draw.update', setDrawFeature);
+
+  map.on('draw.selectionchange', setDrawFeature);
+
+  map.on('click', function(e) {
+      if (!draw.newDrawFeature) {
+          var drawFeatureAtPoint = draw.getFeatureIdsAt(e.point);
+
+          //if another drawFeature is not found - reset draw.drawFeatureID
+          draw.drawFeatureID = drawFeatureAtPoint.length ? drawFeatureAtPoint[0] : '';
+      }
+
+      draw.newDrawFeature = false;
+
+  });
+
+  setTimeout(()=>{
+    //--- initialize color-picker
+    console.log("---- initialize color picker")
+    Coloris({
+      el: '.coloris',
+      swatches: [
+        "#2165D1",
+        '#264653',
+        '#2a9d8f',
+        '#e9c46a',
+        '#f4a261',
+        '#e76f51',
+        '#d62828',
+        '#023e8a',
+        '#0077b6',
+        '#0096c7',
+        '#00b4d8',
+        '#48cae4'
+      ]
+    });
+
+    /** Instances **/
+
+    Coloris.setInstance('.instance1', {
+      theme: 'polaroid',
+      // themeMode: 'dark',
+      // formatToggle: true,
+      // closeButton: true,
+      // clearButton: true,
+      alpha: false,
+      swatches: [
+        "#2165D1",
+        '#264653',
+        '#2a9d8f',
+        '#e9c46a',
+        '#f4a261',
+        '#e76f51',
+        '#d62828',
+        '#023e8a',
+        '#0077b6',
+        '#0096c7',
+        '#00b4d8',
+        '#48cae4'
+      ],
+      onChange: (color, input) => {
+        console.log("---- color change : ", color);
+        changeColor(draw, color)
+      }
+    });
+
+    document.getElementById("color-picker-container").addEventListener("contextmenu", (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      console.log("--- context menu !!!");
+      if (!draw.drawFeatureID) return;
+      document.getElementById("color-picker").value = draw.colorFeatureIdMaps["default"]
+      document.getElementById("color-picker").dispatchEvent(new Event('input', { bubbles: true }));
+      // draw.colorFeatureIdMaps[draw.drawFeatureID] = null
+      changeColor(draw, null)
+
+    })
+  },500)
+
+  // map.on('style.load', () => {
+    // console.log("---- style.load : ")
+    // map.loadImage('https://tunchz.github.io/ISOC/img/marker_hotspot.png', (error, image) => {
+    map.loadImage(data64Images.mapicon_fire, (error, image) => {
+      if (error) throw error;
+      console.log("----- image : ", image)
+      image && map.addImage('custom-icon', image);
+    });
+  // });
+
+
+
+
+
 }
 
 const addOtherControls = async (map, draw, placement, controls) => {

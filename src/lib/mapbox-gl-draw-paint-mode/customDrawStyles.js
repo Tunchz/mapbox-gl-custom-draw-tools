@@ -7,6 +7,7 @@ const paintStyles = [
         ["==", "active", "false"],
         ["==", "$type", "Polygon"],
         ["!=", "mode", "static"],
+        ['!has', 'user_portColor'],
       ],
       paint: {
         "fill-color": "#2165D1",
@@ -41,6 +42,7 @@ const paintStyles = [
         ["==", "active", "false"],
         ["==", "$type", "Polygon"],
         ["!=", "mode", "static"],
+        ['!has', 'user_portColor'],
       ],
       layout: {
         "line-cap": "round",
@@ -73,6 +75,7 @@ const paintStyles = [
         ["==", "active", "false"],
         ["==", "$type", "LineString"],
         ["!=", "mode", "static"],
+        ['!has', 'user_portColor'],
       ],
       layout: {
         "line-cap": "round",
@@ -150,6 +153,7 @@ const paintStyles = [
         ["==", "$type", "Point"],
         ["==", "meta", "feature"],
         ["!=", "mode", "static"],
+        ['!has', 'user_portColor'],
       ],
       paint: {
         "circle-radius": 5,
