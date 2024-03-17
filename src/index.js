@@ -168,10 +168,10 @@ export default class MapboxDrawPro extends MapboxDraw {
     const _modes = { ...customModes, ...modes };
     const __styles = [...staticStyles(paintDrawStyles(cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(defaultDrawStyle))))))];
     const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle, bezierStyles, 'id');
-    console.log("---- styles : ", __styles)
-    console.log("---- styles : ", _styles)
+    // console.log("---- styles : ", __styles)
+    // console.log("---- styles : ", _styles)
     const _options = { modes: _modes, styles: _styles, controls:_controls, ...customOptions, ...otherOptions };
-    console.log("--- options : ", _options)
+    // console.log("--- options : ", _options)
     super(_options);
 
 
@@ -639,10 +639,49 @@ export default class MapboxDrawPro extends MapboxDraw {
         on: 'click',
         id: "scale_rotate",
         action: () =>{
+          // const selectedFeatureIDs = this.getSelectedIds();
+          // if (selectedFeatureIDs?.length > 0) {
+          //   try {
+          //     this.changeMode('scaleRotateMode', {
+          //       // required
+          //       canScale: true,
+          //       canRotate: true, // only rotation enabled
+          //       canTrash: false, // disable feature delete
+        
+          //       rotatePivot: SRCenter.Center, // rotate around center
+          //       scaleCenter: SRCenter.Opposite, // scale around opposite vertex
+        
+          //       singleRotationPoint: true, // only one rotation point
+          //       rotationPointRadius: 1.2, // offset rotation point
+        
+          //       canSelectFeatures: true,
+          //     });
+          //     this.map?.fire("draw.instruction",{
+          //       action:"ย่อ/ขยาย และหมุน",
+          //       message:"ลากลูกศรตรง เพื่อย่อ/ขยาย ลากลูกศรวงกลมเพื่อหมุน", 
+          //     })
+          //   } catch (err) {
+          //     alert(err.message);
+          //     console.error(err);
+          //   }
+          // } else {
+          //   document.getElementById('scale_rotate').click()
+          //   this.map?.fire("draw.instruction",{
+          //     action:"ย่อ/ขยาย และหมุน",
+          //     message:"*** ต้องเลือกเส้น/รูปหลายเหลี่ยม ก่อนจึงสามารถดำเนินการต่อได้ ***", 
+          //   })
+          // }
+
+
+
           const selectedFeatureIDs = this.getSelectedIds();
-          if (selectedFeatureIDs?.length > 0) {
+          // console.log("----- selectedFeatureIDs : ", selectedFeatureIDs)
+
+          function goScaleRotateMode(draw,selectedFeatures) {
+            console.log("---- selectedFeatures : ", selectedFeatures)
             try {
-              this.changeMode('scaleRotateMode', {
+              draw.changeMode('scaleRotateMode', {
+                feature: selectedFeatures[0],
                 // required
                 canScale: true,
                 canRotate: true, // only rotation enabled
@@ -656,7 +695,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         
                 canSelectFeatures: true,
               });
-              this.map?.fire("draw.instruction",{
+              draw.map?.fire("draw.instruction",{
                 action:"ย่อ/ขยาย และหมุน",
                 message:"ลากลูกศรตรง เพื่อย่อ/ขยาย ลากลูกศรวงกลมเพื่อหมุน", 
               })
@@ -664,13 +703,37 @@ export default class MapboxDrawPro extends MapboxDraw {
               alert(err.message);
               console.error(err);
             }
+            
+          }
+
+          if (selectedFeatureIDs?.length > 0) {
+            let selectedFeatures = this.getSelected()
+            goScaleRotateMode(this,selectedFeatures.features || null);
           } else {
-            document.getElementById('scale_rotate').click()
+            // console.log("--- change mode : select_feature")
+            this.changeMode('select_feature', {
+              selectHighlightColor: 'yellow',
+              onSelect(state) {
+                // console.log("--- state : ", state)
+                state.draw.changeMode('simple_select', {featureIds: [state.selectedFeatureID]})
+                goScaleRotateMode(state.draw,[{
+                  id: state.selectedFeatureID,
+                  type:"Feature",
+                  geometry:state.selectedFeature?._geometry,
+                  properties:{}
+                }]);
+                // goCutPolygonMode(null)
+              },
+              types2Select:["LineString", "MultiLineString","Polygon","MultiPolygon"]
+            });
             this.map?.fire("draw.instruction",{
               action:"ย่อ/ขยาย และหมุน",
-              message:"*** ต้องเลือกเส้น/รูปหลายเหลี่ยม ก่อนจึงสามารถดำเนินการต่อได้ ***", 
+              message:"เลือกเส้น หรือ รูปหลายเหลี่ยมที่ต้องการ ย่อ/ขยาน/หมุน", 
             })
           }
+
+
+
         },
         classes: ['rotate-icon'],
         title: 'Scale and Rotate Mode tool',
@@ -793,17 +856,17 @@ export default class MapboxDrawPro extends MapboxDraw {
 
         if (this.persist) {
           if (this.persist==clickedButton.id) {
-            console.log("--- turn off persist : ", this.persist, clickedButton.id)
+            // console.log("--- turn off persist : ", this.persist, clickedButton.id)
           } else {
-            console.log("--- persist is on : ", this.persist, clickedButton.id)
+            // console.log("--- persist is on : ", this.persist, clickedButton.id)
             return;
           }
         } else {
-          console.log("--- persist is off : ", this.persist, clickedButton.id)
+          // console.log("--- persist is off : ", this.persist, clickedButton.id)
         }
 
         if (clickedButton === this.activeButton) {
-          console.log("---- old id")
+          // console.log("---- old id")
           // elButton?.classList?.remove("active")
           this.deactivateButtons();
           this.persist=null
@@ -815,7 +878,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         } else {
           // console.log("---- new id", clickedButton)
           if (!['trash', 'combine', 'uncombine', 'split_line_line', 'split_line_polygon', 'split_polygon', 'cut_polygon', 'scale_rotate', 'pinning'].includes(clickedButton?.id)) {
-            console.log("--- change simple select mode")
+            // console.log("--- change simple select mode")
             this.changeMode("simple_select",{})
           }
           // document.getElementById("trash").click();
@@ -828,13 +891,13 @@ export default class MapboxDrawPro extends MapboxDraw {
       opt.persist&&elButton.addEventListener("contextmenu", (e)=>{
 
         e.preventDefault();
-        console.log("---- context menu")
+        // console.log("---- context menu")
 
         
         e.stopPropagation();
         const clickedButton = e.target;
         if (clickedButton === this.activeButton && this.persist==clickedButton.id) {
-          console.log("---- old id")
+          // console.log("---- old id")
           // this.deactivateButtons();
           // this.changeMode("simple_select",{})
           // document.getElementById("trash").click();
@@ -842,7 +905,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         } else {
           // console.log("---- new id", clickedButton)
           if (!['trash', 'combine', 'uncombine', 'split_line_line', 'split_line_polygon', 'split_polygon', 'cut_polygon', 'scale_rotate', 'pinning'].includes(clickedButton?.id)) {
-            console.log("--- change simple select mode")
+            // console.log("--- change simple select mode")
             this.changeMode("simple_select",{})
           }
           // document.getElementById("trash").click();
@@ -878,12 +941,12 @@ export default class MapboxDrawPro extends MapboxDraw {
     this.activateUIButton = (id) => {console.log("--- activateUIButton : ", id)}
   
     this.setActiveButton = (id) => {
-      console.log("-------- setActiveButton persist ")
+      // console.log("-------- setActiveButton persist ")
       // console.log("--- setActiveButton persist : ", this.persist)
       // console.log("--- setActiveButton id : ", id)
       // console.log("--- setActiveButton curActiveButton : ", this.curActiveButton)
       if (this.persist) {
-        console.log("--- this : ", this)
+        // console.log("--- this : ", this)
         setTimeout(this.persist_action, 500);
         return;
       }

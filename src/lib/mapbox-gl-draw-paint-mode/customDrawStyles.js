@@ -29,7 +29,7 @@ const paintStyles = [
       type: "circle",
       filter: ["all", ["==", "$type", "Point"], ["==", "meta", "midpoint"]],
       paint: {
-        "circle-radius": 3,
+        "circle-radius": 4,
         "circle-color": "#fbb03b",
       },
     },
@@ -107,7 +107,7 @@ const paintStyles = [
         ["!=", "mode", "static"],
       ],
       paint: {
-        "circle-radius": 5,
+        "circle-radius": 7,
         "circle-color": "#fff",
       },
     },
@@ -121,7 +121,7 @@ const paintStyles = [
         ["!=", "mode", "static"],
       ],
       paint: {
-        "circle-radius": 3,
+        "circle-radius": 5,
         "circle-color": "#fbb03b",
       },
     },

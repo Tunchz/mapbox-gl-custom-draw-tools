@@ -51,7 +51,7 @@ const lineInactiveStyle = {
   }
 }
 
-console.log('--- modifiedDefaultStyles : ', modifiedDefaultStyles)
+// console.log('--- modifiedDefaultStyles : ', modifiedDefaultStyles)
 const customDrawStyles = [
   // ...modifiedDefaultStyles,
   lineInactiveStyle,
