@@ -9,8 +9,8 @@ const paintStyles = [
         ["!=", "mode", "static"],
       ],
       paint: {
-        "fill-color": "#3bb2d0",
-        "fill-outline-color": "#3bb2d0",
+        "fill-color": "#2165D1",
+        "fill-outline-color": "#2165D1",
         "fill-opacity": 0.1,
       },
     },
@@ -47,8 +47,8 @@ const paintStyles = [
         "line-join": "round",
       },
       paint: {
-        "line-color": "#3bb2d0",
-        "line-width": 2,
+        "line-color": "#2165D1",
+        "line-width": 4,
       },
     },
     {
@@ -79,8 +79,8 @@ const paintStyles = [
         "line-join": "round",
       },
       paint: {
-        "line-color": "#0000ff", //"#ffa07a",
-        "line-width": 6,
+        "line-color": "#2165D1", //"#ffa07a",
+        "line-width": 4,
       },
     },
     {
@@ -152,8 +152,8 @@ const paintStyles = [
         ["!=", "mode", "static"],
       ],
       paint: {
-        "circle-radius": 3,
-        "circle-color": "#3bb2d0",
+        "circle-radius": 5,
+        "circle-color": "#2165D1",
       },
     },
     {
@@ -184,52 +184,52 @@ const paintStyles = [
         "circle-color": "#fbb03b",
       },
     },
-    {
-      id: "gl-draw-polygon-fill-static",
-      type: "fill",
-      filter: ["all", ["==", "mode", "static"], ["==", "$type", "Polygon"]],
-      paint: {
-        "fill-color": "#404040",
-        "fill-outline-color": "#404040",
-        "fill-opacity": 0.1,
-      },
-    },
-    {
-      id: "gl-draw-polygon-stroke-static",
-      type: "line",
-      filter: ["all", ["==", "mode", "static"], ["==", "$type", "Polygon"]],
-      layout: {
-        "line-cap": "round",
-        "line-join": "round",
-      },
-      paint: {
-        "line-color": "#404040",
-        "line-width": 2,
-      },
-    },
-    {
-      id: "gl-draw-line-static",
-      type: "line",
-      filter: ["all", ["==", "mode", "static"], ["==", "$type", "LineString"]],
-      layout: {
-        "line-cap": "round",
-        "line-join": "round",
-      },
-      paint: {
-        "line-color": "#404040",
-        "line-width": 10,
-      },
-    },
-    {
-      id: "gl-draw-point-static",
-      type: "circle",
-      filter: ["all", ["==", "mode", "static"], ["==", "$type", "Point"]],
-      paint: {
-        "circle-radius": 5,
-        "circle-color": "#404040",
-      },
-    },
+    // {
+    //   id: "gl-draw-polygon-fill-static",
+    //   type: "fill",
+    //   filter: ["all", ["==", "mode", "static"], ["==", "$type", "Polygon"]],
+    //   paint: {
+    //     "fill-color": "#404040",
+    //     "fill-outline-color": "#404040",
+    //     "fill-opacity": 0.1,
+    //   },
+    // },
+    // {
+    //   id: "gl-draw-polygon-stroke-static",
+    //   type: "line",
+    //   filter: ["all", ["==", "mode", "static"], ["==", "$type", "Polygon"]],
+    //   layout: {
+    //     "line-cap": "round",
+    //     "line-join": "round",
+    //   },
+    //   paint: {
+    //     "line-color": "#404040",
+    //     "line-width": 2,
+    //   },
+    // },
+    // {
+    //   id: "gl-draw-line-static",
+    //   type: "line",
+    //   filter: ["all", ["==", "mode", "static"], ["==", "$type", "LineString"]],
+    //   layout: {
+    //     "line-cap": "round",
+    //     "line-join": "round",
+    //   },
+    //   paint: {
+    //     "line-color": "#404040",
+    //     "line-width": 10,
+    //   },
+    // },
+    // {
+    //   id: "gl-draw-point-static",
+    //   type: "circle",
+    //   filter: ["all", ["==", "mode", "static"], ["==", "$type", "Point"]],
+    //   paint: {
+    //     "circle-radius": 5,
+    //     "circle-color": "#404040",
+    //   },
+    // },
   ];
 
-  const customDrawStyles = (defaultStyle) => [...defaultStyle, ...paintStyles]
+  const customDrawStyles = (defaultStyle) => [...paintStyles, ...defaultStyle]
   export default customDrawStyles;

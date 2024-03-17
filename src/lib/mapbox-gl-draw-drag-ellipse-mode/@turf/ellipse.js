@@ -99,7 +99,7 @@ function ellipse(center, xSemiAxis, ySemiAxis, options) {
       oldDelta = delta
     }
     coordinates.push(coordinates[0])
-    console.log("--- coordinates : ", coordinates)
+    // console.log("--- coordinates : ", coordinates)
     return transformRotate__default['default'](helpers.polygon([coordinates]), angle, {pivot: pivot})
   }
 

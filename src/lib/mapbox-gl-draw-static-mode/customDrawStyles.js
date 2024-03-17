@@ -19,7 +19,7 @@ const staticStyles = [
       },
       paint: {
         "line-color": "#FF0000",
-        "line-width": 3,
+        "line-width": 4,
       },
     },
     {
@@ -32,7 +32,7 @@ const staticStyles = [
       },
       paint: {
         "line-color": "#FF0000",
-        "line-width": 5,
+        "line-width": 4,
       },
     },
     {

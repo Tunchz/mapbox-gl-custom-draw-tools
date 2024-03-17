@@ -122,9 +122,9 @@ DragCircleMode.onClick = function (state, e) {
     }
     else{
         this.radiusPopupWindow.remove()
+        // this?._ctx?.api?.setActiveButton();
         return this.changeMode(Constants.modes.SIMPLE_SELECT, { featureIds: [state.polygon.id] });
     }
-    this?._ctx?.api?.setActiveButton();
 };
 
 DragCircleMode.onTap = DragCircleMode.onClick;

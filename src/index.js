@@ -76,7 +76,30 @@ class OptionsToolbar {
         elCheckbox.classList.add(c);
       });
     }
-    elCheckbox.addEventListener(opt.on, opt.action);
+    elCheckbox.addEventListener(opt.on, (e)=>{
+
+      const clickedButton = e.target;
+      // console.log("---- e.target ", clickedButton.id)
+      if (['static'].includes(clickedButton.id)) {
+        if (clickedButton.id === this.activeButton) {
+          // console.log("---- old id", clickedButton.id)
+          ctrl.draw.changeMode("simple_select",{})
+          // document.getElementById("trash").click();
+          clickedButton.classList.remove("active");
+          this.activeButton = null
+          return;
+        } else {
+          // console.log("---- new id", clickedButton.id)
+          // document.getElementById("trash").click();
+          clickedButton.classList.add("active");
+          this.activeButton = clickedButton.id
+        }
+      } else {
+        this.actionButton = null
+      }
+      opt.action(e)
+    });
+
     ctrl.elContainer.appendChild(elCheckbox);
     opt.elCheckbox = elCheckbox;
   }
@@ -156,21 +179,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== point
         on: "click",
-        action: () => {
-          this.changeMode('static');
-          // this.map?.fire("draw.instruction",{
-          //   action:"วาดจุด",
-          //   message:"คลิกเพื่อกำหนดจุด", 
-          // })
-        },
-        classes: ["static-mode"],
-        id: "static-mode",
-        title: "static",
-        disabled: controls.static==false,
-      },
-      {
-        //===== point
-        on: "click",
+        persist: true,
         id: "point",
         action: () => {
           this.changeMode('draw_point');
@@ -187,6 +196,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== line
         on: "click",
+        persist: true,
         id: "line",
         action: () => {
           this.changeMode('draw_line_string');
@@ -203,6 +213,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== polygon
         on: "click",
+        persist: true,
         id: "polygon",
         action: () => {
           this.changeMode('draw_polygon');
@@ -218,6 +229,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       },
       {
         on: "click", 
+        persist: true,
         id: 'bezier',
         action: () => {
           this.changeMode("draw_bezier_curve")
@@ -233,6 +245,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== drag circle
         on: "click",
+        persist: true,
         id: "circle",
         action: () => {
           this.changeMode('drag_circle');
@@ -249,6 +262,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== ellipse
         on: "click",
+        persist: true,
         id: "ellipse",
         action: () => {
           this.changeMode('drag_ellipse', { eccentricity: 0.8, divisions: 60 });
@@ -265,6 +279,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== Rectangle with max area
         on: 'click',
+        persist: true,
         id: "rectangle",
         customize_button: (elButton) => {
           const drawRec = (limit) => {
@@ -335,6 +350,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== Rectangle Assisted
         on: 'click',
+        persist: true,
         id: "assisted_rectangle",
         action: () => {
 
@@ -355,6 +371,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== Paint 
         on: "click",
+        persist: true,
         id: "paint",
         action: () => {
           try {
@@ -379,13 +396,14 @@ export default class MapboxDrawPro extends MapboxDraw {
       {
         //===== Freeform Polygon
         on: 'click',
+        persist: true,
         id: "freehand",
         action: () => {
           try {
             this.changeMode('freehandMode');
             this.map?.fire("draw.instruction",{
               action:"วาดรูปหลายเหลี่ยมแบบอิสระ",
-              message:"คลิกเพื่อกำหนดจุดยอด และคลิกสองครั้งเพื่อสิ้นสุด", 
+              message:"คลิกเพื่อกำหนดจุดยอด คลิกค้างลากเพื่อวาดเส้น และหยุดคลิกเพื่อสิ้นสุด", 
             })
           } catch (err) {
             console.error(err);
@@ -650,7 +668,7 @@ export default class MapboxDrawPro extends MapboxDraw {
             document.getElementById('scale_rotate').click()
             this.map?.fire("draw.instruction",{
               action:"ย่อ/ขยาย และหมุน",
-              message:"*** ต้องเลือกเส้น/รูปหลายเหลี่ยม ก่อนจึงสามารถดำเนินการต่อได้ !!! ***", 
+              message:"*** ต้องเลือกเส้น/รูปหลายเหลี่ยม ก่อนจึงสามารถดำเนินการต่อได้ ***", 
             })
           }
         },
@@ -772,10 +790,25 @@ export default class MapboxDrawPro extends MapboxDraw {
         e.preventDefault();
         e.stopPropagation();
         const clickedButton = e.target;
+
+        if (this.persist) {
+          if (this.persist==clickedButton.id) {
+            console.log("--- turn off persist : ", this.persist, clickedButton.id)
+          } else {
+            console.log("--- persist is on : ", this.persist, clickedButton.id)
+            return;
+          }
+        } else {
+          console.log("--- persist is off : ", this.persist, clickedButton.id)
+        }
+
         if (clickedButton === this.activeButton) {
           console.log("---- old id")
           // elButton?.classList?.remove("active")
           this.deactivateButtons();
+          this.persist=null
+          this.persist_action=null
+          clickedButton.classList.remove("persist");
           this.changeMode("simple_select",{})
           document.getElementById("trash").click();
           return;
@@ -791,6 +824,38 @@ export default class MapboxDrawPro extends MapboxDraw {
         this.setActiveButton(opt.title)
         opt.action(e)
       }, true);
+
+      opt.persist&&elButton.addEventListener("contextmenu", (e)=>{
+
+        e.preventDefault();
+        console.log("---- context menu")
+
+        
+        e.stopPropagation();
+        const clickedButton = e.target;
+        if (clickedButton === this.activeButton && this.persist==clickedButton.id) {
+          console.log("---- old id")
+          // this.deactivateButtons();
+          // this.changeMode("simple_select",{})
+          // document.getElementById("trash").click();
+          return;
+        } else {
+          // console.log("---- new id", clickedButton)
+          if (!['trash', 'combine', 'uncombine', 'split_line_line', 'split_line_polygon', 'split_polygon', 'cut_polygon', 'scale_rotate', 'pinning'].includes(clickedButton?.id)) {
+            console.log("--- change simple select mode")
+            this.changeMode("simple_select",{})
+          }
+          // document.getElementById("trash").click();
+        }
+        // elButton?.classList?.add("active")
+        this.setActiveButton(opt.title)
+        opt.persist&&(this.persist=opt.id)
+        opt.persist&&(this.persist_action=opt.action)
+        clickedButton.classList.add("persist");
+        opt.action(e)
+      }, true);
+
+
       let elButton_ = opt.customize_button?opt.customize_button(elButton):elButton;
       this.elContainer.appendChild(elButton_);
       opt.elButton = elButton;
@@ -813,7 +878,15 @@ export default class MapboxDrawPro extends MapboxDraw {
     this.activateUIButton = (id) => {console.log("--- activateUIButton : ", id)}
   
     this.setActiveButton = (id) => {
-
+      console.log("-------- setActiveButton persist ")
+      // console.log("--- setActiveButton persist : ", this.persist)
+      // console.log("--- setActiveButton id : ", id)
+      // console.log("--- setActiveButton curActiveButton : ", this.curActiveButton)
+      if (this.persist) {
+        console.log("--- this : ", this)
+        setTimeout(this.persist_action, 500);
+        return;
+      }
       this.curActiveButton = id
       this.deactivateButtons();
   
@@ -976,6 +1049,21 @@ const addOtherControls = async (map, draw, placement, controls) => {
         classes: ['file-export', 'save'],
         title: 'Import GeoJson',
         disabled: controls.import==false,
+      },
+      {
+        //===== static mode
+        on: "click",
+        id: "static",
+        action: () => {
+          draw.changeMode('static');
+          // this.map?.fire("draw.instruction",{
+          //   action:"วาดจุด",
+          //   message:"คลิกเพื่อกำหนดจุด", 
+          // })
+        },
+        classes: ["static-mode"],
+        title: "static mode",
+        disabled: controls.static==false,
       },
     ],
   });
