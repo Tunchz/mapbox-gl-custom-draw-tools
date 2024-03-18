@@ -68,9 +68,9 @@ const customDrawStyles = [
       "line-join": "round",
     },
     paint: {
-      "line-color": "#c00c00",
+      "line-color": "#000000",
       "line-width": 1,
-      "line-dasharray": [5, 5],
+      "line-dasharray": [2, 2],
     },
   },
 ];

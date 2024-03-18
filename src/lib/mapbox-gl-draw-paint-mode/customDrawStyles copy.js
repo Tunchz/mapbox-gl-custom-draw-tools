@@ -18,12 +18,7 @@ const paintStyles = [
     {
       id: "gl-draw-polygon-fill-active",
       type: "fill",
-      filter: [
-        "all", 
-        ["==", "active", "true"], 
-        ["==", "$type", "Polygon"],
-        ['!has', 'user_portColor'],
-      ],
+      filter: ["all", ["==", "active", "true"], ["==", "$type", "Polygon"]],
       paint: {
         "fill-color": "#fbb03b",
         "fill-outline-color": "#fbb03b",

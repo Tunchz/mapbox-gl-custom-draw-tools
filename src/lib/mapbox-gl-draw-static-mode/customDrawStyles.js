@@ -2,7 +2,12 @@ const staticStyles = [
     {
       id: "gl-draw-polygon-fill-static",
       type: "fill",
-      filter: ["all", ["==", "mode", "static"], ["==", "$type", "Polygon"]],
+      filter: [
+        "all", 
+        ["==", "mode", "static"], 
+        ["==", "$type", "Polygon"],
+        ['!has', 'user_portColor'],
+      ],
       paint: {
         "fill-color": "#FF0000",
         "fill-outline-color": "#FF0000",
@@ -12,7 +17,12 @@ const staticStyles = [
     {
       id: "gl-draw-polygon-stroke-static",
       type: "line",
-      filter: ["all", ["==", "mode", "static"], ["==", "$type", "Polygon"]],
+      filter: [
+        "all", 
+        ["==", "mode", "static"], 
+        ["==", "$type", "Polygon"],
+        ['!has', 'user_portColor'],
+      ],
       layout: {
         "line-cap": "round",
         "line-join": "round",
@@ -25,7 +35,12 @@ const staticStyles = [
     {
       id: "gl-draw-line-static",
       type: "line",
-      filter: ["all", ["==", "mode", "static"], ["==", "$type", "LineString"]],
+      filter: [
+        "all", 
+        ["==", "mode", "static"], 
+        ["==", "$type", "LineString"],
+        ['!has', 'user_portColor'],
+      ],
       layout: {
         "line-cap": "round",
         "line-join": "round",
@@ -38,7 +53,13 @@ const staticStyles = [
     {
       id: "gl-draw-point-static",
       type: "circle",
-      filter: ["all", ["==", "mode", "static"], ["==", "$type", "Point"]],
+      filter: [
+        "all", 
+        ["==", "mode", "static"], 
+        ["==", "$type", "Point"],
+        ['!has', 'user_portColor'],
+        ['!has', 'user_portIcon'],
+      ],
       paint: {
         "circle-radius": 5,
         "circle-color": "#FF0000",

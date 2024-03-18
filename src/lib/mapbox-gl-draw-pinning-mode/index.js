@@ -57,10 +57,16 @@ pinMode.onSetup = function () {
 
     const vertices = [];
     const features = state.draw.getAll();
+    console.log("----- features : ", features);
     features.features = features.features.filter((feature) => {
-      return coordAll(feature).some((coord, idx) =>
-        booleanPointInPolygon(coord, BBoxPolygon)
-      );
+      return coordAll(feature).some((coord, idx) => {
+        console.log("----- coord : ", coord);
+        try {
+          return coord?.length&&booleanPointInPolygon(coord, BBoxPolygon)
+        } catch(e) {
+          return false;
+        }
+      });
     });
 
     const _this = this;
