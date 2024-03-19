@@ -238,9 +238,10 @@ export default class MapboxDrawPro extends MapboxDraw {
           var input = document.createElement('input');
           input.className = 'mapbox-gl-draw-rectangle-input';
           input.id = 'rectangle-input-limit'
+          input.value = this.options?.rectangleDefaultLimit || null;
  
           var elButton1 = document.createElement('button');
-          elButton1.className = 'mapbox-gl-draw_ctrl-draw-btn';
+          elButton1.className = 'mapbox-gl-draw_ctrl-draw-btn fixed';
           elButton1.classList.add('draw-rectangle');
           elButton1.addEventListener('click', ()=>{
             let recLimitEl = document.getElementById('rectangle-input-limit')

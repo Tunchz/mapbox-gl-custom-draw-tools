@@ -213,9 +213,9 @@
     border: 3px solid #2165D1;
 }
 
-.mapboxgl-ctrl-group button:hover,
-.mapboxgl-ctrl-group button.active:hover,
-.mapboxgl-ctrl-group button.active {
+.mapboxgl-ctrl-group button:not(.fixed):hover,
+.mapboxgl-ctrl-group button:not(.fixed).active:hover,
+.mapboxgl-ctrl-group button:not(.fixed).active {
     width: 40px;
     height: 40px;
     margin-top: -11px;
@@ -229,8 +229,12 @@
 .mapboxgl-ctrl-group button:hover {
     background-color: #FFF !important;
 }
-/* .mapboxgl-ctrl-group button:hover {
-    margin: -11px -5px 0 -5px;
+/* 
+.mapboxgl-ctrl-group button.fixed:hover,
+.mapboxgl-ctrl-group button.fixed.active:hover,
+.mapboxgl-ctrl-group button.fixed.active {
+    width: 29px !important;
+    height: 29px !important;
 } */
 
 .mapboxgl-ctrl-group.horizontal {
@@ -360,6 +364,10 @@
     margin-right: 5px;
 }
 
+.pallete-container.hidden #icon-display {
+    visibility: hidden !important;
+}
+
 #spacing {
     width: 5px;
     height: 30px;
@@ -368,7 +376,7 @@
 #icon-selector {
     display: none;
     height: 30px;
-    padding: 0 5px;
+    padding: 0 2px;
 }
 
 #icon-selector:hover,
@@ -383,6 +391,10 @@
     width: 26px;
     height: 26px;
     margin: 2px;
+}
+
+#icon-selector .icon-image {
+    margin: 2px 4px;
 }
 
 #icon-selector,

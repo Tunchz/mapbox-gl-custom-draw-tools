@@ -46,14 +46,42 @@ function App() {
     draw = new MapboxDrawPro({
       controls: {
         // line: false,
+        
         // additional_tools: false,
+        // centroid: false
+
         // snap_tools: false,
+        // snap: false,
+
         // file_tools: false,
         // import: false,
-        // snap: false,
-        // centroid: false
       },
-      otherOptions:{horizontal:true,edge:'bottom', paint:{simplify:true, mode:2}}
+      otherOptions:{
+        horizontal:true,
+        edge:'bottom', 
+        paint:{
+            simplify:true, 
+            mode:2
+        },
+
+        rectangleDefaultLimit: 100,
+        
+        bufferSize: 0.5,
+        bufferUnit: 'kilometers',
+        bufferSteps: 64,
+        showLength: true,
+        lengthUnits: 'kilometers',
+        showArea: true,
+
+        snap: false,
+        snapOptions: {
+            snapPx: 15,
+            snapToMidPoints: true,
+            snapVertexPriorityDistance: false,
+        },
+        guides: false,
+        userProperties: true,
+    }
     });
     window.draw = draw;
 

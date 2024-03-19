@@ -172,7 +172,7 @@ export const addOtherControls = async (map, draw, placement, controls) => {
   
   
           },
-          classes: ['file-import', 'load'],
+          classes: ['file-import', 'load',"fixed"],
           title: 'Export GeoJson',
           disabled: controls.export==false,
         },
@@ -202,7 +202,7 @@ export const addOtherControls = async (map, draw, placement, controls) => {
             console.log("---- exported data : ", data)
             draw.options?.onExport&&draw.options?.onExport(data)
           },
-          classes: ['file-export', 'save'],
+          classes: ['file-export', 'save',"fixed"],
           title: 'Import GeoJson',
           disabled: controls.import==false,
         },
@@ -217,7 +217,7 @@ export const addOtherControls = async (map, draw, placement, controls) => {
             //   message:"คลิกเพื่อกำหนดจุด", 
             // })
           },
-          classes: ["static-mode"],
+          classes: ["static-mode","fixed"],
           title: "static mode",
           disabled: controls.static==false,
         },

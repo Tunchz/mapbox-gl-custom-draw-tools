@@ -1,3 +1,7 @@
+// import { highlightPropertyName as _highlightPropertyName } from "../mapbox-gl-draw-select-mode/constants";
+
+// const highlightPropertyName = `user_${_highlightPropertyName}`;
+
 const customColorPickerStyles = [
     {
         'id': 'gl-draw-polygon-fill-color-picker',
@@ -6,6 +10,7 @@ const customColorPickerStyles = [
             'all', 
             ['==', '$type', 'Polygon'],
             ["==", "active", "false"],
+            // ["!has", highlightPropertyName],
             ['has', 'user_portColor']
         ],
         'paint': {
@@ -21,6 +26,7 @@ const customColorPickerStyles = [
             'all', 
             ['==', '$type', 'Polygon'],
             ["==", "active", "false"],
+            // ["!has", highlightPropertyName],
             ['has', 'user_portColor']
         ],
         "layout": {
@@ -39,6 +45,7 @@ const customColorPickerStyles = [
             'all', 
             ['==', '$type', 'LineString'],
             ["==", "active", "false"],
+            // ["!has", highlightPropertyName],
             ['has', 'user_portColor']
         ],
         "layout": {

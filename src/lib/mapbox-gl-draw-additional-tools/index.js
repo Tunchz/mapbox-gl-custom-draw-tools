@@ -179,7 +179,7 @@ class extendDrawBar {
     this.map = map;
     this._container = document.createElement('div');
     // this._container.className = 'mapboxgl-ctrl-group mapboxgl-ctrl';
-    // console.log("==== this : ", this)
+    console.log("==== this.draw.options : ", this.draw.options)
     this._container.className = `mapboxgl-ctrl-group mapboxgl-ctrl custom-tools-group${this.draw.options.horizontal?" horizontal":""} ${this.draw.options.edge}`;
     this.elContainer = this._container;
     this.draw.groups_item&&this.draw.groups_item.push(this.elContainer)
