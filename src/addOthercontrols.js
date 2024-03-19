@@ -1,4 +1,5 @@
 import { additionalTools, measurement, addToolStyle } from './lib/mapbox-gl-draw-additional-tools';
+import MeasureControl from './lib/mapboxgl-measure-control/measure_control'
 
 class OptionsToolbar {
     constructor(opt) {
@@ -6,6 +7,7 @@ class OptionsToolbar {
       ctrl.checkboxes = opt.checkboxes || [];
       ctrl.onRemoveOrig = opt.draw.onRemove;
       ctrl.horizontal = opt.draw.options?.horizontal;
+      ctrl.edge = opt.draw.options?.edge;
       ctrl.draw = opt.draw
     }
     onAdd(map) {
@@ -79,6 +81,7 @@ class OptionsToolbar {
 
 export const addOtherControls = async (map, draw, placement, controls) => {
 
+    console.log("==== placement addOtherControls : ", placement)
     console.log("---- draw.options : ", draw.options)
     const snapOptionsBar = new OptionsToolbar({
       draw,
@@ -224,10 +227,14 @@ export const addOtherControls = async (map, draw, placement, controls) => {
       ],
     });
   
+    const measureControl = new MeasureControl({draw});
+    
     setTimeout(() => {
       (controls.additional_tools!=false)&&map.addControl(additionalTools({...draw, controls}), placement);
+      (controls.measure_controls!=false)&&map.addControl(measureControl, placement);
       (controls.snap_tools!=false)&&map.addControl(snapOptionsBar, placement);
       (controls.file_tools!=false)&&map.addControl(fileOptionsBar, placement);
+    // (controls.measure_controls!=false)&&map.addControl(measureControl, placement);
   
       setTimeout(()=>draw.groups_item?.map((el)=>{draw.group_elContainer.appendChild(el)}),10);
     }, 400);

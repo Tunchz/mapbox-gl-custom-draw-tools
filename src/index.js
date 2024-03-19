@@ -79,6 +79,9 @@ export default class MapboxDrawPro extends MapboxDraw {
     };
 
     const customOptions = {
+      horizontal: true,
+      edge: "bottom",
+
       bufferSize: 0.5,
       bufferUnit: 'kilometers',
       bufferSteps: 64,
@@ -727,7 +730,7 @@ export default class MapboxDrawPro extends MapboxDraw {
     this.onAdd = (map, placement) => {
       this.map = map;
       // console.log("==== this | draw : ", this, draw)
-      // console.log("==== placement : ", placement)
+      console.log("==== placement : ", placement)
       placement = placement || 'top-right'
       this.elContainer = this.onAddOrig(map, placement);
       
