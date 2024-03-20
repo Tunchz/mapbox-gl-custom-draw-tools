@@ -257,7 +257,6 @@ class MeasureControl {
 
         if(this.state === 'off') return;
 
-        this._toggleState('off');
         this._toggleEvents('add','click');
         this._measureOnButton.setAttribute('aria-label','measure-off');
         this._measureOnButton.className = "mapboxgl-ctrl-icon measure-off fixed";
@@ -271,12 +270,13 @@ class MeasureControl {
         
         //创建删除当前测距的button
         var length = this.geojsonList[this._name].popups.length;
-        var options = this.geojsonList[this._name].popups[length - 2].options;
-        this.geojsonList[this._name].popups[length - 1].remove()
-        this.geojsonList[this._name].popups[length - 2].setHTML("<div>"+`ระยะ : ${options.total} km${options.prev?' (+'+(options.total-options.prev).toFixed(3)+')':''}`+"<button data-name='"+this._name+"' id='dele-btn-"+this._name+"'>x</button></div>");
+        var options = this.geojsonList[this._name].popups[length - 2]?.options || {};
+        this.geojsonList[this._name].popups[length - 1]?.remove()
+        this.geojsonList[this._name].popups[length - 2]?.setHTML("<div>"+`ระยะ : ${options.total} km${options.prev?' (+'+(options.total-options.prev).toFixed(3)+')':''}`+"<button data-name='"+this._name+"' id='dele-btn-"+this._name+"'>x</button></div>");
         // document.getElementById('dele-btn-'+this._name).addEventListener('click', this._removeMeasure);
         this.removeMeasureButton = document.getElementById('dele-btn-'+this._name)
-        this.removeMeasureButton.addEventListener('click', this._removeMeasure);
+        this.removeMeasureButton?.addEventListener('click', this._removeMeasure);
+        this._toggleState('off');
     }
 
     /**
@@ -285,12 +285,12 @@ class MeasureControl {
     _removeMeasure(e){
         var name = e?.target?.getAttribute('data-name');
         var map = this._map;
-        map.removeLayer('measure-points-' + name);
-        map.removeLayer('measure-lines-' + name);
-        map.removeSource('measure-geojson-'+ name);
+        map.getLayer('measure-points-' + name)&&map.removeLayer('measure-points-' + name);
+        map.getLayer('measure-lines-' + name)&&map.removeLayer('measure-lines-' + name);
+        map.getSource('measure-geojson-'+ name)&&map.removeSource('measure-geojson-'+ name);
         // 删除mousemove layer
-        map.removeLayer('measure-lines-mousemove');
-        map.removeSource('measure-geojson-mousemove');
+        map.getLayer('measure-lines-mousemove')&&map.removeLayer('measure-lines-mousemove');
+        map.getSource('measure-geojson-mousemove')&&map.removeSource('measure-geojson-mousemove');
 
         //删除当前name的所有的popup
         this._removeCurPopups(name);
@@ -308,8 +308,9 @@ class MeasureControl {
     _onMeasureStart(e){
         
         if(this.state === 'on') { 
-            // this._onMeasureEnd()
-            // this._removeMeasure()
+            this._onDblClick(e);
+            this.removeMeasureButton&&this.removeMeasureButton.click();
+            this._removeMeasure();
             return;
         }
         this.removeMeasureButton&&this.removeMeasureButton.click();
