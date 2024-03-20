@@ -396,14 +396,20 @@
 
 #icon-selector {
     display: none;
-    height: 30px;
+    /* height: 30px; */
     padding: 0 2px;
+    transform: translateY(calc(-100% + 32px));
+    grid-template-columns: repeat(10, 1fr);
 }
+
+/* .grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+} */
 
 #icon-selector:hover,
 .icon-container:hover #icon-selector {
-    display:flex;
-    height: 30px;
+    display:grid;
     background-color: #FFF;
 }
 
@@ -459,6 +465,7 @@
     left: 4px;
     right: auto;
     border-radius: 5px;
+    top: 16px;
   }
 
   .square .clr-field input,

@@ -35,7 +35,7 @@ require('@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css');
 require('./custom-draw-tools.css');
 import { addOtherControls } from './addOthercontrols.js';
 import { addExtraHandling } from './addExtraHandling.js'
-import { data64Images, iconArray } from './icon.js';
+import defaultIcons from './icons.js';
 
 // import SimpleSelectMode from '@mapbox/mapbox-gl-draw/src/modes/simple_select';
 
@@ -103,7 +103,7 @@ export default class MapboxDrawPro extends MapboxDraw {
     const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle, bezierStyles, 'id');
     // console.log("---- styles : ", __styles)
     // console.log("---- styles : ", _styles)
-    const _icons = icons.concat(iconArray).filter((icon)=>icon.name&&icon.url)
+    const _icons = icons.concat(defaultIcons).filter((icon)=>icon.name&&icon.url)
     // console.log("---- _icons : ", _icons)
     const _options = { modes: _modes, styles: _styles, controls:_controls, icons:_icons, ...customOptions, ...otherOptions };
     // console.log("--- options : ", _options)
@@ -763,6 +763,7 @@ export default class MapboxDrawPro extends MapboxDraw {
 
       this.selector_elContainer = document.createElement('div')
       this.selector_elContainer.id="icon-selector";
+      this.selector_elContainer.className="grid-container";
       this.spaceEl = document.createElement('div')
       this.spaceEl.id="spacing";
       this.icon_el = document.createElement('img')

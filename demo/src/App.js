@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import mapboxGl from 'mapbox-gl';
 
 import MapboxDrawPro from 'mapbox-gl-custom-draw-tools';
+// import { icons } from './icons';
 
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import './App.css';
@@ -43,6 +44,8 @@ function App() {
       },
     });
 
+    // console.log("---- icons : ", icons)
+
     draw = new MapboxDrawPro({
       controls: {
         // line: false,
@@ -56,6 +59,7 @@ function App() {
         // file_tools: false,
         // import: false,
       },
+    //   icons,
       otherOptions:{
         horizontal:true,
         edge:'bottom', 
