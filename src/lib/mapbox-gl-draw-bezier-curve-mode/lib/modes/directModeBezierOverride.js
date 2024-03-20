@@ -254,19 +254,20 @@ DirectModeBezierOverride.onKeyDown = function(state, e) {
 
 DirectModeBezierOverride.onTrash = function(state) {
   const bezierGroup = getBezierGroup(state);
+  // if (bezierGroup) {
 
-  // Mark Nodes for deletion
-  state.selectedCoordPaths.forEach(coordPath => {
-    const result = bezierGroup.getBezierCurveAndNodeFromCoordPath(coordPath);
-    const bezierCurve = result.bezierCurve;
-    const node = result.node;
-    bezierCurve.nodesToDelete.push(node);
-  });
+    // Mark Nodes for deletion
+    state.selectedCoordPaths.forEach(coordPath => {
+      const result = bezierGroup?.getBezierCurveAndNodeFromCoordPath(coordPath);
+      const bezierCurve = result?.bezierCurve;
+      const node = result?.node;
+      bezierCurve?.nodesToDelete?.push(node);
+    });
 
-  // Remove nodes
-  bezierGroup.removeMarkedNodes();
-  bezierGroup.refreshFeature(state.feature);
-
+    // Remove nodes
+    bezierGroup?.removeMarkedNodes();
+    bezierGroup?.refreshFeature(state.feature);
+  // }
   this.fireUpdate();
   state.selectedCoordPaths = [];
   this.clearSelectedCoordinates();

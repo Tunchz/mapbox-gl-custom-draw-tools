@@ -76,7 +76,9 @@ export const addExtraHandling = (map, draw) => {
         } else {
           console.log("---- hide color picker")
           document.getElementById("pallete-container").classList.add("hidden")
+          document.getElementById("instruction-container").innerHTML="";
         }
+
     }
   
     /* Event Handlers for Draw Tools */

@@ -294,7 +294,13 @@ class extendDrawBar {
   centroidPolygons(this_) {
     // console.log("==== this : ", this.draw || draw)
     const selectedFeatures = (this_.draw||draw).getSelected().features;
-    if (!selectedFeatures.length) return;
+    if (!selectedFeatures.length) {
+      this_.map?.fire("draw.instruction",{
+        action:"จุด centroid",
+        message:"กรุณาเลือก รูปหลายเหลี่ยม เพื่อสร้างจุด centrod", 
+      })
+      return;
+    }
 
     const ids = [];
     const centroids = [];
@@ -314,7 +320,13 @@ class extendDrawBar {
   toPoints(this_) {
     const selectedFeatures = (this_.draw||draw).getSelected()?.features;
     // console.log((this_.draw||draw).getSelected());
-    if (!selectedFeatures.length) return;
+    if (!selectedFeatures.length) {
+      this_.map?.fire("draw.instruction",{
+        action:"แยกจุด",
+        message:"กรุณาเลือก เส้น หรือ รูปหลายเหลี่ยม เพื่อแยกจุด", 
+      })
+      return;
+    }
     let ids = [];
     let vertices = [];
     selectedFeatures.forEach((main) => {
@@ -332,7 +344,13 @@ class extendDrawBar {
 
   unionPolygons(this_) {
     const selectedFeatures = (this_.draw||draw).getSelected().features;
-    if (!selectedFeatures.length) return;
+    if (!selectedFeatures.length) {
+      this_.map?.fire("draw.instruction",{
+        action:"union",
+        message:"กรุณาเลือก รูปหลายเหลี่ยม อย่างน้อย 2 รูป เพื่อรวม หรือ union", 
+      })
+      return;
+    }
     let unionPoly;
     try {
       unionPoly = Union(...(this_.draw||draw).getSelected().features);
@@ -352,7 +370,13 @@ class extendDrawBar {
 
   bufferFeature(this_) {
     const selectedFeatures = (this_.draw||draw).getSelected().features;
-    if (!selectedFeatures.length) return;
+    if (!selectedFeatures.length) {
+      this_.map?.fire("draw.instruction",{
+        action:"Buffer",
+        message:"กรุณาเลือก เส้น หรือ รูปหลายเหลี่ยม เพื่อทำ buffer", 
+      })
+      return;
+    }
     const bufferOptions = {};
     bufferOptions.units = (this_.draw||draw).options.bufferUnits || 'kilometers';
     bufferOptions.steps = (this_.draw||draw).options.bufferSteps || '64';
@@ -371,7 +395,13 @@ class extendDrawBar {
 
   copyFeature(this_) {
     const selectedFeatures = (this_.draw||draw).getSelected().features;
-    if (!selectedFeatures.length) return;
+    if (!selectedFeatures.length) {
+      this_.map?.fire("draw.instruction",{
+        action:"คัดลอก",
+        message:"กรุณาเลือก จุด เส้น หรือ รูปหลายเหลี่ยม เพื่อคัดลอก", 
+      })
+      return;
+    }
     let ids = [];
     let translated = [];
     selectedFeatures.forEach((main) => {
@@ -387,7 +417,13 @@ class extendDrawBar {
 
   cutFeature(this_) {
     const selectedFeatures = (this_.draw||draw).getSelected().features;
-    if (!selectedFeatures.length) return;
+    if (!selectedFeatures.length) {
+      this_.map?.fire("draw.instruction",{
+        action:"ตัด",
+        message:"กรุณาเลือก เส้น หรือ รูปหลายเหลี่ยม เพื่อตัด", 
+      })
+      return;
+    }
     let ids = [];
     let cuts = [];
     selectedFeatures.forEach((main) => {
@@ -404,7 +440,13 @@ class extendDrawBar {
   lengthOfFeature(this_) {
     measurement.length = [];
     const selectedFeatures = (this_.draw||draw).getSelected().features;
-    if (!selectedFeatures.length) return;
+    if (!selectedFeatures.length) {
+      this_.map?.fire("draw.instruction",{
+        action:"วัดความยาว",
+        message:"กรุณาเลือก เส้น หรือ รูปหลายเหลี่ยม เพื่อวัดความยาว", 
+      })
+      return;
+    }
     selectedFeatures.forEach((main, idx) => {
       let length = Length(main, { units: (this_.draw||draw).options.lengthUnits || 'kilometers' });
       measurement.length.push({ id: main.id, value: length });
@@ -414,12 +456,23 @@ class extendDrawBar {
         (this_.draw||draw).setFeatureProperty(main.id, 'length_unit', (this_.draw||draw).options.lengthUnits || 'kilometers');
     });
     this_.fireUpdateMeasurement(measurement.length, 'length');
+    console.log("----- length : ", measurement.length);
+    this_.map?.fire("draw.instruction",{
+      action:"ความยาว",
+      message:`${measurement.length?parseFloat(measurement.length[0]?.value)?.toFixed(3):"-"}`, 
+    })
   }
 
   areaOfPolygon(this_) {
     measurement.area = [];
     const selectedFeatures = (this_.draw||draw).getSelected().features;
-    if (!selectedFeatures.length) return;
+    if (!selectedFeatures.length) {
+      this_.map?.fire("draw.instruction",{
+        action:"วัดพื้นที่ | ความยาว",
+        message:"กรุณาเลือกรูปหลายเหลี่ยม เพื่อวัดพื้นที่และความยาว", 
+      })
+      return;
+    }
     selectedFeatures.forEach((main, idx) => {
       let area = Area(main);
       measurement.area.push({ id: main.id, value: area });
@@ -428,6 +481,12 @@ class extendDrawBar {
         (this_.draw||draw).setFeatureProperty(main.id, 'area', parseFloat(area).toFixed(4));
     });
     this_.fireUpdateMeasurement(measurement.area, 'area');
+    this_.fireUpdateMeasurement(measurement.length, 'length');
+    console.log("----- area | length : ", measurement.area, measurement.length);
+    this_.map?.fire("draw.instruction",{
+      action:"พื้นที่ | ความยาว",
+      message:`${measurement.area?parseFloat(measurement.area[0]?.value)?.toFixed(3):"-"} | ${measurement.length?parseFloat(measurement.length[0]?.value)?.toFixed(3):"-"}`, 
+    })
   }
 
   fireCreateCentroid(newF) {

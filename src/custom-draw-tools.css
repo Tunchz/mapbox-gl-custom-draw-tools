@@ -493,6 +493,7 @@ border-radius: 5px;
 
 .mapboxgl-popup-content {
 padding: 5px 5px 5px 10px !important;
+color: #000;
 }
 
 .mapboxgl-popup-tip {
