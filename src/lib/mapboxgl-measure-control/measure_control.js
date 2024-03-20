@@ -283,7 +283,7 @@ class MeasureControl {
      * @description 删除当前name的Measure实例
      */
     _removeMeasure(e){
-        var name = e.target.getAttribute('data-name');
+        var name = e?.target?.getAttribute('data-name');
         var map = this._map;
         map.removeLayer('measure-points-' + name);
         map.removeLayer('measure-lines-' + name);
@@ -307,7 +307,11 @@ class MeasureControl {
      */
     _onMeasureStart(e){
         
-        if(this.state === 'on') return;
+        if(this.state === 'on') { 
+            // this._onMeasureEnd()
+            // this._removeMeasure()
+            return;
+        }
         this.removeMeasureButton&&this.removeMeasureButton.click();
         //进入测距模式
         this._toggleState('on');

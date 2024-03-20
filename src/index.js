@@ -44,7 +44,7 @@ export default class MapboxDrawPro extends MapboxDraw {
   
   constructor(options) {
     options = options || {};
-    const { modes, styles, controls, icons=[], otherOptions, ...other } = options;
+    const { modes, styles, controls={}, icons=[], otherOptions, ...other } = options;
 
 
     // const [isTypeMenuActive, setIsTypeMenuActive] = useState(false);
