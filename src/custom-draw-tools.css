@@ -511,3 +511,7 @@ margin-left: 5px;
 .measure_mousemove_tips {
     color: #000;
 }
+
+.rec-tooltip {
+    margin: 0 !important;
+}
