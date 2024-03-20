@@ -91,7 +91,7 @@ DragCircleMode.onMouseMove = function (state, e) {
     state.polygon.properties.radiusInKm = distanceInKm;
     this.radiusPopupWindow
       .setLngLat([e.lngLat.lng, e.lngLat.lat])
-      .setHTML('<div style="margin-top:-8px;margin-bottom:-17px;">รัศมี：' + distanceInKm.toFixed(2) + 'km</div>')
+      .setHTML('<div class="rec-tooltip" style="color:#000000;">รัศมี：' + distanceInKm.toFixed(2) + 'km</div>')
       .addTo(this.map);
   }
 };

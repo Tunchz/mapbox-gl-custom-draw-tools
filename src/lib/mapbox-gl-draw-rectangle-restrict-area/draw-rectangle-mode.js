@@ -119,7 +119,7 @@ DrawRectangle.onMouseMove = function (state, e) {
     state.rectangle.properties.areaInM2 = area;
     this.popupWindow
       .setLngLat([e.lngLat.lng, e.lngLat.lat])
-      .setHTML(`<div class="rec-tooltip" style="margin-top:-8px;margin-bottom:-17px;color:#000000;">${this.areaLimit?('จำกัด：' + this.areaLimit + ' m2<br>'):''}พื้นที่：${area.toFixed(2)} m2</div>`)
+      .setHTML(`<div class="rec-tooltip" style="color:#000000;">${this.areaLimit?('จำกัด：' + this.areaLimit + ' m2<br>'):''}พื้นที่：${area.toFixed(2)} m2</div>`)
       .addTo(this.map);
   } else {
     state.rectangle.updateCoordinate(`0.0`, e.lngLat.lng, e.lngLat.lat);

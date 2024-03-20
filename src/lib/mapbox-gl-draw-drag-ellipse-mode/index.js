@@ -100,7 +100,7 @@ DragCircleMode.onMouseMove = function (state, e) {
 
     this.radiusPopupWindow
       .setLngLat([e.lngLat.lng, e.lngLat.lat])
-      .setHTML('<div style="margin-top:-10px;margin-bottom:-15px;">รัศมี X ：' + distanceXInKm.toFixed(2) + 'km<br>รัศมี Y ：' + distanceYInKm.toFixed(2) + 'km</div>')
+      .setHTML('<div class="rec-tooltip" style="color:#000000;">รัศมี X ：' + distanceXInKm.toFixed(2) + 'km<br>รัศมี Y ：' + distanceYInKm.toFixed(2) + 'km</div>')
       .addTo(this.map);
   }
 };
