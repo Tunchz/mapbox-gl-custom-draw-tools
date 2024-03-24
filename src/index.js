@@ -44,7 +44,7 @@ export default class MapboxDrawPro extends MapboxDraw {
   
   constructor(options) {
     options = options || {};
-    const { modes, styles, controls={}, icons=[], otherOptions, ...other } = options;
+    const { modes, styles, controls={}, icons=[], iconGroups=[], disableDefaultIcons=false, otherOptions, ...other } = options;
 
 
     // const [isTypeMenuActive, setIsTypeMenuActive] = useState(false);
@@ -103,9 +103,10 @@ export default class MapboxDrawPro extends MapboxDraw {
     const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle, bezierStyles, 'id');
     // console.log("---- styles : ", __styles)
     // console.log("---- styles : ", _styles)
-    const _icons = icons.concat(defaultIcons).filter((icon)=>icon.name&&icon.url)
+    const _icons = icons.concat(defaultIcons).filter((icon)=>icon.name&&icon.url&&(!disableDefaultIcons||icon.group!='default'))
+    const _iconGroups = iconGroups.concat(!disableDefaultIcons?['default']:[])
     // console.log("---- _icons : ", _icons)
-    const _options = { modes: _modes, styles: _styles, controls:_controls, icons:_icons, ...customOptions, ...otherOptions };
+    const _options = { modes: _modes, styles: _styles, controls:_controls, icons:_icons, iconGroups:_iconGroups, ...customOptions, ...otherOptions };
     // console.log("--- options : ", _options)
     super(_options);
 
@@ -760,10 +761,16 @@ export default class MapboxDrawPro extends MapboxDraw {
       this.pallete_elContainer.id="pallete-container";
       this.pallete_elContainer.className="pallete-container hidden";
 
-
-      this.selector_elContainer = document.createElement('div')
+      this.selector1_elContainer = document.createElement('div');
+      this.selector1_elContainer.id="icon-selector-panel";   
+      this.selector1_elContainer.className="grid-container";   
+      this.selector2_elContainer = document.createElement('div');
+      this.selector2_elContainer.id="icon-selector-group";
+      this.selector2_elContainer.className="grid-container";   
+      this.selector_elContainer = document.createElement('div');
       this.selector_elContainer.id="icon-selector";
-      this.selector_elContainer.className="grid-container";
+      this.selector_elContainer.append(this.selector1_elContainer);
+      this.selector_elContainer.append(this.selector2_elContainer);
       this.spaceEl = document.createElement('div')
       this.spaceEl.id="spacing";
       this.icon_el = document.createElement('img')
@@ -775,6 +782,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       this.icondisplay_elContainer.append(this.icon_el)
       this.icon_elContainer = document.createElement('div')
       this.icon_elContainer.className="icon-container";
+      this.icon_elContainer.id="icon-container";
       this.icon_elContainer.append(this.selector_elContainer);
       this.icon_elContainer.append(this.spaceEl);
       this.icon_elContainer.append(this.icondisplay_elContainer);

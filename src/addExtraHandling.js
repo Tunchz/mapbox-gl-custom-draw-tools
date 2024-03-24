@@ -53,6 +53,24 @@ export const addExtraHandling = (map, draw) => {
       console.log("---- feat : ", feat)
       draw.add(feat)
     }
+
+    function changeGroup(draw, group) {
+      console.log("---- group : ", group)
+
+      Array.prototype.slice.call(document.getElementsByClassName('group-label'))?.forEach((el)=>el.classList.remove("selected"))
+      document.getElementById('group-label-'+group).classList.add("selected")
+
+      Array.prototype.slice.call(document.getElementsByClassName('icon-image'))?.forEach((el)=>el.classList.add("hidden"))
+      Array.prototype.slice.call(document.getElementsByClassName('group_'+group))?.forEach((el)=>el.classList.remove("hidden"))
+
+      // draw.setFeatureProperty(draw.drawFeatureID, 'portIcon', icon.name!="remove image"&&icon.name||undefined)
+      // draw.setFeatureProperty(draw.drawFeatureID, 'portIconSize', icon.size||1)
+      // document.getElementById('selected-icon').src = icon.url
+      
+      // var feat = draw.get(draw.drawFeatureID);
+      // console.log("---- feat : ", feat)
+      // draw.add(feat)
+    }
   
     // callback for draw.update and draw.selectionchange
     var setDrawFeature = function(e) {
@@ -71,7 +89,7 @@ export const addExtraHandling = (map, draw) => {
             // Coloris.setColorFromStr(featureColor);
             console.log("---- feat : ", feat)
 
-            document.getElementById("icon-display").style.visibility=(feat?.geometry?.type == "Point")?"visible":"hidden";
+            document.getElementById("icon-container").style.visibility=(feat?.geometry?.type == "Point")?"visible":"hidden";
             
         } else {
           console.log("---- hide color picker")
@@ -165,14 +183,23 @@ export const addExtraHandling = (map, draw) => {
   
       })
 
-
       draw.options?.icons?.map((icon)=>{
         let imgel = document.createElement('img')
-        imgel.className="icon-image";
+        imgel.className="icon-image" + (icon?.group?` group_${icon?.group}`:"");
         imgel.title=icon.name
         imgel.src=icon.url
         imgel.addEventListener("click",()=>changeIcon(draw, icon))
-        document.getElementById('icon-selector').append(imgel)
+        document.getElementById('icon-selector-panel').append(imgel)
+      })
+
+      draw.options?.iconGroups?.map((group)=>{
+        let groupel = document.createElement('div')
+        groupel.className="group-label";
+        groupel.id="group-label-"+group;
+        groupel.title=group
+        groupel.innerHTML=group
+        groupel.addEventListener("click",()=>changeGroup(draw, group))
+        document.getElementById('icon-selector-group').append(groupel)
       })
 
     },500)
@@ -182,7 +209,7 @@ export const addExtraHandling = (map, draw) => {
       icon.name!=="remove image"&&map.loadImage(icon.url, (error, image) => {
         if (error) throw error;
         console.log("----- icon : ", icon.name)
-        image && map.addImage(icon.name, image);
+        image && !map.hasImage(icon.name) && map.addImage(icon.name, image);
       });
     })
   

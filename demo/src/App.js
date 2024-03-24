@@ -59,7 +59,9 @@ function App() {
         // file_tools: false,
         // import: false,
       },
-    //   icons,
+      icons:[],
+      iconGroups:["group1", "group2"],
+      disableDefaultIcons: false,
       otherOptions:{
         horizontal:true,
         edge:'bottom', 
