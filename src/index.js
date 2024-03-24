@@ -104,7 +104,7 @@ export default class MapboxDrawPro extends MapboxDraw {
     // console.log("---- styles : ", __styles)
     // console.log("---- styles : ", _styles)
     const _icons = icons.concat(defaultIcons).filter((icon)=>icon.name&&icon.url&&(!disableDefaultIcons||icon.group!='default'))
-    const _iconGroups = iconGroups.concat(!disableDefaultIcons?['default']:[])
+    const _iconGroups = (!disableDefaultIcons?['default']:[]).concat(iconGroups)
     // console.log("---- _icons : ", _icons)
     const _options = { modes: _modes, styles: _styles, controls:_controls, icons:_icons, iconGroups:_iconGroups, ...customOptions, ...otherOptions };
     // console.log("--- options : ", _options)

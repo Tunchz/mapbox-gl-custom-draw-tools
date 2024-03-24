@@ -202,6 +202,8 @@ export const addExtraHandling = (map, draw) => {
         document.getElementById('icon-selector-group').append(groupel)
       })
 
+      setTimeout(()=>(draw.options?.defaultSelectedGroup||draw.options?.iconGroups[0])&&changeGroup(draw, draw.options?.defaultSelectedGroup||draw.options?.iconGroups[0]),500);
+
     },500)
   
     //--- initialize all icons ---

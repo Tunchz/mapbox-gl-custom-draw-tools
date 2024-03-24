@@ -61,6 +61,7 @@ function App() {
       },
       icons:[],
       iconGroups:["group1", "group2"],
+      defaultSelectedGroup:"default",
       disableDefaultIcons: false,
       otherOptions:{
         horizontal:true,
