@@ -208,11 +208,20 @@ export const addExtraHandling = (map, draw) => {
   
     //--- initialize all icons ---
     draw.options?.icons?.forEach((icon)=>{
-      icon.name!=="remove image"&&map.loadImage(icon.url, (error, image) => {
-        if (error) throw error;
-        console.log("----- icon : ", icon.name)
-        image && !map.hasImage(icon.name) && map.addImage(icon.name, image);
-      });
+      if (icon.name!=="remove image") {
+        if (!icon.isSvg) {
+          map.loadImage(icon.url, (error, image) => {
+            if (error) throw error;
+            console.log("----- icon : ", icon.name)
+            image && !map.hasImage(icon.name) && map.addImage(icon.name, image);
+
+          });
+        } else {
+          let img = new Image(icon.width||100,icon.height||100);
+          img.onload = ()=>map.addImage(icon.name, img);
+          img.src = icon.url;
+        }
+      }
     })
   
   

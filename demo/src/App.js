@@ -7,6 +7,8 @@ import MapboxDrawPro from 'mapbox-gl-custom-draw-tools';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import './App.css';
 
+import icons2 from './icons2'
+
 let map;
 let draw;
 
@@ -59,9 +61,9 @@ function App() {
         // file_tools: false,
         // import: false,
       },
-      icons:[],
-      iconGroups:["group1", "group2"],
-      defaultSelectedGroup:"default",
+      icons:icons2,
+      iconGroups:["military"],
+      defaultSelectedGroup:"military",
       disableDefaultIcons: false,
       otherOptions:{
         horizontal:true,
