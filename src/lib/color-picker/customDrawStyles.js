@@ -152,8 +152,47 @@ const customColorPickerStyles = [
         'icon-image': ['get', 'user_portIcon'], //'custom-icon',
         'icon-size': ['get', 'user_portIconSize'],
         'icon-anchor': 'bottom',
+        // "text-field": ['get', 'user_portText'],
+        // "text-font": ['Open Sans Extrabold', 'Arial Unicode MS Bold'],
+        // // 'text-ignore-placement': true,
+        // 'text-anchor': 'top',
+        // 'text-offset': [0, 10],
+        // "text-size": 12,
       },
+      // 'paint': {
+      //     "text-color": ['get', 'user_portColor'],
+      //     "text-halo-color": '#fff',
+      //     "text-halo-width": 0.5,
+      //     "text-halo-blur": 0,
+      //     'text-opacity':1
+      // }
     },
+    {
+      'id': "gl-draw-point-text-marker-color-picker",
+      'type': "symbol",
+      'filter': [
+          'all', 
+          ['==', '$type', 'Point'],
+          // ["==", "active", "false"],
+          ['has', 'user_portText'],
+      ],
+      "layout": {
+          "text-field": ['get', 'user_portText'],
+          "text-font": ['Open Sans Extrabold', 'Arial Unicode MS Bold'],
+          // 'text-ignore-placement': true,
+          'text-anchor': 'top',
+          'text-offset': [0, 10],
+          "text-size": 12,
+          // 'symbol-placement': "point"
+      },
+      "paint": {
+          "text-color": ['get', 'user_portColor'],
+          "text-halo-color": '#fff',
+          "text-halo-width": 0.5,
+          "text-halo-blur": 0,
+          'text-opacity':1
+      }
+    }
   ];
 
   const customDrawStyles = (defaultStyle) => [...customColorPickerStyles, ...defaultStyle]

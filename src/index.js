@@ -787,6 +787,53 @@ export default class MapboxDrawPro extends MapboxDraw {
       this.icon_elContainer.append(this.spaceEl);
       this.icon_elContainer.append(this.icondisplay_elContainer);
 
+      this.text_input = document.createElement('input');
+      this.text_input.type="text";
+      this.text_input.placeholder="text";
+      this.text_input.id="text-input";
+      this.text_input.addEventListener('focusout', (e)=>{
+        // setTimeout(()=>document.getElementById('text-input-container').style.display = 'none',1000);
+      });
+      this.text_button = document.createElement('button');
+      this.text_button.id="text-button";
+      this.text_button.innerHTML="Apply";
+      // this.text_button.addEventListener('click', (e)=>{
+      //   let text = document.getElementById('text-input').value;
+      //   console.log("===== text : ", text)
+      //   // document.getElementById('text-input-container').style.display = 'none';
+      // });
+
+      this.text_input_elContainer = document.createElement('div');
+      this.text_input_elContainer.id="text-input-container";
+      this.text_input_elContainer.append(this.text_input);
+      this.text_input_elContainer.append(this.text_button);
+      this.spaceEl = document.createElement('div')
+      this.spaceEl.id="spacing";
+
+      this.textdisplay_elContainer = document.createElement('div')
+      this.textdisplay_elContainer.id="text-display";
+      this.textdisplay_elContainer.className = "text-icon clr-field";
+      this.textdisplay_elContainer.addEventListener('click', (e)=>{
+        let display = document.getElementById('text-input-container').style.display;
+        if (display!='flex') {
+          document.getElementById('text-display').classList.add('active');
+          document.getElementById('text-input-container').style.display = 'flex';
+        } else {
+          document.getElementById('text-display').classList.remove('active');
+          document.getElementById('text-input-container').style.display = 'none';
+        }
+        // document.getElementById('text-input-container').style.display = (display!='flex'?'flex':'none');
+        document.getElementById('text-input').focus()
+      });
+      this.text_elContainer = document.createElement('div')
+      this.text_elContainer.className="text-container";
+      this.text_elContainer.id="text-container";
+
+      this.text_elContainer.append(this.text_input_elContainer);
+      this.text_elContainer.append(this.textdisplay_elContainer);
+      this.text_elContainer.append(this.spaceEl);
+
+
       this.colorpicker_elContainer = document.createElement('div')
       this.colorpicker_elContainer.className="color-picker-container square";
       this.colorpicker_elContainer.id="color-picker-container";
@@ -799,6 +846,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       this.colorpicker_elContainer.append(colorInput)
 
       this.pallete_elContainer.append(this.icon_elContainer)
+      this.pallete_elContainer.append(this.text_elContainer)
       this.pallete_elContainer.append(this.colorpicker_elContainer)
 
       this.group_elContainer = document.createElement('div')

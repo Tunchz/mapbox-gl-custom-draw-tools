@@ -1,7 +1,7 @@
 
 import mapboxGl from 'mapbox-gl';
 import * as turf from '@turf/turf';
-import './measure_control.css';
+require('./measure_control.css');
 
 class MeasureControl {
     constructor(opt) {

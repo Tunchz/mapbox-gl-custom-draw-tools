@@ -42,6 +42,14 @@ export const addExtraHandling = (map, draw) => {
       }
     }
 
+    function changeText(draw, text) {
+      console.log("---- text : ", text)
+      draw.setFeatureProperty(draw.drawFeatureID, 'portText', text&&text!=""?text:undefined)
+      var feat = draw.get(draw.drawFeatureID);
+      console.log("---- feat : ", feat)
+      draw.add(feat)
+    }
+
     function changeIcon(draw, icon) {
       console.log("---- icon : ", icon)
 
@@ -81,14 +89,25 @@ export const addExtraHandling = (map, draw) => {
             // let featureColor = draw.colorFeatureIdMaps[draw.drawFeatureID] || draw.colorFeatureIdMaps["default"];
             let featureColor = feat?.properties?.portColor || draw.colorFeatureIdMaps["default"];
             let featureIcon = feat?.properties?.portIcon || "remove image";
+            let featureText = feat?.properties?.portText || "";
             // console.log("---- new feature selected id | color | icon : ", draw.drawFeatureID, featureColor, featureIcon)
             document.getElementById("color-picker").value = featureColor;
             document.getElementById("color-picker").dispatchEvent(new Event('input', { bubbles: true }));
             document.getElementById('selected-icon').src = draw.options.icons?.find((i)=>i.name==featureIcon)?.url
             document.getElementById("pallete-container").classList.remove("hidden")
+            document.getElementById("text-input").value = featureText;
             // Coloris.setColorFromStr(featureColor);
             console.log("---- feat : ", feat)
-
+            // document.getElementById('text-input-container').style.display=(featureText&&featureText!=""?"flex":"none");
+            if (featureText&&featureText!="") {
+              document.getElementById('text-display').classList.add('active');
+              document.getElementById('text-input-container').style.display = 'flex';
+            } else {
+              document.getElementById('text-display').classList.remove('active');
+              document.getElementById('text-input-container').style.display = 'none';
+            }
+            // console.log("---- text : ",document.getElementById('text-input-container').style.display)
+            document.getElementById("text-container").style.visibility=(feat?.geometry?.type == "Point")?"visible":"hidden";
             document.getElementById("icon-container").style.visibility=(feat?.geometry?.type == "Point")?"visible":"hidden";
             
         } else {
@@ -183,6 +202,14 @@ export const addExtraHandling = (map, draw) => {
   
       })
 
+
+      document.getElementById('text-button').addEventListener('click', (e)=>{
+        let text = document.getElementById('text-input').value;
+        console.log("===== text : ", text);
+        changeText(draw, text);
+        // document.getElementById('text-input-container').style.display = 'none';
+      });
+
       draw.options?.icons?.map((icon)=>{
         let imgel = document.createElement('img')
         imgel.className="icon-image" + (icon?.group?` group_${icon?.group}`:"");
@@ -218,7 +245,7 @@ export const addExtraHandling = (map, draw) => {
           });
         } else {
           let img = new Image(icon.width||100,icon.height||100);
-          img.onload = ()=>map.addImage(icon.name, img);
+          img.onload = ()=>img && !map.hasImage(icon.name) && map.addImage(icon.name, img);
           img.src = icon.url;
         }
       }
