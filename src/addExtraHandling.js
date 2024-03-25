@@ -45,6 +45,7 @@ export const addExtraHandling = (map, draw) => {
     function changeText(draw, text) {
       console.log("---- text : ", text)
       draw.setFeatureProperty(draw.drawFeatureID, 'portText', text&&text!=""?text:undefined)
+      document.getElementById("text-input").value = text;
       var feat = draw.get(draw.drawFeatureID);
       console.log("---- feat : ", feat)
       draw.add(feat)
@@ -107,7 +108,7 @@ export const addExtraHandling = (map, draw) => {
               document.getElementById('text-input-container').style.display = 'none';
             }
             // console.log("---- text : ",document.getElementById('text-input-container').style.display)
-            document.getElementById("text-container").style.visibility=(feat?.geometry?.type == "Point")?"visible":"hidden";
+            document.getElementById("text-container").style.visibility=(feat?.geometry?.type == "Point")?"visible":"visible";
             document.getElementById("icon-container").style.visibility=(feat?.geometry?.type == "Point")?"visible":"hidden";
             
         } else {
@@ -216,6 +217,7 @@ export const addExtraHandling = (map, draw) => {
         imgel.title=icon.name
         imgel.src=icon.url
         imgel.addEventListener("click",()=>changeIcon(draw, icon))
+        imgel.addEventListener("contextmenu",()=>{changeIcon(draw, icon);icon.text&&changeText(draw, icon.text)})
         document.getElementById('icon-selector-panel').append(imgel)
       })
 

@@ -37,11 +37,9 @@
         "rollup-plugin-terser": "^7.0.2"
     },
     "dependencies": {
-        "@geostarters/mapbox-gl-draw-rectangle-assisted-mode": "^3.0.4",
         "@mapbox/mapbox-gl-draw": "github:Tunchz/mapbox-gl-draw",
         "@turf/turf": "^6.5.0",
         "lodash.unionby": "^4.8.0",
-        "mapbox-gl-circle": "^1.6.7",
         "mathjs": "^9.4.4",
         "polygon-splitter": "^0.0.11"
     },

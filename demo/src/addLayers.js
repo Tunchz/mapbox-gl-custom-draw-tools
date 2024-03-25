@@ -141,7 +141,7 @@ const loadLayers = (map) => {
         source: 'wma_admin1',
         minzoom: 9,
         layout: {
-            "text-field": ['get','NAME'],
+            "text-field": "Weerapong Tuncharoen", //['get','NAME'],
             "text-font": ['Open Sans Extrabold', 'Arial Unicode MS Bold'],
             "text-size": 16,
             'symbol-placement': "point"
