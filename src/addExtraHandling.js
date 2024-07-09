@@ -216,6 +216,7 @@ export const addExtraHandling = (map, draw) => {
         imgel.className="icon-image" + (icon?.group?` group_${icon?.group}`:"");
         imgel.title=icon.name
         imgel.src=icon.url
+        imgel.crossOrigin = "Anonymous"
         imgel.addEventListener("click",()=>changeIcon(draw, icon))
         imgel.addEventListener("contextmenu",()=>{changeIcon(draw, icon);icon.text&&changeText(draw, icon.text)})
         document.getElementById('icon-selector-panel').append(imgel)
@@ -249,6 +250,7 @@ export const addExtraHandling = (map, draw) => {
           let img = new Image(icon.width||100,icon.height||100);
           img.onload = ()=>img && !map.hasImage(icon.name) && map.addImage(icon.name, img);
           img.src = icon.url;
+          img.crossOrigin = "Anonymous"
         }
       }
     })

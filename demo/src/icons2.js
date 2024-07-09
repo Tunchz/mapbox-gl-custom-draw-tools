@@ -1093,5 +1093,6 @@ function svg2png (svgDataUrl) {
       return dataUrl
     })
   
-    image.src = svgDataUrl
+    image.src = svgDataUrl;
+    image.crossOrigin = "Anonymous";
   }
