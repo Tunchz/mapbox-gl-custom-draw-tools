@@ -83,10 +83,12 @@ export const addExtraHandling = (map, draw) => {
   
     // callback for draw.update and draw.selectionchange
     var setDrawFeature = function(e) {
-        // console.log("----- setDrawFeatur !!!", e.features)
+        console.log("----- setDrawFeatur !!!", e.features)
         if (e.features.length && e.features[0].type === 'Feature') {
             var feat = e.features[0];
             draw.drawFeatureID = feat.id;
+            // if portColor not set, set to default color
+            !feat?.properties?.portColor&&draw?.setFeatureProperty(draw.drawFeatureID, 'portColor', draw.colorFeatureIdMaps["default"]);
             // let featureColor = draw.colorFeatureIdMaps[draw.drawFeatureID] || draw.colorFeatureIdMaps["default"];
             let featureColor = feat?.properties?.portColor || draw.colorFeatureIdMaps["default"];
             let featureIcon = feat?.properties?.portIcon || "remove image";
