@@ -360,7 +360,7 @@ function App() {
       //   console.log("----- on draw.update : ", e);
       // });
       map.on('draw.activebutton', function (e) {
-        console.log("----- on draw.activebutton : ", e);
+        console.log("----- on draw.activebutton : ", e?.id);
       });
 
 

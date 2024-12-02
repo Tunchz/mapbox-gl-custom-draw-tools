@@ -100,7 +100,7 @@ export const addExtraHandling = (map, draw) => {
             document.getElementById("pallete-container").classList.remove("hidden")
             document.getElementById("text-input").value = featureText;
             // Coloris.setColorFromStr(featureColor);
-            console.log("---- feat : ", feat)
+            // console.log("---- feat : ", feat)
             // document.getElementById('text-input-container').style.display=(featureText&&featureText!=""?"flex":"none");
             if (featureText&&featureText!="") {
               document.getElementById('text-display').classList.add('active');
