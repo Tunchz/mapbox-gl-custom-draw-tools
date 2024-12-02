@@ -5,7 +5,7 @@ export const addExtraHandling = (map, draw) => {
 
 
     map.on('draw.instruction', function (e) {
-      console.log("----- on draw.instruction > action | msg : ", e.action, e.message);
+      // console.log("----- on draw.instruction > action | msg : ", e.action, e.message);
   
       // document.getElementById("instruction-container").innerHTML=`◉ ${e.action} ▶ ${e.message}`;
       document.getElementById("instruction-container").innerHTML=`▶ ${e.action} ◉ ${e.message}`;
