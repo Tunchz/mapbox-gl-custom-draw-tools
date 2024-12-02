@@ -969,6 +969,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       this.activeButton.classList.remove(Constants.classes.ACTIVE_BUTTON);
       this.activeButton.cancel&&this.activeButton.cancel()
       this.activeButton = null;
+      console.log("--- deactivateButtons ")
       document.getElementById("instruction-container").innerHTML="";
     }
 
@@ -978,6 +979,9 @@ export default class MapboxDrawPro extends MapboxDraw {
       // console.log("-------- setActiveButton persist ")
       // console.log("--- setActiveButton persist : ", this.persist)
       // console.log("--- setActiveButton id : ", id)
+      this.map?.fire('draw.activebutton', {
+        id: id
+      })
       // console.log("--- setActiveButton curActiveButton : ", this.curActiveButton)
       if (this.persist) {
         // console.log("--- this : ", this)

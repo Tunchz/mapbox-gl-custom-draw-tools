@@ -359,6 +359,10 @@ function App() {
       // map.on('draw.update', function (e) {
       //   console.log("----- on draw.update : ", e);
       // });
+      map.on('draw.activebutton', function (e) {
+        console.log("----- on draw.activebutton : ", e);
+      });
+
 
     });
   }, []);
