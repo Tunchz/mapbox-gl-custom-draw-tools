@@ -64,7 +64,7 @@ export const addExtraHandling = (map, draw) => {
     }
 
     function changeGroup(draw, group) {
-      console.log("---- group : ", group)
+      // console.log("---- group : ", group)
 
       Array.prototype.slice.call(document.getElementsByClassName('group-label'))?.forEach((el)=>el.classList.remove("selected"))
       document.getElementById('group-label-'+group).classList.add("selected")
@@ -244,7 +244,7 @@ export const addExtraHandling = (map, draw) => {
         if (!icon.isSvg) {
           map.loadImage(icon.url, (error, image) => {
             if (error) throw error;
-            console.log("----- icon : ", icon.name)
+            // console.log("----- icon : ", icon.name)
             image && !map.hasImage(icon.name) && map.addImage(icon.name, image);
 
           });

@@ -164,13 +164,42 @@ const customColorPickerStyles = [
       'type': "symbol",
       'filter': [
           'all', 
-          // ['==', '$type', 'Point'],
+          ['==', '$type', 'Point'],
           ['has', 'user_portText'],
       ],
       "layout": {
           "text-field": ['get', 'user_portText'],
           "text-font": ['Open Sans Extrabold', 'Arial Unicode MS Bold'],
           'text-anchor': ["case", ["==", ["get", 'user_portTextAnchor'], null], 'top', ["get", 'user_portTextAnchor']],
+          'text-offset': [0, 0.5],
+          "text-size": ["case", ["==", ["get", 'user_portTextSize'], null], 12, ["get", 'user_portTextSize']],        
+          "icon-allow-overlap": true,
+          "icon-ignore-placement": true,
+          "text-allow-overlap": true,
+          "text-ignore-placement": true,
+      },
+      "paint": {
+          "text-color": ['get', 'user_portColor'],
+          "text-halo-color": '#fff',
+          "text-halo-width": 0.5,
+          "icon-halo-color": '#fff',
+          "icon-halo-width": 0.5,
+          "text-halo-blur": 0,
+          'text-opacity':1
+      }
+    },
+    {
+      'id': "gl-draw-not-point-text-marker-color-picker",
+      'type': "symbol",
+      'filter': [
+          'all', 
+          ['!=', '$type', 'Point'],
+          ['has', 'user_portText'],
+      ],
+      "layout": {
+          "text-field": ['get', 'user_portText'],
+          "text-font": ['Open Sans Extrabold', 'Arial Unicode MS Bold'],
+          'text-anchor': ["case", ["==", ["get", 'user_portTextAnchor'], null], 'center', ["get", 'user_portTextAnchor']],
           'text-offset': [0, 0.5],
           "text-size": ["case", ["==", ["get", 'user_portTextSize'], null], 12, ["get", 'user_portTextSize']],        
           "icon-allow-overlap": true,
