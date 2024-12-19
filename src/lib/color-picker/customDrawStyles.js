@@ -136,7 +136,8 @@ const customColorPickerStyles = [
         ],
         'paint': {
             'circle-radius': 5,
-            'circle-color': ['get', 'user_portColor']
+            'circle-color': ['get', 'user_portColor'],
+            'circle-opacity': ["case", ["!=", ["get", 'user_portText'], null], 0,["!=", ["get", 'user_portIcon'], null], 0, 1]
         }
     },    
     {
@@ -151,7 +152,11 @@ const customColorPickerStyles = [
       'layout': {
         'icon-image': ['get', 'user_portIcon'], //'custom-icon',
         'icon-size': ['get', 'user_portIconSize'],
-        'icon-anchor': 'bottom',
+        'icon-anchor': ["case", ["==", ["get", 'user_portTextAnchor'], null], 'bottom', ["get", 'user_portTextAnchor']],
+        "icon-allow-overlap": true,
+        "icon-ignore-placement": true,
+        "text-allow-overlap": true,
+        "text-ignore-placement": true,
       },
     },
     {
@@ -165,9 +170,13 @@ const customColorPickerStyles = [
       "layout": {
           "text-field": ['get', 'user_portText'],
           "text-font": ['Open Sans Extrabold', 'Arial Unicode MS Bold'],
-          'text-anchor': 'top',
+          'text-anchor': ["case", ["==", ["get", 'user_portTextAnchor'], null], 'top', ["get", 'user_portTextAnchor']],
           'text-offset': [0, 0.5],
-          "text-size": 12,
+          "text-size": ["case", ["==", ["get", 'user_portTextSize'], null], 12, ["get", 'user_portTextSize']],        
+          "icon-allow-overlap": true,
+          "icon-ignore-placement": true,
+          "text-allow-overlap": true,
+          "text-ignore-placement": true,
       },
       "paint": {
           "text-color": ['get', 'user_portColor'],
