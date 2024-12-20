@@ -118,7 +118,6 @@ export default class MapboxDrawPro extends MapboxDraw {
         persist: true,
         id: "point",
         action: () => {
-          console.log("------- this.changeMode('draw_point')")
           this.changeMode('draw_point');
           this.map?.fire("draw.instruction",{
             action:"วาดจุด",
@@ -314,6 +313,8 @@ export default class MapboxDrawPro extends MapboxDraw {
         action: () => {
           try {
             this.changeMode("draw_paint_mode",{...otherOptions?.paint||{}});
+            console.log('----- paint action')
+            // console.log("------ : ", this , otherOptions?.paint?.mode==2?"คลิกเพื่อเริ่ม ลากเพื่อวาด และคลิกสองครั้งเพื่อสิ้นสุด":"คลิกค้างเพื่อลากเส้น")
             this.map?.fire("draw.instruction",{
               action:"วาดเส้นแบบอิสระ",
               message:otherOptions?.paint?.mode==2?"คลิกเพื่อเริ่ม ลากเพื่อวาด และคลิกสองครั้งเพื่อสิ้นสุด":"คลิกค้างเพื่อลากเส้น", 
@@ -905,6 +906,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           // elButton?.classList?.remove("active")
           this.deactivateButtons();
           this.persist=null
+          this.persist_button=null
           this.persist_action=null
           clickedButton.classList.remove("persist");
           this.changeMode("simple_select",{})
@@ -948,6 +950,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         // elButton?.classList?.add("active")
         this.setActiveButton(opt.title)
         opt.persist&&(this.persist=opt.id)
+        opt.persist&&(this.persist_button=opt)
         opt.persist&&(this.persist_action=opt.action)
         clickedButton.classList.add("persist");
         opt.action(e)
@@ -985,7 +988,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       })
       // console.log("--- setActiveButton curActiveButton : ", this.curActiveButton)
       if (this.persist) {
-        // console.log("--- this : ", this)
+        // console.log("--- this.persist_button : ", this.persist_button)
         setTimeout(this.persist_action, 500);
         return;
       }
