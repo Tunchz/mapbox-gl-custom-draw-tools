@@ -75,8 +75,8 @@ function App() {
         horizontal:true,
         edge:'bottom', 
         paint:{
-            simplify:true, 
-            mode:2
+            // simplify:true, 
+            mode:1
         },
 
         rectangleDefaultLimit: 100,
@@ -353,9 +353,9 @@ function App() {
       map.on('draw.uncombine', function (e) {
         console.log("----- on draw.uncombine : ", e);
       });
-      // map.on('draw.update', function (e) {
-      //   console.log("----- on draw.update : ", e);
-      // });
+      map.on('draw.update', function (e) {
+        console.log("----- on draw.update : ", e);
+      });
       // map.on('draw.update', function (e) {
       //   console.log("----- on draw.update : ", e);
       // });

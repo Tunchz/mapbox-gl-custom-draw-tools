@@ -118,6 +118,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         persist: true,
         id: "point",
         action: () => {
+          console.log("------- this.changeMode('draw_point')")
           this.changeMode('draw_point');
           this.map?.fire("draw.instruction",{
             action:"วาดจุด",

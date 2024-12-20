@@ -7,16 +7,16 @@ const PaintMode = Object.assign({}, {toDisplayFeatures:DrawPolygon.toDisplayFeat
 
 PaintMode.onSetup = function(opt) {
     console.log("==== PaintMode.onSetup : ", opt)
-    const polygon = this.newFeature({
-        type: geojsonTypes.FEATURE,
-        properties: {},
-        geometry: {
-            type: "MultiLineString",//geojsonTypes.POLYGON,
-            coordinates: [[]]
-        }
-    });
+    // const polygon = this.newFeature({
+    //     type: geojsonTypes.FEATURE,
+    //     properties: {},
+    //     geometry: {
+    //         type: "MultiLineString",//geojsonTypes.POLYGON,
+    //         coordinates: [[]]
+    //     }
+    // });
 
-    this.addFeature(polygon);
+    // this.addFeature(polygon);
     this.clearSelectedFeatures();
     
     // disable dragPan
@@ -32,7 +32,9 @@ PaintMode.onSetup = function(opt) {
     });
 
     return {
-        polygon,
+        // polygon,
+        polygon:{},
+        lineStart:false,
         currentVertexPosition: 0,
         dragMoving: false,
         isSimplify: opt?.simplify,
@@ -42,9 +44,23 @@ PaintMode.onSetup = function(opt) {
 PaintMode.onDrag = PaintMode.onTouchMove = function (state, e){
     state.dragMoving = true;
     this.updateUIClasses({ mouse: cursors.ADD });
-    state.polygon.updateCoordinate(`0.${state.currentVertexPosition}`, e.lngLat.lng, e.lngLat.lat);
-    state.currentVertexPosition++;
-    state.polygon.updateCoordinate(`0.${state.currentVertexPosition}`, e.lngLat.lng, e.lngLat.lat);
+    if (!state.lineStart) {    
+        const polygon = this.newFeature({
+        type: geojsonTypes.FEATURE,
+        properties: {},
+        geometry: {
+            type: "MultiLineString",//geojsonTypes.POLYGON,
+            coordinates: [[]]
+        }
+    });
+    this.addFeature(polygon);
+    state.polygon = polygon;
+    state.lineStart = true;
+    } else {
+        state.polygon.updateCoordinate(`0.${state.currentVertexPosition}`, e.lngLat.lng, e.lngLat.lat);
+        state.currentVertexPosition++;
+        state.polygon.updateCoordinate(`0.${state.currentVertexPosition}`, e.lngLat.lng, e.lngLat.lat);
+    }
 }
 
 PaintMode.onMouseUp = function (state, e){
