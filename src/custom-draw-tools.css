@@ -577,6 +577,10 @@
     visibility: hidden;
 }
 
+.custom-tools-container .pallete-container.always-visible {
+    visibility: visible;
+}
+
 .custom-tools-container .clr-swatches button {
     border-radius: 5px;
 }

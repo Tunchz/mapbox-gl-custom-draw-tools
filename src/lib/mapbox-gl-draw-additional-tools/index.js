@@ -451,14 +451,14 @@ class extendDrawBar {
       let length = Length(main, { units: (this_.draw||draw).options.lengthUnits || 'kilometers' });
       measurement.length.push({ id: main.id, value: length });
       ((this_.draw||draw).options.showLength || true) &&
-        (this_.draw||draw).setFeatureProperty(main.id, 'has_length', 'true') &&
+        // (this_.draw||draw).setFeatureProperty(main.id, 'has_length', 'true') &&
         (this_.draw||draw).setFeatureProperty(main.id, 'length', parseFloat(length).toFixed(4)) &&
         (this_.draw||draw).setFeatureProperty(main.id, 'length_unit', (this_.draw||draw).options.lengthUnits || 'kilometers');
     });
     this_.fireUpdateMeasurement(measurement.length, 'length');
     console.log("----- length : ", measurement.length);
     this_.map?.fire("draw.instruction",{
-      action:"ความยาว",
+      action:`ความยาว (${(this_.draw||draw).options.lengthUnits || 'kilometers'})`,
       message:`${measurement.length?parseFloat(measurement.length[0]?.value)?.toFixed(3):"-"}`, 
     })
   }
@@ -468,7 +468,7 @@ class extendDrawBar {
     const selectedFeatures = (this_.draw||draw).getSelected().features;
     if (!selectedFeatures.length) {
       this_.map?.fire("draw.instruction",{
-        action:"วัดพื้นที่ | ความยาว",
+        action:"วัดพื้นที่",
         message:"กรุณาเลือกรูปหลายเหลี่ยม เพื่อวัดพื้นที่และความยาว", 
       })
       return;
@@ -477,15 +477,17 @@ class extendDrawBar {
       let area = Area(main);
       measurement.area.push({ id: main.id, value: area });
       ((this_.draw||draw).options.showArea || true) &&
-        (this_.draw||draw).setFeatureProperty(main.id, 'has_area', 'true') &&
+        // (this_.draw||draw).setFeatureProperty(main.id, 'has_area', 'true') &&
         (this_.draw||draw).setFeatureProperty(main.id, 'area', parseFloat(area).toFixed(4));
+        (this_.draw||draw).setFeatureProperty(main.id, 'area_unit', 'squaremeters');
     });
     this_.fireUpdateMeasurement(measurement.area, 'area');
-    this_.fireUpdateMeasurement(measurement.length, 'length');
-    console.log("----- area | length : ", measurement.area, measurement.length);
+    // this_.fireUpdateMeasurement(measurement.length, 'length');
+    console.log("----- area : ", measurement.area);
     this_.map?.fire("draw.instruction",{
-      action:"พื้นที่ | ความยาว",
-      message:`${measurement.area?parseFloat(measurement.area[0]?.value)?.toFixed(3):"-"} | ${measurement.length?parseFloat(measurement.length[0]?.value)?.toFixed(3):"-"}`, 
+      action:"พื้นที่ (ตารางเมตร)",
+      message:`${measurement.area?parseFloat(measurement.area[0]?.value)?.toFixed(3):"-"}
+      `, 
     })
   }
 

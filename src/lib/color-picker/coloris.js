@@ -390,10 +390,11 @@
         // If the color picker is inside a custom container
         // set the position relative to it
         if (parent) {
+          // console.log("//////// parent ");
           left -= offset.x;
           top -= offset.y;
   
-          if (left + pickerWidth > parent.clientWidth) {
+          if (true || left + pickerWidth > parent.clientWidth) {
             left += coords.width - pickerWidth;
             reposition.left = true;
           }
@@ -409,7 +410,8 @@
   
         // Otherwise set the position relative to the whole document
         } else {
-          if (left + pickerWidth > document.documentElement.clientWidth) {
+          // console.log("//////// no parent ");
+          if (true || left + pickerWidth > document.documentElement.clientWidth) {
             left += coords.width - pickerWidth;
             reposition.left = true;
           }

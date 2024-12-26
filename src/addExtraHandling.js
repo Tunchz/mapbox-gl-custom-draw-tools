@@ -33,10 +33,10 @@ export const addExtraHandling = (map, draw) => {
       } else {
         draw.colorFeatureIdMaps["last_selected"]=color
       }
-      if (draw.drawFeatureID !== '' && typeof draw === 'object') {
+      if (!!draw.drawFeatureID&&draw.drawFeatureID !== '' && typeof draw === 'object') {
   
         draw.colorFeatureIdMaps[draw.drawFeatureID] = color;
-        draw.setFeatureProperty(draw.drawFeatureID, 'portColor', color);
+        draw?.setFeatureProperty(draw.drawFeatureID, 'portColor', color);
         var feat = draw.get(draw.drawFeatureID);
         draw.add(feat)
       }
@@ -83,17 +83,18 @@ export const addExtraHandling = (map, draw) => {
   
     // callback for draw.update and draw.selectionchange
     var setDrawFeature = function(e) {
-        console.log("----- setDrawFeatur !!!", e.features)
-        if (e.features.length && e.features[0].type === 'Feature') {
+        console.log("----- setDrawFeature !!!", e.features)
+        if (e.features?.length && e.features[0].type === 'Feature') {
             var feat = e.features[0];
             draw.drawFeatureID = feat.id;
             // if portColor not set, set to default color
-            !feat?.properties?.portColor&&draw?.setFeatureProperty(draw.drawFeatureID, 'portColor', draw.colorFeatureIdMaps["default"]);
+            !feat?.properties?.portColor&&draw?.setFeatureProperty(draw.drawFeatureID, 'portColor', draw.colorFeatureIdMaps["last_selected"] || draw.colorFeatureIdMaps["default"]);
             // let featureColor = draw.colorFeatureIdMaps[draw.drawFeatureID] || draw.colorFeatureIdMaps["default"];
-            let featureColor = feat?.properties?.portColor || draw.colorFeatureIdMaps["default"];
+            let featureColor = feat?.properties?.portColor || draw.colorFeatureIdMaps["last_selected"] || draw.colorFeatureIdMaps["default"];
             let featureIcon = feat?.properties?.portIcon || "remove image";
             let featureText = feat?.properties?.portText || "";
             // console.log("---- new feature selected id | color | icon : ", draw.drawFeatureID, featureColor, featureIcon)
+            if (feat?.properties?.portColor) draw.colorFeatureIdMaps["last_selected"] = featureColor;
             document.getElementById("color-picker").value = featureColor;
             document.getElementById("color-picker").dispatchEvent(new Event('input', { bubbles: true }));
             document.getElementById('selected-icon').src = draw.options.icons?.find((i)=>i.name==featureIcon)?.url
@@ -116,6 +117,7 @@ export const addExtraHandling = (map, draw) => {
         } else {
           console.log("---- hide color picker")
           document.getElementById("pallete-container").classList.add("hidden")
+          // document.getElementById("color-picker").value = draw.colorFeatureIdMaps["last_selected"] || draw.colorFeatureIdMaps["default"];
           // document.getElementById("instruction-container").innerHTML="";
         }
 

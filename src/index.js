@@ -74,8 +74,8 @@ export default class MapboxDrawPro extends MapboxDraw {
       simple_select: SimpleSelectModeBezierOverride,
       direct_select: DirectModeBezierOverride,
       draw_bezier_curve: DrawBezierCurve,
-      drag_circle: DragCircleMode,
-      drag_ellipse: DragEllipseMode,
+      drag_circle: DragCircleMode({...otherOptions?.circle||{}}),
+      drag_ellipse: DragEllipseMode({...otherOptions?.ellipse||{}}),
     };
 
     const customOptions = {
@@ -184,10 +184,10 @@ export default class MapboxDrawPro extends MapboxDraw {
         persist: true,
         id: "circle",
         action: () => {
-          this.changeMode('drag_circle');
+          this.changeMode('drag_circle',{...otherOptions?.circle||{}});
           this.map?.fire("draw.instruction",{
             action:"วาดวงกลม",
-            message:"คลิกเพื่อกำหนดจุดศูนย์กลาง คลิกอีกครั้งเพื่อกำหนดรัศมี", 
+            message:otherOptions?.circle?.mode==2?"คลิกและลากเพื่อสร้างวงกลม":"คลิกเพื่อกำหนดจุดศูนย์กลาง คลิกอีกครั้งเพื่อกำหนดรัศมี", 
           })
         },
         classes: ["draw-circle"],
@@ -201,10 +201,10 @@ export default class MapboxDrawPro extends MapboxDraw {
         persist: true,
         id: "ellipse",
         action: () => {
-          this.changeMode('drag_ellipse', { eccentricity: 0.8, divisions: 60 });
+          this.changeMode('drag_ellipse', { eccentricity: 0.8, divisions: 60, ...otherOptions?.ellipse||{} });
           this.map?.fire("draw.instruction",{
             action:"วาดวงรี",
-            message:"คลิกเพื่อกำหนดจุดศูนย์กลาง คลิกอีกครั้งเพื่อกำหนดรัศมี", 
+            message:otherOptions?.ellipse?.mode==2?"คลิกและลากเพื่อสร้างวงรี":"คลิกเพื่อกำหนดจุดศูนย์กลาง คลิกอีกครั้งเพื่อกำหนดรัศมี", 
           })
         },
         classes: ["draw-ellipse"],
@@ -669,7 +669,7 @@ export default class MapboxDrawPro extends MapboxDraw {
             });
             this.map?.fire("draw.instruction",{
               action:"ย่อ/ขยาย และหมุน",
-              message:"เลือกเส้น หรือ รูปหลายเหลี่ยมที่ต้องการ ย่อ/ขยาน/หมุน", 
+              message:"เลือกเส้น หรือ รูปหลายเหลี่ยมที่ต้องการ ย่อ/ขยาย/หมุน", 
             })
           }
 
@@ -686,6 +686,10 @@ export default class MapboxDrawPro extends MapboxDraw {
         id: "pinning",
         action: () => {
           this.changeMode('pinning_mode');
+          this.map?.fire("draw.instruction",{
+            action:"เลื่อนจุดร่วม",
+            message:"เลือกจุดร่วมระหว่างรูป และลากเพื่อย้ายตำแหน่งพร้อมกัน", 
+          })
         },
         classes: ['pinning_mode'],
         title: 'Pinning Mode tool',
@@ -697,6 +701,10 @@ export default class MapboxDrawPro extends MapboxDraw {
         id: "combine",
         action: () => {
           this.combineFeatures();
+          this.map?.fire("draw.instruction",{
+            action:"รวมกลุ่ม",
+            message:"รวมกลุ่มรูปร่างที่เลือก (กด shift ค้าง เพื่อเลือกรูปร่างหลายรูปร่าง)", 
+          })
         },
         classes: ["mapbox-gl-draw_combine"],
         title: "Combine",
@@ -708,6 +716,10 @@ export default class MapboxDrawPro extends MapboxDraw {
         id: "uncombine",
         action: () => {
           this.uncombineFeatures();
+          this.map?.fire("draw.instruction",{
+            action:"แยกกลุ่ม",
+            message:"แยกกลุ่มรูปร่างที่เลือก", 
+          })
         },
         classes: ["mapbox-gl-draw_uncombine"],
         title: "Uncombine",
@@ -719,6 +731,10 @@ export default class MapboxDrawPro extends MapboxDraw {
         id: "trash",
         action: () => {
           this.trash();
+          this.map?.fire("draw.instruction",{
+            action:"ลบรูปร่าง",
+            message:"ลบรูปร่างที่เลือก (กด shift ค้าง เพื่อเลือกรูปร่างหลายรูปร่าง)", 
+          })
         },
         classes: ["mapbox-gl-draw_trash"],
         title: "Trash",
@@ -761,7 +777,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       // --- color picker container
       this.pallete_elContainer = document.createElement('div')
       this.pallete_elContainer.id="pallete-container";
-      this.pallete_elContainer.className="pallete-container hidden";
+      this.pallete_elContainer.className="pallete-container hidden" + (this.options?.colorPalleteAlwaysOn?" always-visible":"");
 
       this.selector1_elContainer = document.createElement('div');
       this.selector1_elContainer.id="icon-selector-panel";   
