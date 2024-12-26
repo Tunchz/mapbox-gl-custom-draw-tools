@@ -479,6 +479,8 @@
 .custom-tools-container .icon-container #icon-selector #icon-selector-panel {
     display:grid;
     grid-template-columns: repeat(10, 1fr);
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 

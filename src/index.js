@@ -731,10 +731,11 @@ export default class MapboxDrawPro extends MapboxDraw {
         id: "trash",
         action: () => {
           this.trash();
-          this.map?.fire("draw.instruction",{
-            action:"ลบรูปร่าง",
-            message:"ลบรูปร่างที่เลือก (กด shift ค้าง เพื่อเลือกรูปร่างหลายรูปร่าง)", 
-          })
+          // this.map?.fire("draw.instruction",{
+          //   action:"ลบรูปร่าง",
+          //   message:"ลบรูปร่างที่เลือก (กด shift ค้าง เพื่อเลือกรูปร่างหลายรูปร่าง)", 
+          // });
+          document.getElementById("instruction-container").innerHTML="";
         },
         classes: ["mapbox-gl-draw_trash"],
         title: "Trash",
@@ -900,7 +901,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         elButton.id = opt.id;
       }
       elButton.cancel = opt.cancel
-      elButton.addEventListener(opt.on, (e)=>{
+      elButton.addEventListener((this.options?.persistModeOnClick&&opt.persist)?"contextmenu":opt.on, (e)=>{
         
         e.preventDefault();
         e.stopPropagation();
@@ -941,15 +942,30 @@ export default class MapboxDrawPro extends MapboxDraw {
         opt.action(e)
       }, true);
 
-      opt.persist&&elButton.addEventListener("contextmenu", (e)=>{
+      (this.options?.persistModeOnClick||opt.persist)&&elButton.addEventListener((this.options?.persistModeOnClick&&opt.persist)?opt.on:"contextmenu", (e)=>{
 
         e.preventDefault();
         // console.log("---- context menu")
-
-        
         e.stopPropagation();
         const clickedButton = e.target;
-        if (clickedButton === this.activeButton && this.persist==clickedButton.id) {
+
+        if (this.options?.persistModeOnClick&&opt.persist) {
+          let isCancel = (clickedButton?.id === this.activeButton?.id);
+          console.log("----- cancel persisit : ", clickedButton?.id, this.activeButton?.id, isCancel)
+          this.deactivateButtons();
+          this.persist=null
+          this.persist_button=null
+          this.persist_action=null
+          clickedButton.classList.remove("persist");
+          this.changeMode("simple_select",{})
+          document.getElementById("trash").click();
+          if (isCancel) {
+            console.log("----- cancel persisit : ", clickedButton)
+            return;
+          }
+        }
+
+        if (clickedButton === this.activeButton && this.persist==clickedButton.id && !this.options?.persistModeOnClick) {
           // console.log("---- old id")
           // this.deactivateButtons();
           // this.changeMode("simple_select",{})

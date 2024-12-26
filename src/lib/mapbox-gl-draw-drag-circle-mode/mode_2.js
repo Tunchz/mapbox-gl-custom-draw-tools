@@ -79,7 +79,8 @@ DragCircleMode.onClick = DragCircleMode.onTap = function (state, e) {
 };
 
 DragCircleMode.toDisplayFeatures = function(state, geojson, display) {
-  if (geojson.geometry.coordinates[0][0]==undefined) {
+  
+  if (geojson?.geometry?.coordinates[0][0]==undefined) {
     geojson.geometry.coordinates=[]
   }
   const isActivePolygon = geojson.properties.id === state.polygon.id;

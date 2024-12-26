@@ -67,6 +67,7 @@ function App() {
         // file_tools: false,
         // import: false,
       },
+    //   persistModeOnClick:true,
       colorPalleteAlwaysOn: true,
       icons:icons2.concat(country_flags),
       iconGroups:["military","flags"],
