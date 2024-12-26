@@ -67,6 +67,7 @@ function App() {
         // file_tools: false,
         // import: false,
       },
+      colorPalleteAlwaysOn: true,
       icons:icons2.concat(country_flags),
       iconGroups:["military","flags"],
       defaultSelectedGroup:"military",
@@ -77,6 +78,14 @@ function App() {
         paint:{
             // simplify:true, 
             mode:1
+        },
+        circle:{
+            // simplify:true, 
+            mode:2
+        },
+        ellipse:{
+            // simplify:true, 
+            mode:2
         },
 
         rectangleDefaultLimit: 100,
