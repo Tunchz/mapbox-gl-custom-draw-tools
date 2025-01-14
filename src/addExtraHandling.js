@@ -113,7 +113,7 @@ export const addExtraHandling = (map, draw) => {
                 colorPickerContainer: document.getElementById("color-picker-container"),
 
               };
-              draw?.options?.customSetFeature?.setFeatures&&draw?.options?.customSetFeature?.setFeatures(e.features);
+              draw?.options?.customSetFeature?.setFeatures&&draw?.options?.customSetFeature?.setFeatures({features:e.features, api, draw});
 
             } else {
               document.getElementById("icon-container").style.visibility=(feat?.geometry?.type == "Point")?"visible":"hidden";
@@ -133,6 +133,7 @@ export const addExtraHandling = (map, draw) => {
           document.getElementById("pallete-container").classList.add("hidden")
           // document.getElementById("color-picker").value = draw.colorFeatureIdMaps["last_selected"] || draw.colorFeatureIdMaps["default"];
           // document.getElementById("instruction-container").innerHTML="";
+          draw?.options?.customSetFeature?.setFeatures&&draw?.options?.customSetFeature?.setFeatures({features:e.features});
         }
 
     }

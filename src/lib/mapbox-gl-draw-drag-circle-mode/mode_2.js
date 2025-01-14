@@ -44,7 +44,7 @@ DragCircleMode.onMouseDown = DragCircleMode.onTouchStart = function (state, e) {
   const currentCenter = state.polygon.properties.center;
   if (currentCenter.length === 0) {
     state.polygon.properties.center = [e.lngLat.lng, e.lngLat.lat];
-    console.log(`//////// : localStorage.getItem("useCustomActiveStyle") `, localStorage.getItem("useCustomActiveDrawStyle"))
+    // console.log(`//////// : localStorage.getItem("useCustomActiveStyle") `, localStorage.getItem("useCustomActiveDrawStyle"))
     if (localStorage.getItem("useCustomActiveDrawStyle")=='1') {
       state.polygon.properties.portColor = localStorage.getItem("customDrawCurrentColor") || localStorage.getItem("customDrawDefaultColor");
     }
