@@ -10,8 +10,6 @@ export const addExtraHandling = (map, draw) => {
       // document.getElementById("instruction-container").innerHTML=`◉ ${e.action} ▶ ${e.message}`;
       document.getElementById("instruction-container").innerHTML=`▶ ${e.action} ◉ ${e.message}`;
   
-  
-  
     });
   
     
@@ -19,6 +17,8 @@ export const addExtraHandling = (map, draw) => {
     draw.newDrawFeature = false;
     draw.drawFeatureID = null;
     draw.colorFeatureIdMaps = {default: "#2165D1", last_selected: "#2165D1"};
+    localStorage.setItem("customDrawDefaultColor",draw.colorFeatureIdMaps.default);
+    localStorage.setItem("customDrawCurrentColor",draw.colorFeatureIdMaps["last_selected"]);
   
     function changeColor(draw,color) {
       console.log("--- changeColor call !!!", draw, color)
@@ -32,6 +32,7 @@ export const addExtraHandling = (map, draw) => {
         return
       } else {
         draw.colorFeatureIdMaps["last_selected"]=color
+        localStorage.setItem("customDrawCurrentColor",draw.colorFeatureIdMaps["last_selected"]);
       }
       if (!!draw.drawFeatureID&&draw.drawFeatureID !== '' && typeof draw === 'object') {
   
@@ -63,7 +64,7 @@ export const addExtraHandling = (map, draw) => {
       draw.add(feat)
     }
 
-    function changeGroup(draw, group) {
+    function handleChangeIconGroup(draw, group) {
       // console.log("---- group : ", group)
 
       Array.prototype.slice.call(document.getElementsByClassName('group-label'))?.forEach((el)=>el.classList.remove("selected"))
@@ -99,21 +100,34 @@ export const addExtraHandling = (map, draw) => {
             document.getElementById("color-picker").dispatchEvent(new Event('input', { bubbles: true }));
             document.getElementById('selected-icon').src = draw.options.icons?.find((i)=>i.name==featureIcon)?.url
             document.getElementById("pallete-container").classList.remove("hidden")
-            document.getElementById("text-input").value = featureText;
-            // Coloris.setColorFromStr(featureColor);
-            // console.log("---- feat : ", feat)
-            // document.getElementById('text-input-container').style.display=(featureText&&featureText!=""?"flex":"none");
-            if (featureText&&featureText!="") {
-              document.getElementById('text-display').classList.add('active');
-              document.getElementById('text-input-container').style.display = 'flex';
+
+
+            // console.log("/////// draw : ", draw)
+            if (draw?.options?.customSetFeature) {
+              document.getElementById("icon-container").style.visibility=(feat?.geometry?.type == "Point")?(draw?.options?.customSetFeature?.disableIconEdit?"hidden":"visible"):"hidden";
+              document.getElementById("text-container").style.display=draw.drawFeatureID?(draw?.options?.customSetFeature?.disableTextEdit?"none":"flex"):"none";
+              let api = {
+                iconContainerEl: document.getElementById("icon-container"),
+                textContainerEl: document.getElementById("text-container"),
+                palleteContainer: document.getElementById("pallete-container"),
+                colorPickerContainer: document.getElementById("color-picker-container"),
+
+              };
+              draw?.options?.customSetFeature?.setFeatures&&draw?.options?.customSetFeature?.setFeatures(e.features);
+
             } else {
-              document.getElementById('text-display').classList.remove('active');
-              document.getElementById('text-input-container').style.display = 'none';
+              document.getElementById("icon-container").style.visibility=(feat?.geometry?.type == "Point")?"visible":"hidden";
+              document.getElementById("text-input").value = featureText;
+              if (featureText&&featureText!="") {
+                document.getElementById('text-display').classList.add('active');
+                document.getElementById('text-input-container').style.display = 'flex';
+              } else {
+                document.getElementById('text-display').classList.remove('active');
+                document.getElementById('text-input-container').style.display = 'none';
+              }
+              document.getElementById("text-container").style.visibility=(feat?.geometry?.type == "Point")?"visible":"visible";
             }
-            // console.log("---- text : ",document.getElementById('text-input-container').style.display)
-            document.getElementById("text-container").style.visibility=(feat?.geometry?.type == "Point")?"visible":"visible";
-            document.getElementById("icon-container").style.visibility=(feat?.geometry?.type == "Point")?"visible":"hidden";
-            
+
         } else {
           console.log("---- hide color picker")
           document.getElementById("pallete-container").classList.add("hidden")
@@ -232,11 +246,11 @@ export const addExtraHandling = (map, draw) => {
         groupel.id="group-label-"+group;
         groupel.title=group
         groupel.innerHTML=group
-        groupel.addEventListener("click",()=>changeGroup(draw, group))
+        groupel.addEventListener("click",()=>handleChangeIconGroup(draw, group))
         document.getElementById('icon-selector-group').append(groupel)
       })
 
-      setTimeout(()=>(draw.options?.defaultSelectedGroup||draw.options?.iconGroups[0])&&changeGroup(draw, draw.options?.defaultSelectedGroup||draw.options?.iconGroups[0]),500);
+      setTimeout(()=>(draw.options?.defaultSelectedGroup||draw.options?.iconGroups[0])&&handleChangeIconGroup(draw, draw.options?.defaultSelectedGroup||draw.options?.iconGroups[0]),500);
 
     },500)
   

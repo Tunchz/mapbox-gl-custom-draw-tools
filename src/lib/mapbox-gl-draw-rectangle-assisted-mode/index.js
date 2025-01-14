@@ -41,6 +41,11 @@ const DrawAssistedRectangle = {
         ]
       }
     });
+
+    if (localStorage.getItem("useCustomActiveDrawStyle")=='1') {
+      rectangle.properties.portColor = localStorage.getItem("customDrawCurrentColor") || localStorage.getItem("customDrawDefaultColor");
+    }
+
     this.addFeature(rectangle);
 
     this.clearSelectedFeatures();

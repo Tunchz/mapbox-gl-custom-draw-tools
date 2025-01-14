@@ -64,6 +64,11 @@ DrawRectangle.onClick = function (state, e) {
     this.updateUIClasses({ mouse: Constants.cursors.ADD });
     state.rectangle.updateCoordinate(`0.0`, e.lngLat.lng, e.lngLat.lat);
     state.rectangle.updateCoordinate(`0.1`, e.lngLat.lng, e.lngLat.lat);
+
+    if (localStorage.getItem("useCustomActiveDrawStyle")=='1') {
+      state.rectangle.properties.portColor = localStorage.getItem("customDrawCurrentColor") || localStorage.getItem("customDrawDefaultColor");
+    }
+
   } else if (
     state.startPoint &&
     state.startPoint[0] !== e.lngLat.lng &&

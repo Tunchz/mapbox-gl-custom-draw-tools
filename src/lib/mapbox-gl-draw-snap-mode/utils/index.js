@@ -30,13 +30,17 @@ export const addPointTovertices = (
 ) => {
   const { width: w, height: h } = map.getCanvas();
   // Just add verteices of features currently visible in viewport
-  const { x, y } = map.project(coordinates);
-  const pointIsOnTheScreen = x > 0 && x < w && y > 0 && y < h;
+  try {
+    const { x, y } = map.project(coordinates);
+    const pointIsOnTheScreen = x > 0 && x < w && y > 0 && y < h;
 
-  // But do add off-screen points if forced (e.g. for the current feature)
-  // So features will always snap to their own points
-  if (pointIsOnTheScreen || forceInclusion) {
-    vertices.push(coordinates);
+    // But do add off-screen points if forced (e.g. for the current feature)
+    // So features will always snap to their own points
+    if (pointIsOnTheScreen || forceInclusion) {
+      vertices.push(coordinates);
+    }
+  } catch (err) {
+    console.log("---- error : ", err);
   }
 };
 

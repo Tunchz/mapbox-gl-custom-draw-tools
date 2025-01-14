@@ -57,7 +57,7 @@ DragCircleMode.onSetup = function(opts) {
   this.setActionableState({
     trash: true
   });
-  this.radiusPopupWindow = new mapboxgl.Popup({ closeButton: false, closeOnClick: true , anchor:"left"});
+  this.radiusPopupWindow = new mapboxgl.Popup({ closeButton: false, closeOnClick: true , anchor:"left", offset: 20});
 
 
   return {

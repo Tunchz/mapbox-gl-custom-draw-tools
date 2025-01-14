@@ -32,7 +32,7 @@ DragCircleMode.onSetup = function(opts) {
   this.setActionableState({
     trash: true
   });
-  this.radiusPopupWindow = new mapboxgl.Popup({ closeButton: false, closeOnClick: true , anchor:"left"});
+  this.radiusPopupWindow = new mapboxgl.Popup({ closeButton: false, closeOnClick: true , anchor:"left", offset: 20});
 
   return {
     polygon,
@@ -44,6 +44,9 @@ DragCircleMode.onMouseDown = DragCircleMode.onTouchStart = function (state, e) {
   const currentCenter = state.polygon.properties.center;
   if (currentCenter.length === 0) {
     state.polygon.properties.center = [e.lngLat.lng, e.lngLat.lat];
+    if (localStorage.getItem("useCustomActiveDrawStyle")=='1') {
+      state.polygon.properties.portColor = localStorage.getItem("customDrawCurrentColor") || localStorage.getItem("customDrawDefaultColor");
+    }
   }
 };
 

@@ -22,11 +22,12 @@ import {
   DrawBezierCurve, 
   customStyles as bezierStyles,
 } from './lib/mapbox-gl-draw-bezier-curve-mode';
-import DragCircleMode from './lib/mapbox-gl-draw-drag-circle-mode'
-import DragEllipseMode from './lib/mapbox-gl-draw-drag-ellipse-mode'
+import DragCircleMode from './lib/mapbox-gl-draw-drag-circle-mode';
+import DragEllipseMode from './lib/mapbox-gl-draw-drag-ellipse-mode';
 import StaticMode, {drawStyles as staticStyles} from './lib/mapbox-gl-draw-static-mode';
 
-import colorPickerDrawStyle from './lib/color-picker/customDrawStyles.js'
+import colorPickerDrawStyle from './lib/color-picker/customDrawStyles.js';
+import customActiveDrawStyle from './customActiveDrawStyles.js';
 
 
 // import MapboxCircle from 'mapbox-gl-circle';
@@ -44,8 +45,9 @@ export default class MapboxDrawPro extends MapboxDraw {
   
   constructor(options) {
     options = options || {};
-    const { modes, styles, controls={}, icons=[], iconGroups=[], disableDefaultIcons=false, otherOptions, ...other } = options;
+    const { modes, styles, controls={}, icons=[], iconGroups=[], disableDefaultIcons=false, otherOptions, customSetFeature, useCustomActiveDrawStyle, customDrawStyles=[], ...other } = options;
 
+    localStorage.setItem("useCustomActiveDrawStyle",useCustomActiveDrawStyle?"1":"0");
 
     // const [isTypeMenuActive, setIsTypeMenuActive] = useState(false);
     // const openMenu = () => {
@@ -73,6 +75,8 @@ export default class MapboxDrawPro extends MapboxDraw {
       // simple_select: SimpleSelectMode,
       simple_select: SimpleSelectModeBezierOverride,
       direct_select: DirectModeBezierOverride,
+      // simple_select: SimpleSelectModeOverride,
+      // direct_select: DirectModeOverride,
       draw_bezier_curve: DrawBezierCurve,
       drag_circle: DragCircleMode({...otherOptions?.circle||{}}),
       drag_ellipse: DragEllipseMode({...otherOptions?.ellipse||{}}),
@@ -99,14 +103,14 @@ export default class MapboxDrawPro extends MapboxDraw {
     const _controls = {...controls, line_string:false, polygon:false, point:false, combine:false, uncombine:false, trash:false}
 
     const _modes = { ...customModes, ...modes };
-    const __styles = [...staticStyles(paintDrawStyles(cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(colorPickerDrawStyle(defaultDrawStyle)))))))];
+    const __styles = [...customActiveDrawStyle(staticStyles(paintDrawStyles(cutPolygonDrawStyles(splitPolygonDrawStyles(splitLineDrawStyles(selectFeatureDrawStyles(colorPickerDrawStyle(defaultDrawStyle))))))),useCustomActiveDrawStyle,customDrawStyles||{})];
     const _styles = unionBy(__styles, styles, RectRestrictStyles, SnapModeDrawStyles, SRStyle, addToolStyle, bezierStyles, 'id');
     // console.log("---- styles : ", __styles)
     // console.log("---- styles : ", _styles)
     const _icons = icons.concat(defaultIcons).filter((icon)=>icon.name&&icon.url&&(!disableDefaultIcons||icon.group!='default'))
     const _iconGroups = (!disableDefaultIcons?['default']:[]).concat(iconGroups)
     // console.log("---- _icons : ", _icons)
-    const _options = { modes: _modes, styles: _styles, controls:_controls, icons:_icons, iconGroups:_iconGroups, ...customOptions, ...otherOptions };
+    const _options = { modes: _modes, styles: _styles, controls:_controls, icons:_icons, iconGroups:_iconGroups, customSetFeature, ...customOptions, ...otherOptions };
     // console.log("--- options : ", _options)
     super(_options);
 
