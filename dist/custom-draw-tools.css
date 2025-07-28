@@ -374,6 +374,7 @@
     position: absolute;
     transform: translate(5px,-30px);
     color: #2165D1;
+    text-shadow: -1px -1px 0 #fff, 0 -1px 0 #fff, 1px -1px 0 #fff, 1px 0 0 #fff, 1px 1px 0 #fff, 0 1px 0 #fff, -1px 1px 0 #fff, -1px 0 0 #fff;
 }
 
 .custom-tools-container .pallete-container {
@@ -478,6 +479,8 @@
 .custom-tools-container .icon-container #icon-selector #icon-selector-panel {
     display:grid;
     grid-template-columns: repeat(10, 1fr);
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 
@@ -574,6 +577,10 @@
 .custom-tools-container #icon-selector.hidden,
 .custom-tools-container .pallete-container.hidden {
     visibility: hidden;
+}
+
+.custom-tools-container .pallete-container.always-visible {
+    visibility: visible;
 }
 
 .custom-tools-container .clr-swatches button {
