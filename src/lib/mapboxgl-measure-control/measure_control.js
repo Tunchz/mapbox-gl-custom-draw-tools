@@ -6,7 +6,7 @@ require('./measure_control.css');
 class MeasureControl {
     constructor(opt) {
         let ctrl = this
-        console.log("--- initialize MeasureControl : ", opt)
+        // console.log("--- initialize MeasureControl : ", opt)
         ctrl.DEFAULTS = {
             linestring : {
                 "type": "Feature",
@@ -462,7 +462,7 @@ class MeasureControl {
      * @param {any} e
      */
     _onMeasureEnd(e){
-        console.log('measure off');
+        // console.log('measure off');
         this._toggleState('off');
 
     }

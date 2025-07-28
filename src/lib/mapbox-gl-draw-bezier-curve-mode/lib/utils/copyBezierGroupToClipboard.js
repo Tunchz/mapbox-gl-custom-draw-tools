@@ -26,7 +26,7 @@ export default function copyBezierGroupToClipboard(selectedFeatures) {
             document.execCommand('copy');
             document.body.removeChild(el);
 
-            console.log("Selected Bezier Group copied In Memory");
+            // console.log("Selected Bezier Group copied In Memory");
         }   
     }
     else {

@@ -81,8 +81,8 @@ class OptionsToolbar {
 
 export const addOtherControls = async (map, draw, placement, controls) => {
 
-    console.log("==== placement addOtherControls : ", placement)
-    console.log("---- draw.options : ", draw.options)
+    // console.log("==== placement addOtherControls : ", placement)
+    // console.log("---- draw.options : ", draw.options)
     const snapOptionsBar = new OptionsToolbar({
       draw,
       checkboxes: [
@@ -129,7 +129,7 @@ export const addOtherControls = async (map, draw, placement, controls) => {
           id: 'import',
           action: (e) => {
             if (!document.getElementById('import')?.innerHTML) {
-              console.log("---- attach form !!!")
+              // console.log("---- attach form !!!")
               // let _form = document.createElement('form');
               // _form.action = "{{ url_for('upload') }}"
               // _form.method="POST"
@@ -143,7 +143,7 @@ export const addOtherControls = async (map, draw, placement, controls) => {
               _input.onchange=(e)=>{
                 console.log("--- input onchange : ",e )
                 var files = document.getElementById('selectFiles').files;
-                console.log(files);
+                // console.log(files);
                 if (files.length <= 0) {
                   return false;
                 }
@@ -151,7 +151,7 @@ export const addOtherControls = async (map, draw, placement, controls) => {
                 var fr = new FileReader();
                 
                 fr.onload = function(e) { 
-                console.log(e);
+                // console.log(e);
                   var result = JSON.parse(e.target.result);
                   console.log("--- import file : ",result)
                   if (result?.type=="FeatureCollection" && result?.features?.length) {
@@ -169,7 +169,7 @@ export const addOtherControls = async (map, draw, placement, controls) => {
               document.getElementById('import').append(_input)
               _input.click()
             }
-            console.log("---- import : ")
+            // console.log("---- import : ")
             // draw.options?.guides = e.target.checked;
   
   
@@ -191,7 +191,7 @@ export const addOtherControls = async (map, draw, placement, controls) => {
                 var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
                 // Create export
                 if (!document.getElementById('export')?.innerHTML) {
-                  console.log("---- attach link !!!")
+                  // console.log("---- attach link !!!")
                   let _a = document.createElement('a');
                   _a.id = "export-file";
                   _a.setAttribute('href', 'data:' + convertedData);

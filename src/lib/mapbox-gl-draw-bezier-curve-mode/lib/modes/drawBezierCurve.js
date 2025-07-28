@@ -22,7 +22,7 @@ DrawBezierCurve.onSetup = function(opts) {
   opts = opts || {};
   const featureId = opts.featureId;
   if(featureId){
-    console.log("option featureId is currently ignored on DrawBezierCurve");
+    // console.log("option featureId is currently ignored on DrawBezierCurve");
   }
 
   let line;

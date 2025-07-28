@@ -21,7 +21,7 @@ export const addExtraHandling = (map, draw) => {
     localStorage.setItem("customDrawCurrentColor",draw.colorFeatureIdMaps["last_selected"]);
   
     function changeColor(draw,color) {
-      console.log("--- changeColor call !!!", draw, color)
+      // console.log("--- changeColor call !!!", draw, color)
       // console.log("--- draw | drawFeatureID", draw, draw.drawFeatureID)
       if (!color) {
         draw.colorFeatureIdMaps[draw.drawFeatureID] = null;
@@ -44,23 +44,23 @@ export const addExtraHandling = (map, draw) => {
     }
 
     function changeText(draw, text) {
-      console.log("---- text : ", text)
+      // console.log("---- text : ", text)
       draw.setFeatureProperty(draw.drawFeatureID, 'portText', text&&text!=""?text:undefined)
       document.getElementById("text-input").value = text;
       var feat = draw.get(draw.drawFeatureID);
-      console.log("---- feat : ", feat)
+      // console.log("---- feat : ", feat)
       draw.add(feat)
     }
 
     function changeIcon(draw, icon) {
-      console.log("---- icon : ", icon)
+      // console.log("---- icon : ", icon)
 
       draw.setFeatureProperty(draw.drawFeatureID, 'portIcon', icon.name!="remove image"&&icon.name||undefined)
       draw.setFeatureProperty(draw.drawFeatureID, 'portIconSize', icon.size||1)
       document.getElementById('selected-icon').src = icon.url
       
       var feat = draw.get(draw.drawFeatureID);
-      console.log("---- feat : ", feat)
+      // console.log("---- feat : ", feat)
       draw.add(feat)
     }
 
@@ -129,7 +129,7 @@ export const addExtraHandling = (map, draw) => {
             }
 
         } else {
-          console.log("---- hide color picker")
+          // console.log("---- hide color picker")
           document.getElementById("pallete-container").classList.add("hidden")
           // document.getElementById("color-picker").value = draw.colorFeatureIdMaps["last_selected"] || draw.colorFeatureIdMaps["default"];
           // document.getElementById("instruction-container").innerHTML="";
@@ -162,7 +162,7 @@ export const addExtraHandling = (map, draw) => {
   
     setTimeout(()=>{
       //--- initialize color-picker
-      console.log("---- initialize color picker")
+      // console.log("---- initialize color picker")
       Coloris({
         el: '.coloris',
         swatches: [
@@ -205,7 +205,7 @@ export const addExtraHandling = (map, draw) => {
           '#48cae4'
         ],
         onChange: (color, input) => {
-          console.log("---- color change : ", color);
+          // console.log("---- color change : ", color);
           changeColor(draw, color)
         }
       });
@@ -213,7 +213,7 @@ export const addExtraHandling = (map, draw) => {
       document.getElementById("color-picker-container").addEventListener("contextmenu", (e)=>{
         e.preventDefault();
         e.stopPropagation();
-        console.log("--- context menu !!!");
+        // console.log("--- context menu !!!");
         if (!draw.drawFeatureID) return;
         document.getElementById("color-picker").value = draw.colorFeatureIdMaps["default"]
         document.getElementById("color-picker").dispatchEvent(new Event('input', { bubbles: true }));
@@ -225,7 +225,7 @@ export const addExtraHandling = (map, draw) => {
 
       document.getElementById('text-button').addEventListener('click', (e)=>{
         let text = document.getElementById('text-input').value;
-        console.log("===== text : ", text);
+        // console.log("===== text : ", text);
         changeText(draw, text);
         // document.getElementById('text-input-container').style.display = 'none';
       });

@@ -1061,7 +1061,7 @@ export default icons;
 
 
 function svg2png (svgDataUrl) {
-    console.log("-------- svg2png : ", svgDataUrl)
+    // console.log("-------- svg2png : ", svgDataUrl)
     // const input = document.querySelector('#input')
     // const output = document.querySelector('#output')
   
@@ -1079,7 +1079,7 @@ function svg2png (svgDataUrl) {
     image.addEventListener('load', () => {
       const width = 100; //input.getAttribute('width')
       const height = 100; //input.getAttribute('height')
-      console.log(" wxh : ", width, height)
+    //   console.log(" wxh : ", width, height)
       const canvas = document.createElement('canvas')
   
       canvas.setAttribute('width', width)
@@ -1089,7 +1089,7 @@ function svg2png (svgDataUrl) {
       context.drawImage(image, 0, 0, width, height)
   
       const dataUrl = canvas.toDataURL('image/png')
-      console.log("---- data Url : ", dataUrl)
+    //   console.log("---- data Url : ", dataUrl)
       return dataUrl
     })
   

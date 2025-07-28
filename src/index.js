@@ -223,7 +223,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         id: "rectangle",
         customize_button: (elButton) => {
           const drawRec = (limit) => {
-            console.log("=== draw rec limit : ", limit)
+            // console.log("=== draw rec limit : ", limit)
             try {
               this.changeMode('draw_rectangle', {
                 areaLimit: parseInt(limit), //limit, 
@@ -253,7 +253,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           elButton1.classList.add('draw-rectangle');
           elButton1.addEventListener('click', ()=>{
             let recLimitEl = document.getElementById('rectangle-input-limit')
-            console.log("=== rec limit input : ")
+            // console.log("=== rec limit input : ")
             drawRec(recLimitEl.value)
           });
 
@@ -317,7 +317,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         action: () => {
           try {
             this.changeMode("draw_paint_mode",{...otherOptions?.paint||{}});
-            console.log('----- paint action')
+            // console.log('----- paint action')
             // console.log("------ : ", this , otherOptions?.paint?.mode==2?"คลิกเพื่อเริ่ม ลากเพื่อวาด และคลิกสองครั้งเพื่อสิ้นสุด":"คลิกค้างเพื่อลากเส้น")
             this.map?.fire("draw.instruction",{
               action:"วาดเส้นแบบอิสระ",
@@ -330,7 +330,7 @@ export default class MapboxDrawPro extends MapboxDraw {
         classes: ["draw-paint"],
         title: "Paint (Free Drawing)",
         cancel: ()=>{
-          console.log("--- cancel");
+          // console.log("--- cancel");
           // this.changeMode('simple_select');
           // this.trash();
         },
@@ -390,7 +390,7 @@ export default class MapboxDrawPro extends MapboxDraw {
             this.changeMode('select_feature', {
               selectHighlightColor: 'yellow',
               onSelect(state) {
-                console.log("--- onselect state : ", state)
+                // console.log("--- onselect state : ", state)
                 // let selectedFeatures = state.draw.getSelected()
                 // setTimeout(()=>goSplitMode(state.draw,selectedFeatures.features || null),100);
                 goSplitMode(state.draw,[{
@@ -503,7 +503,7 @@ export default class MapboxDrawPro extends MapboxDraw {
             this.changeMode('select_feature', {
               selectHighlightColor: 'yellow',
               onSelect(state) {
-                console.log("---- this : ", this)
+                // console.log("---- this : ", this)
                 goSplitMode(state.draw,[{
                   id: state.selectedFeatureID,
                   type:"Feature",
@@ -623,7 +623,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           // console.log("----- selectedFeatureIDs : ", selectedFeatureIDs)
 
           function goScaleRotateMode(draw,selectedFeatures) {
-            console.log("---- selectedFeatures : ", selectedFeatures)
+            // console.log("---- selectedFeatures : ", selectedFeatures)
             try {
               draw.changeMode('scaleRotateMode', {
                 feature: selectedFeatures[0],
@@ -754,7 +754,7 @@ export default class MapboxDrawPro extends MapboxDraw {
     this.onAdd = (map, placement) => {
       this.map = map;
       // console.log("==== this | draw : ", this, draw)
-      console.log("==== placement : ", placement)
+      // console.log("==== placement : ", placement)
       placement = placement || 'top-right'
       this.elContainer = this.onAddOrig(map, placement);
       
@@ -762,7 +762,7 @@ export default class MapboxDrawPro extends MapboxDraw {
       // !!this.options.edge&&(this.options.edge = this.options.horizontal?'top':'right')
       // console.log(" draw | placement : ", draw, placement);
 
-      console.log("==== edge : ", this.options.edge)
+      // console.log("==== edge : ", this.options.edge)
       // console.log("==== this.elContainer : ", this.elContainer)
       this.elContainer.classList.add(this.options.horizontal?"horizontal":"vertical")
       this.elContainer.classList.add(this.options.edge)
@@ -955,7 +955,7 @@ export default class MapboxDrawPro extends MapboxDraw {
 
         if (this.options?.persistModeOnClick&&opt.persist) {
           let isCancel = (clickedButton?.id === this.activeButton?.id);
-          console.log("----- cancel persisit : ", clickedButton?.id, this.activeButton?.id, isCancel)
+          // console.log("----- cancel persisit : ", clickedButton?.id, this.activeButton?.id, isCancel)
           this.deactivateButtons();
           this.persist=null
           this.persist_button=null
@@ -964,7 +964,7 @@ export default class MapboxDrawPro extends MapboxDraw {
           this.changeMode("simple_select",{})
           document.getElementById("trash").click();
           if (isCancel) {
-            console.log("----- cancel persisit : ", clickedButton)
+            // console.log("----- cancel persisit : ", clickedButton)
             return;
           }
         }

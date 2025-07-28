@@ -23,7 +23,7 @@ SplitLineMode.onSetup = function (opt) {
     lineWidthUnit = defaultOptions.lineWidthUnit,
     onSelectFeatureRequest = defaultOptions.onSelectFeatureRequest,
   } = opt || {};
-  console.log("== SplitLineMode.onSetup ", features)
+  // console.log("== SplitLineMode.onSetup ", features)
   let selectedFeatures;
 
   const api = this._ctx.api;
@@ -42,7 +42,7 @@ SplitLineMode.onSetup = function (opt) {
     );
   } else {
       selectedFeatures = this.getSelected();
-      console.log("--- this.getSelected() : ", selectedFeatures)
+      // console.log("--- this.getSelected() : ", selectedFeatures)
      if (selectedFeatures.length !== 0) {
       featuresToSplit.push.apply(
         featuresToSplit,
@@ -70,7 +70,7 @@ SplitLineMode.onSetup = function (opt) {
     api,
   };
 
-  console.log("==== featuresToSplit : ", featuresToSplit)
+  // console.log("==== featuresToSplit : ", featuresToSplit)
   if (featuresToSplit.length==0) {
       this.changeMode("simple_select");
     return this.fireUpdate();
@@ -191,7 +191,7 @@ SplitLineMode.fireUpdate = function(newF) {
 };
 
 SplitLineMode.onStop = function ({ main }) {
-  console.log("🚀 ~ file: mode.js ~ line 60 ~ onStop");
+  // console.log("🚀 ~ file: mode.js ~ line 60 ~ onStop");
   
 };
 

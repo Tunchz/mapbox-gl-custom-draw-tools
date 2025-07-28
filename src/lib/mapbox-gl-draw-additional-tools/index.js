@@ -91,7 +91,7 @@ const addToolStyle = [
 ];
 class extendDrawBar {
   constructor(opt) {
-    console.log("---- opt.draw : ",opt.draw)
+    // console.log("---- opt.draw : ",opt.draw)
     this.draw = opt.draw;
     this.onRemoveOrig = opt.draw.onRemove;
     // this.addButton = opt.draw.addButton;
@@ -179,7 +179,7 @@ class extendDrawBar {
     this.map = map;
     this._container = document.createElement('div');
     // this._container.className = 'mapboxgl-ctrl-group mapboxgl-ctrl';
-    console.log("==== this.draw.options : ", this.draw.options)
+    // console.log("==== this.draw.options : ", this.draw.options)
     this._container.className = `mapboxgl-ctrl-group mapboxgl-ctrl custom-tools-group${this.draw.options.horizontal?" horizontal":""} ${this.draw.options.edge}`;
     this.elContainer = this._container;
     this.draw.groups_item&&this.draw.groups_item.push(this.elContainer)
@@ -277,7 +277,7 @@ class extendDrawBar {
 
     const button = this_.buttonElements[id];
     if (!button) return;
-    console.log("===== ",id, name , this.initialOptions[name.toLowerCase()])
+    // console.log("===== ",id, name , this.initialOptions[name.toLowerCase()])
     if (button && !['Trash', 'Combine', 'Uncombine'].includes(id) && !this.disabledActiveList[name.toLowerCase()]) {
       button.classList.add(Constants.classes.ACTIVE_BUTTON);
       this_.activeButton = button;
@@ -312,7 +312,7 @@ class extendDrawBar {
       centroids.push(centroid);
       (this_.draw||draw).add(centroid);
     });
-    console.log("---- this : ", this)
+    // console.log("---- this : ", this)
     this_.fireCreateCentroid(centroids);
     (this_.draw||draw).changeMode('simple_select', { featureIds: ids });
   }
@@ -362,7 +362,7 @@ class extendDrawBar {
     let ids = selectedFeatures.map((i) => i.id);
     (this_.draw||draw).delete(ids);
     unionPoly.id = ids.join('-');
-    console.log("--- unionPoly : ", unionPoly);
+    // console.log("--- unionPoly : ", unionPoly);
     (this_.draw||draw).add(unionPoly);
     this_.fireCreateUnion(unionPoly);
     (this_.draw||draw).changeMode('simple_select', { featureIds: [unionPoly.id] });
@@ -456,7 +456,7 @@ class extendDrawBar {
         (this_.draw||draw).setFeatureProperty(main.id, 'length_unit', (this_.draw||draw).options.lengthUnits || 'kilometers');
     });
     this_.fireUpdateMeasurement(measurement.length, 'length');
-    console.log("----- length : ", measurement.length);
+    // console.log("----- length : ", measurement.length);
     this_.map?.fire("draw.instruction",{
       action:`ความยาว (${(this_.draw||draw).options.lengthUnits || 'kilometers'})`,
       message:`${measurement.length?parseFloat(measurement.length[0]?.value)?.toFixed(3):"-"}`, 
@@ -483,7 +483,7 @@ class extendDrawBar {
     });
     this_.fireUpdateMeasurement(measurement.area, 'area');
     // this_.fireUpdateMeasurement(measurement.length, 'length');
-    console.log("----- area : ", measurement.area);
+    // console.log("----- area : ", measurement.area);
     this_.map?.fire("draw.instruction",{
       action:"พื้นที่ (ตารางเมตร)",
       message:`${measurement.area?parseFloat(measurement.area[0]?.value)?.toFixed(3):"-"}
@@ -492,7 +492,7 @@ class extendDrawBar {
   }
 
   fireCreateCentroid(newF) {
-    console.log("---- this : ", this)
+    // console.log("---- this : ", this)
     this.map.fire(events.CREATE, {
       action: 'CentroidPolygon',
       features: newF,

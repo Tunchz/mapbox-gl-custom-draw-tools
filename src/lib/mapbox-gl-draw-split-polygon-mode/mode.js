@@ -27,7 +27,7 @@ SplitPolygonMode.onSetup = function (opt) {
     lineWidthUnit = defaultOptions.lineWidthUnit,
     onSelectFeatureRequest = defaultOptions.onSelectFeatureRequest,
   } = opt || {};
-  console.log("== SplitPolygonMode.onSetup : ", features)
+  // console.log("== SplitPolygonMode.onSetup : ", features)
   let selectedFeatures;
 
   const api = this._ctx.api;
@@ -52,7 +52,7 @@ SplitPolygonMode.onSetup = function (opt) {
     );
   } else {
       selectedFeatures = this.getSelected();
-      console.log("--- this.getSelected() : ", selectedFeatures)
+      // console.log("--- this.getSelected() : ", selectedFeatures)
      if (selectedFeatures.length !== 0) {
       featuresToSplit.push.apply(
         featuresToSplit,
@@ -79,7 +79,7 @@ SplitPolygonMode.onSetup = function (opt) {
     api,
   };
 
-  console.log("==== featuresToSplit : ", featuresToSplit)
+  // console.log("==== featuresToSplit : ", featuresToSplit)
   if (featuresToSplit.length==0) {
     return this.changeMode("simple_select", {initiallySelectedFeatureIds:[]});
   }

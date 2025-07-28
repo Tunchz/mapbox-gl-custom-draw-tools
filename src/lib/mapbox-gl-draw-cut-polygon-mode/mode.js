@@ -19,12 +19,12 @@ CutPolygonMode.onSetup = function (opt) {
     features,
     highlightColor = defaultOptions.highlightColor 
   } = opt || {};
-  console.log("--- CutPolygonMode.onSetup : ", features)
+  // console.log("--- CutPolygonMode.onSetup : ", features)
   const main = features || this.getSelected()
     .filter((f) => f.type === geojsonTypes.POLYGON || f.type === geojsonTypes.MULTI_POLYGON)
     .map((f) => f.toGeoJSON());
 
-  console.log("--- main : ", main, main?.[0]?.id)
+  // console.log("--- main : ", main, main?.[0]?.id)
   if (main.length < 1) {
     throw new Error(
       "Please select a feature/features (Polygon or MultiPolygon) to split!"

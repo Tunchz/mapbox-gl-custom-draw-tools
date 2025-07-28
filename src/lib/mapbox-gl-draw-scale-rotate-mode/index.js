@@ -449,7 +449,7 @@ SRMode.onSetup = function (opts) {
   const feature = this.getFeature(featureId);
   // const feature = opts.feature;
 
-  console.log("--- feature : ", feature, opts.feature)
+  // console.log("--- feature : ", feature, opts.feature)
 
   if (!feature) {
     throw new Error('You must provide a valid featureId to enter SRMode');

@@ -7,7 +7,7 @@ import { defaultOptions, highlightPropertyName } from "./constants";
 const select_mode = {};
 
 select_mode.onSetup = function (opt) {
-  console.log("----- select_mode.onSetup : ", opt)
+  // console.log("----- select_mode.onSetup : ", opt)
   const { selectHighlightColor, onSelect, onCancel, types2Select } = opt;
   const state = {};
   state.hoveredFeatureID = null;
